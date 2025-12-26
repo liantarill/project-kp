@@ -28,6 +28,17 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $user = auth()->user();
+
+        if ($user->status === 'pending') {
+            auth()->logout();
+
+            return back()->with('error', 'Akun kamu belum diverifikasi oleh admin');
+        }
+        if ($user && $user->canAccessFilament()) {
+            return redirect()->route('filament.admin.pages.dashboard');
+        }
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
