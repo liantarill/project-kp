@@ -12,13 +12,29 @@ use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class MajorResource extends Resource
 {
     protected static ?string $model = Major::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    public static function getLabel(): string
+    {
+        return 'Jurusan';
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return 'Jurusan';
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Jurusan';
+    }
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::AcademicCap;
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -29,7 +45,15 @@ class MajorResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return MajorsTable::configure($table);
+        // return MajorsTable::configure($table);
+        return $table->columns([
+            TextColumn::make('name')
+                ->label('Nama Jurusan'),
+            TextColumn::make('institution.name')
+                ->label('Nama Instansi'),
+            TextColumn::make('level')
+                ->label('Jenjang'),
+        ]);
     }
 
     public static function getRelations(): array

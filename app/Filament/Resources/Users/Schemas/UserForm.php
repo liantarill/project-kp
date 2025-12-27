@@ -27,7 +27,7 @@ class UserForm
                 TextInput::make('role')
                     ->required()
                     ->default('participant'),
-                TextInput::make('major_id')
+                Select::make('major_id')
                     ->label('Jurusan')
                     ->relationship('major', 'name')
                     ->searchable()

@@ -18,7 +18,22 @@ class InstitutionResource extends Resource
 {
     protected static ?string $model = Institution::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    public static function getLabel(): string
+    {
+        return 'Instansi';
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return 'Instansi';
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Instansi';
+    }
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::HomeModern;
 
     protected static ?string $recordTitleAttribute = 'name';
 

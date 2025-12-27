@@ -10,8 +10,8 @@ use App\Filament\Resources\Users\Tables\UsersTable;
 use App\Models\User;
 use BackedEnum;
 use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -24,7 +24,7 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::User;
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -46,16 +46,14 @@ class UserResource extends Resource
                         'participant' => 'peserta',
                         default => $state,
                     }),
-                TextColumn::make('department_id')
+                TextColumn::make('department.name')
                     ->label('Divisi'),
                 // TextColumn::make('created_at'),
             ])
             ->actions([
+                ViewAction::make(),
                 EditAction::make(),   // tombol edit
-                DeleteAction::make(), // tombol hapus
-            ])
-            ->bulkActions([
-                DeleteBulkAction::make(), // tombol hapus banyak
+                // DeleteAction::make(), // tombol hapus
             ]);
 
     }

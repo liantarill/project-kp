@@ -18,7 +18,22 @@ class DepartmentResource extends Resource
 {
     protected static ?string $model = Department::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    public static function getLabel(): string
+    {
+        return 'Divisi';
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return 'Divisi';
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Divisi';
+    }
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Squares2x2;
 
     protected static ?string $recordTitleAttribute = 'name';
 
