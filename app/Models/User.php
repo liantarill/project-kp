@@ -79,4 +79,11 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    public static function activeParticipant()
+    {
+        return self::where('role', 'participant')
+            ->where('status', 'active')
+            ->count();
+    }
 }
