@@ -12,7 +12,7 @@ class Department extends Model
     ];
     //
 
-    public function user()
+    public function users()
     {
         return $this->hasMany(User::class);
     }

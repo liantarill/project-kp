@@ -8,6 +8,7 @@ class Major extends Model
 {
     protected $fillable = [
         'name',
+        'institution_id',
         'level',
     ];
 
@@ -16,7 +17,7 @@ class Major extends Model
         return $this->belongsTo(Institution::class);
     }
 
-    public function user()
+    public function users()
     {
         return $this->hasMany(User::class);
     }

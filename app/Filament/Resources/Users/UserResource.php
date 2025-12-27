@@ -46,7 +46,9 @@ class UserResource extends Resource
                         'participant' => 'peserta',
                         default => $state,
                     }),
-                TextColumn::make('created_at'),
+                TextColumn::make('department_id')
+                    ->label('Divisi'),
+                // TextColumn::make('created_at'),
             ])
             ->actions([
                 EditAction::make(),   // tombol edit

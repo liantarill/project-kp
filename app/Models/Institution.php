@@ -11,7 +11,7 @@ class Institution extends Model
         'type',
     ];
 
-    public function major()
+    public function majors()
     {
         return $this->hasMany(Major::class);
     }
