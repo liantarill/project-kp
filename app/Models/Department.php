@@ -10,4 +10,10 @@ class Department extends Model
         'name',
         'quota',
     ];
+    //
+
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
 }
