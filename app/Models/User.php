@@ -30,6 +30,7 @@ class User extends Authenticatable
         'institution_id',
         'major',
         'level',
+        'status',
         'department_id',
         'acceptance_proof',
         'start_date',

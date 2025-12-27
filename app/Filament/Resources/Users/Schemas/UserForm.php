@@ -15,6 +15,7 @@ class UserForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->readOnly()
                     ->required(),
                 TextInput::make('email')
                     ->label('Email address')
@@ -29,6 +30,7 @@ class UserForm
                     ->preload(),
                 TextInput::make('major')
                     ->label('Jurusan')
+                    ->readOnly()
                     ->required(),
                 Select::make('level')
                     ->label('Jenjang')
@@ -51,7 +53,14 @@ class UserForm
                     ->required(),
                 TextInput::make('acceptance_proof')
                     ->readOnly(),
-                TextInput::make('status')
+                Select::make('status')
+                    ->options([
+                        'pending' => 'Menunggu',
+                        'active' => 'Aktif',
+                        'completed' => 'Lulus',
+                        'cancelled' => 'Batal',
+                    ])->searchable()
+                    ->preload()
                     ->required()
                     ->default('pending'),
                 DatePicker::make('start_date')
