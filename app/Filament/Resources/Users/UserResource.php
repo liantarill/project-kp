@@ -48,6 +48,23 @@ class UserResource extends Resource
                     }),
                 TextColumn::make('department.name')
                     ->label('Divisi'),
+                TextColumn::make('status')
+                    ->label('Status')
+                    ->formatStateUsing(fn ($state) => match ($state) {
+                        'pending' => 'Menunggu',
+                        'active' => 'Aktif',
+                        'completed' => 'Selesai',
+                        'cancelled' => 'Dibatalkan',
+                        default => $state,
+                    })
+                    ->color(fn ($state) => match ($state) {
+                        'pending' => 'warning',   // kuning
+                        'active' => 'success',   // hijau
+                        'completed' => 'primary',   // biru
+                        'cancelled' => 'danger',    // merah
+                        default => null,
+                    })
+                    ->sortable(),
                 // TextColumn::make('created_at'),
             ])
             ->actions([

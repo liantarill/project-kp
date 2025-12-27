@@ -27,9 +27,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'major_id',
+        'institution_id',
+        'major',
+        'level',
         'department_id',
-        'role',
+        'acceptance_proof',
+        'start_date',
+        'end_date',
     ];
 
     /**
@@ -55,9 +59,9 @@ class User extends Authenticatable
         ];
     }
 
-    public function major()
+    public function institution()
     {
-        return $this->belongsTo(Major::class);
+        return $this->belongsTo(Institution::class);
     }
 
     public function department()

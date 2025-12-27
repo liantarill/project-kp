@@ -28,8 +28,8 @@ class UsersTable
                     ->searchable(),
                 TextColumn::make('role')
                     ->searchable(),
-                TextColumn::make('major_id')
-                    ->numeric()
+                TextColumn::make('major')
+                    ->label('Jurusan')
                     ->sortable(),
                 TextColumn::make('department_id')
                     ->numeric()

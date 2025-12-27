@@ -21,15 +21,25 @@ class UserForm
                     ->email()
                     ->required()
                     ->readOnly(),
-                TextInput::make('username')
+                Select::make('institution_id')
+                    ->label('Instansi')
+                    ->relationship('institution', 'name')
                     ->required()
-                    ->readOnly(),
-                TextInput::make('role')
-                    ->required()
-                    ->default('participant'),
-                Select::make('major_id')
+                    ->searchable()
+                    ->preload(),
+                TextInput::make('major')
                     ->label('Jurusan')
-                    ->relationship('major', 'name')
+                    ->required(),
+                Select::make('level')
+                    ->label('Jenjang')
+                    ->options([
+                        'SMA' => 'SMA Sederajat',
+                        'D1' => 'D1',
+                        'D2' => 'D2',
+                        'D3' => 'D3',
+                        'D4' => 'D4',
+                        'S1' => 'S1',
+                    ])
                     ->searchable()
                     ->preload()
                     ->required(),
@@ -39,12 +49,15 @@ class UserForm
                     ->searchable()
                     ->preload()
                     ->required(),
-                TextInput::make('acceptance_proof'),
+                TextInput::make('acceptance_proof')
+                    ->readOnly(),
                 TextInput::make('status')
                     ->required()
                     ->default('pending'),
-                DatePicker::make('start_date'),
-                DatePicker::make('end_date'),
+                DatePicker::make('start_date')
+                    ->label('Tanggal Mulai'),
+                DatePicker::make('end_date')
+                    ->label('Tanggal Selesai'),
                 DateTimePicker::make('email_verified_at')
                     ->disabled(),
             ]);
