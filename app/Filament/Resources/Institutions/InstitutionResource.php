@@ -12,6 +12,7 @@ use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class InstitutionResource extends Resource
@@ -44,7 +45,20 @@ class InstitutionResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return InstitutionsTable::configure($table);
+        // return InstitutionsTable::configure($table);
+        return $table
+            ->columns([
+                TextColumn::make('name')
+                    ->label('Nama Instansi')
+                    ->searchable(),
+                TextColumn::make('type')
+                    ->label('Jenis Instansi')
+                    ->formatStateUsing(fn ($state) => match ($state) {
+                        'SMA' => 'Sekolah Menengah Atas',
+                        'SMK' => 'Sekolah Menengah Kejuruan',
+                        'PERGURUAN_TINGGI' => 'Perguruan Tinggi'
+                    }),
+            ]);
     }
 
     public static function getRelations(): array

@@ -27,9 +27,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'major_id',
+        'institution_id',
+        'major',
+        'level',
+        'status',
         'department_id',
-        'role',
+        'acceptance_proof',
+        'start_date',
+        'end_date',
     ];
 
     /**
@@ -55,9 +60,9 @@ class User extends Authenticatable
         ];
     }
 
-    public function major()
+    public function institution()
     {
-        return $this->belongsTo(Major::class);
+        return $this->belongsTo(Institution::class);
     }
 
     public function department()
@@ -73,5 +78,12 @@ class User extends Authenticatable
     public function canAccessFilament(): bool
     {
         return $this->role === 'admin';
+    }
+
+    public static function activeParticipant()
+    {
+        return self::where('role', 'participant')
+            ->where('status', 'active')
+            ->count();
     }
 }

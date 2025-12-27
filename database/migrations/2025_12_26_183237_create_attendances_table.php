@@ -21,6 +21,11 @@ return new class extends Migration
 
             $table->enum('status', ['present', 'permission', 'sick', 'absent', 'late']);
             $table->string('note')->nullable();
+
+            $table->string('photo')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
+
             $table->timestamps();
 
             $table->unique(['user_id', 'date']);

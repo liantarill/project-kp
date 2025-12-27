@@ -16,5 +16,9 @@ class DepartmentSeeder extends Seeder
             'name' => 'Sumber Daya Manusia (SDM)',
             'quota' => 4,
         ]);
+        Department::create([
+            'name' => 'Keuangan dan Akuntansi',
+            'quota' => 4,
+        ]);
     }
 }

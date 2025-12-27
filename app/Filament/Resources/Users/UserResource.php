@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Users;
 use App\Filament\Resources\Users\Pages\CreateUser;
 use App\Filament\Resources\Users\Pages\EditUser;
 use App\Filament\Resources\Users\Pages\ListUsers;
+use App\Filament\Resources\Users\RelationManagers\AttendancesRelationManager;
 use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Filament\Resources\Users\Tables\UsersTable;
 use App\Models\User;
@@ -16,6 +17,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -37,23 +39,60 @@ class UserResource extends Resource
     {
         // return UsersTable::configure($table);
         return $table
+            ->filters([
+                SelectFilter::make('institution_id')
+                    ->label('Universitas')
+                    ->relationship('institution', 'name')
+                    ->searchable()
+                    ->preload(),
+                SelectFilter::make('status')
+                    ->label('Status')
+                    ->options([
+                        'pending' => 'Menunggu',
+                        'active' => 'Aktif',
+                        'completed' => 'Selesai',
+                        'cancelled' => 'Dibatalkan',
+                    ]),
+            ])
             ->columns([
-                TextColumn::make('name')->label('Nama Lengkap'),
+                TextColumn::make('name')
+                    ->label('Nama Lengkap')
+                    ->searchable(),
                 TextColumn::make('email'),
                 TextColumn::make('role')
                     ->formatStateUsing(fn ($state) => match ($state) {
-                        'admin' => 'admin',
-                        'participant' => 'peserta',
+                        'admin' => 'Admin',
+                        'participant' => 'Peserta',
                         default => $state,
                     }),
                 TextColumn::make('department.name')
                     ->label('Divisi'),
-                // TextColumn::make('created_at'),
+                TextColumn::make('status')
+                    ->badge()
+                    ->formatStateUsing(fn ($state) => match ($state) {
+                        'pending' => 'Menunggu',
+                        'active' => 'Aktif',
+                        'completed' => 'Lulus',
+                        'cancelled' => 'Batal',
+                    })
+                    ->icon(fn (string $state): Heroicon => match ($state) {
+                        'pending' => Heroicon::OutlinedClock,
+                        'active' => Heroicon::OutlinedCheckCircle,
+                        'completed' => Heroicon::OutlinedClipboard  ,
+                        'cancelled' => Heroicon::OutlinedXCircle,
+                    })
+                    ->color(fn (string $state): string => match ($state) {
+                        'pending' => 'warning',
+                        'active' => 'success',
+                        'completed' => 'gray',
+                        'cancelled' => 'danger',
+                    }),
+
             ])
-            ->actions([
-                ViewAction::make(),
-                EditAction::make(),   // tombol edit
-                // DeleteAction::make(), // tombol hapus
+            ->recordActions([
+                EditAction::make(),
+                // ViewAction::make(),
+                DeleteAction::make(),
             ]);
 
     }
@@ -61,7 +100,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            AttendancesRelationManager::class,
         ];
     }
 
