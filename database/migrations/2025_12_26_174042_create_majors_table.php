@@ -18,6 +18,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
             $table->enum('level', ['D3', 'D4', 'S1'])->nullable();
+            $table->timestamps();
         });
     }
 
