@@ -16,13 +16,16 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
 
-            $table->string('username')->unique();
+            // $table->string('username')->unique();
             $table->enum('role', ['participant', 'admin'])->default('participant');
 
-            $table->foreignId('major_id')
+            $table->foreignId('institution_id')
                 ->nullable()
                 ->constrained()
                 ->nullOnDelete();
+
+            $table->string('major')->nullable();
+            $table->enum('level', ['SMA', 'D1', 'D2', 'D3', 'D4', 'S1'])->nullable();
 
             $table->foreignId('department_id')
                 ->nullable()

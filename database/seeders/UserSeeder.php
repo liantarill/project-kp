@@ -16,7 +16,6 @@ class UserSeeder extends Seeder
             'id' => Str::uuid(),
             'name' => 'Administrator',
             'email' => 'admin@example.com',
-            'username' => 'admin',
             'role' => 'admin',
             'status' => 'active',
             'password' => Hash::make('password'),
@@ -28,23 +27,34 @@ class UserSeeder extends Seeder
             'id' => Str::uuid(),
             'name' => 'Budi Santoso',
             'email' => 'budi@example.com',
-            'username' => 'budi',
             'role' => 'participant',
-            'status' => 'pending',
+
+            'institution_id' => 1,
+            'major' => 'Sistem Informasi',
+            'level' => 'S1',
+            'department_id' => 1,
+
+            'status' => 'active',
+            'start_date' => now()->subDays(7),
+            'end_date' => now()->addMonths(3),
+            'email_verified_at' => now(),
             'password' => Hash::make('password'),
         ]);
 
         // PARTICIPANT (ACTIVE)
         User::create([
             'id' => Str::uuid(),
-            'name' => 'Siti Aminah',
+            'name' => 'Siti Aisyah',
             'email' => 'siti@example.com',
-            'username' => 'siti',
             'role' => 'participant',
-            'status' => 'active',
-            'start_date' => now()->subWeek(),
+
+            'institution_id' => 1,
+            'major' => 'Akuntansi',
+            'level' => 'D3',
+            'department_id' => 2,
+
+            'status' => 'pending',
             'password' => Hash::make('password'),
-            'email_verified_at' => now(),
         ]);
     }
 }
