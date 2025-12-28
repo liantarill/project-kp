@@ -42,7 +42,7 @@ class RegisteredUserController extends Controller
             'major' => ['required', 'string', 'max:255'],
             'level' => ['required', 'in:SMA,SMK,D1,D2,D3,D4,S1'],
             'department_id' => ['required', 'exists:departments,id'],
-            'acceptance_proof' => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
+            'acceptance_proof' => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
             'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date', 'after_or_equal:start_date'],
         ]);
