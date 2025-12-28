@@ -54,17 +54,18 @@ class UserResource extends Resource
                         'cancelled' => 'Dibatalkan',
                     ]),
             ])
+            ->query(User::query()->where('role', 'participant'))
             ->columns([
                 TextColumn::make('name')
                     ->label('Nama Lengkap')
                     ->searchable(),
                 TextColumn::make('email'),
-                TextColumn::make('role')
-                    ->formatStateUsing(fn ($state) => match ($state) {
-                        'admin' => 'Admin',
-                        'participant' => 'Peserta',
-                        default => $state,
-                    }),
+                // TextColumn::make('role')
+                //     ->formatStateUsing(fn ($state) => match ($state) {
+                //         'admin' => 'Admin',
+                //         'participant' => 'Peserta',
+                //         default => $state,
+                //     }),
                 TextColumn::make('department.name')
                     ->label('Divisi'),
                 TextColumn::make('status')
@@ -108,7 +109,7 @@ class UserResource extends Resource
     {
         return [
             'index' => ListUsers::route('/'),
-            'create' => CreateUser::route('/create'),
+            // 'create' => CreateUser::route('/create'),
             'edit' => EditUser::route('/{record}/edit'),
         ];
     }
