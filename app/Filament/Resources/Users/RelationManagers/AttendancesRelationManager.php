@@ -55,6 +55,13 @@ class AttendancesRelationManager extends RelationManager
                 TextColumn::make('check_out')
                     ->time(),
                 TextColumn::make('status')
+                    ->formatStateUsing(fn ($state) => match ($state) {
+                        'present' => 'Hadir',
+                        'sick' => 'Sakit',
+                        'permission' => 'Izin',
+                        'alpha' => 'Alfa',
+                    })
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('note')
                     ->searchable(),

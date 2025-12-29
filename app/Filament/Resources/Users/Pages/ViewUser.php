@@ -7,9 +7,9 @@ use App\Filament\Resources\Users\Widgets\UserAttendanceStatistics;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
-use Filament\Resources\Pages\EditRecord;
+use Filament\Resources\Pages\ViewRecord;
 
-class EditUser extends EditRecord
+class ViewUser extends ViewRecord
 {
     protected static string $resource = UserResource::class;
 
