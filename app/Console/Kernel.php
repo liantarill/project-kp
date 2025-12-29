@@ -34,5 +34,9 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->onOneServer()
             ->runInBackground();
+
+        // $schedule->command('queue:work --stop-when-empty --max-jobs=50')
+        //     ->everyMinute()
+        //     ->withoutOverlapping();
     }
 }

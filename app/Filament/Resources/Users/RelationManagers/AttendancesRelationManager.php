@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Users\RelationManagers;
 
+use App\Filament\Exports\AttendanceExporter;
 use Filament\Actions\AssociateAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -10,6 +11,8 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\DissociateAction;
 use Filament\Actions\DissociateBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ExportAction;
+use Filament\Actions\Exports\Enums\ExportFormat;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
@@ -26,6 +29,7 @@ class AttendancesRelationManager extends RelationManager
     {
         return $schema
             ->components([
+
                 DatePicker::make('date')
                     ->required(),
                 TimePicker::make('check_in')
@@ -45,6 +49,7 @@ class AttendancesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+
             ->recordTitleAttribute('date')
             ->columns([
                 TextColumn::make('date')
@@ -99,6 +104,13 @@ class AttendancesRelationManager extends RelationManager
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+            ])
+            ->headerActions([
+                ExportAction::make()
+                    ->exporter(AttendanceExporter::class)
+                    ->formats([
+                        ExportFormat::Xlsx,
+                    ]),
             ])
             ->filters([
                 //

@@ -70,11 +70,20 @@ class AttendanceController extends Controller
         // simpan
         Storage::disk('public')->put($fileName, $imageData);
 
+        // batas jam absen
+        $batasJam = '08:00:00';
+        $attendanceStatus = $request->status;
+
+        // kalau mau absen hadir tapi terlambat nanti dia jadi terlambat
+        if ($request->status === 'present' && now()->timezone('Asia/Jakarta')->format('H:i:s') > $batasJam) {
+            $attendanceStatus = 'late';
+        }
+
         Attendance::create([
             'date' => $request->date,
             'check_in' => $request->check_in,
             'user_id' => Auth::id(),
-            'status' => $request->status,
+            'status' => $attendanceStatus,
             'note' => $request->note,
             'photo' => $fileName,
             'latitude' => $request->latitude,
