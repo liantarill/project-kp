@@ -34,7 +34,7 @@ class AttendanceController extends Controller
     {
         $request->validate([
             'date' => ['required', 'date'],
-            'check_in' => ['required'],
+            'check_in' => ['nullable'],
             'status' => ['required', 'in:present,permission,sick,absent,late'],
             'note' => ['nullable'],
             'photo' => ['required'],

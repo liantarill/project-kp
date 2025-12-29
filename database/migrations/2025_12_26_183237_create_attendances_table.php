@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->time('check_in');
+            $table->time('check_in')->nullable();
             $table->time('check_out')->nullable();
 
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();

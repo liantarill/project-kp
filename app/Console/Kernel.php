@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Console;
+
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+
+class Kernel extends ConsoleKernel
+{
+    protected $commands = [
+        \App\Console\Commands\AutoAlphaAttendance::class,
+    ];
+
+    /**
+     * Register the commands for the application.
+     */
+    protected function commands(): void
+    {
+        $this->load(__DIR__.'/Commands');
+
+        require base_path('routes/console.php');
+    }
+
+    /**
+     * Define the application's command schedule.
+     */
+    protected function schedule(Schedule $schedule): void
+    {
+        // Auto absen ALFA setiap hari jam 10:01 WIB
+        $schedule->command('attendance:auto-alpha')
+            ->timezone('Asia/Jakarta')
+            ->weekdays()
+            ->dailyAt('10:01')
+            ->withoutOverlapping()
+            ->onOneServer()
+            ->runInBackground();
+    }
+}
