@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class AttendanceController extends Controller
 {
@@ -40,6 +42,7 @@ class AttendanceController extends Controller
             'longitude' => ['required'],
         ]);
 
+        // logic untuk mengukur jarak
         $distance = $this->distance(
             $this->officeLat,
             $this->officeLng,
@@ -53,13 +56,27 @@ class AttendanceController extends Controller
             ]);
         }
 
+        $image = $request->photo;
+        // bersihkan base64
+        $image = preg_replace('/^data:image\/\w+;base64,/', '', $image);
+        $image = str_replace(' ', '+', $image);
+        $imageData = base64_decode($image);
+        // nama user (aman)
+        $userName = Str::slug(Auth::user()->name, '_');
+        // tanggal & jam (WIB)
+        $dateTime = now()->setTimezone('Asia/Jakarta')->format('Y-m-d_H-i-s');
+        // nama file
+        $fileName = "attendance/{$userName}_{$dateTime}.jpg";
+        // simpan
+        Storage::disk('public')->put($fileName, $imageData);
+
         Attendance::create([
             'date' => $request->date,
             'check_in' => $request->check_in,
             'user_id' => Auth::id(),
             'status' => $request->status,
             'note' => $request->note,
-            'photo' => $request->photo,
+            'photo' => $fileName,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
         ]);

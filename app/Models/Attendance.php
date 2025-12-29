@@ -13,6 +13,9 @@ class Attendance extends Model
         'user_id',
         'status',
         'note',
+        'photo',
+        'latitude',
+        'longitude',
     ];
 
     public function user()

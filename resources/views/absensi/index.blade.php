@@ -2,8 +2,6 @@
 
     <div class="min-h-screen flex items-center justify-center">
 
-
-
         <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
             @if ($errors->any())
                 <div class="text-red-500">
@@ -29,11 +27,33 @@
 
                 {{-- Hidden fields --}}
                 <input type="hidden" name="date" value="{{ now()->toDateString() }}">
-                <input type="hidden" name="check_in" value="{{ now()->format('H:i:s') }}">
+                <input type="hidden" name="check_in" value="{{ now()->setTimezone('Asia/Jakarta')->format('H:i:s') }}">
                 <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-                <input type="hidden" name="status" value="present">
+                <input type="hidden" name="status" id="statusInput" value="present">
                 <input type="hidden" name="latitude" id="latitude">
                 <input type="hidden" name="longitude" id="longitude">
+
+                {{-- Pilihan Status Absensi --}}
+                <div class="mb-4">
+                    <label class="block text-sm mb-2 font-medium">Pilih Status</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button type="button" onclick="selectStatus('present')"
+                            class="status-btn bg-green-500 text-white py-2 rounded text-sm font-medium hover:bg-green-600 transition"
+                            data-status="present">
+                            Hadir
+                        </button>
+                        <button type="button" onclick="selectStatus('permission')"
+                            class="status-btn bg-gray-300 text-gray-700 py-2 rounded text-sm font-medium hover:bg-gray-400 transition"
+                            data-status="permission">
+                            Izin
+                        </button>
+                        <button type="button" onclick="selectStatus('sick')"
+                            class="status-btn bg-gray-300 text-gray-700 py-2 rounded text-sm font-medium hover:bg-gray-400 transition"
+                            data-status="sick">
+                            Sakit
+                        </button>
+                    </div>
+                </div>
 
                 {{-- Catatan --}}
                 <div class="mb-3">
@@ -44,16 +64,25 @@
 
                 {{-- Kamera --}}
                 <div class="mb-3 text-center">
-                    <video id="video" autoplay class="rounded border w-full"></video>
+                    <video id="video" autoplay playsinline class="w-full rounded"
+                        style="transform: scaleX(-1);"></video>
 
                     <canvas id="canvas" class="hidden"></canvas>
 
+                    <img id="previewImage" class="hidden w-full rounded mt-2" />
+
                     <input type="hidden" name="photo" id="photo">
 
-                    <button type="button" onclick="takePhoto()"
-                        class="mt-2 w-full bg-blue-500 text-white py-2 rounded text-sm">
-                        Ambil Foto
+                    <button type="button" onclick="takePhoto()" id="btnTakePhoto"
+                        class="bg-blue-600 text-white px-4 py-2 rounded text-sm mt-2 hover:bg-blue-700 transition">
+                        📷 Ambil Foto
                     </button>
+
+                    <button type="button" onclick="retakePhoto()" id="btnRetake"
+                        class="hidden bg-yellow-600 text-white px-4 py-2 rounded text-sm mt-2 hover:bg-yellow-700 transition">
+                        🔄 Ambil Ulang
+                    </button>
+
                 </div>
 
                 <p id="locationStatus" class="text-xs text-center text-gray-500 mb-3">
@@ -61,37 +90,134 @@
                 </p>
 
                 <button type="submit" id="submitBtn" disabled
-                    class="w-full bg-green-600 text-white py-2 rounded opacity-50 text-sm">
+                    class="w-full bg-green-600 text-white py-2 rounded opacity-50 text-sm hover:bg-green-700 transition">
                     Absen Sekarang
                 </button>
             </form>
         </div>
 
         <script>
-            // Aktifkan kamera
+            let stream;
+            let selectedStatus = 'present';
+
+            // Fungsi pilih status
+            function selectStatus(status) {
+                selectedStatus = status;
+                document.getElementById('statusInput').value = status;
+
+                // Reset semua button
+                document.querySelectorAll('.status-btn').forEach(btn => {
+                    btn.classList.remove('bg-green-500', 'bg-yellow-500', 'bg-blue-500', 'text-white');
+                    btn.classList.add('bg-gray-300', 'text-gray-700');
+                });
+
+                // Highlight button yang dipilih
+                const selectedBtn = document.querySelector(`[data-status="${status}"]`);
+                selectedBtn.classList.remove('bg-gray-300', 'text-gray-700');
+
+                if (status === 'present') {
+                    selectedBtn.classList.add('bg-green-500', 'text-white');
+                } else if (status === 'permission') {
+                    selectedBtn.classList.add('bg-yellow-500', 'text-white');
+                } else if (status === 'sick') {
+                    selectedBtn.classList.add('bg-blue-500', 'text-white');
+                }
+            }
+
+            // Akses kamera
             navigator.mediaDevices.getUserMedia({
                     video: true
                 })
-                .then(stream => {
+                .then(s => {
+                    stream = s;
                     document.getElementById('video').srcObject = stream;
                 })
                 .catch(() => alert('Kamera tidak dapat diakses'));
 
+            // Ambil foto
             function takePhoto() {
                 const video = document.getElementById('video');
                 const canvas = document.getElementById('canvas');
-                const photo = document.getElementById('photo');
+                const photoInput = document.getElementById('photo');
+                const preview = document.getElementById('previewImage');
 
                 canvas.width = video.videoWidth;
                 canvas.height = video.videoHeight;
 
                 const ctx = canvas.getContext('2d');
+
+                // Flip horizontal untuk hasil foto normal (tidak mirror)
+                ctx.translate(canvas.width, 0);
+                ctx.scale(-1, 1);
                 ctx.drawImage(video, 0, 0);
 
-                photo.value = canvas.toDataURL('image/jpeg');
+                // Reset transform
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-                document.getElementById('submitBtn').disabled = false;
-                document.getElementById('submitBtn').classList.remove('opacity-50');
+                // Hasil foto
+                const imageData = canvas.toDataURL('image/jpeg');
+
+                // Simpan ke input hidden
+                photoInput.value = imageData;
+
+                // Tampilkan gambar
+                preview.src = imageData;
+                preview.classList.remove('hidden');
+
+                // Sembunyikan video
+                video.classList.add('hidden');
+
+                // Sembunyikan button ambil foto, tampilkan button ambil ulang
+                document.getElementById('btnTakePhoto').classList.add('hidden');
+                document.getElementById('btnRetake').classList.remove('hidden');
+
+                // Matikan kamera
+                stream.getTracks().forEach(track => track.stop());
+
+                // Aktifkan submit
+                enableSubmitButton();
+            }
+
+            // Ambil ulang foto
+            function retakePhoto() {
+                const video = document.getElementById('video');
+                const preview = document.getElementById('previewImage');
+                const photoInput = document.getElementById('photo');
+
+                // Reset foto
+                photoInput.value = '';
+                preview.classList.add('hidden');
+                video.classList.remove('hidden');
+
+                // Toggle buttons
+                document.getElementById('btnTakePhoto').classList.remove('hidden');
+                document.getElementById('btnRetake').classList.add('hidden');
+
+                // Disable submit
+                const btn = document.getElementById('submitBtn');
+                btn.disabled = true;
+                btn.classList.add('opacity-50');
+
+                // Restart kamera
+                navigator.mediaDevices.getUserMedia({
+                        video: true
+                    })
+                    .then(s => {
+                        stream = s;
+                        video.srcObject = stream;
+                    })
+                    .catch(() => alert('Kamera tidak dapat diakses'));
+            }
+
+            // Enable submit button
+            function enableSubmitButton() {
+                const btn = document.getElementById('submitBtn');
+                const photoInput = document.getElementById('photo');
+
+                if (photoInput.value) {
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-50');
+                }
             }
 
             // Ambil GPS
@@ -128,24 +254,20 @@
                 );
 
                 const statusEl = document.getElementById('locationStatus');
-                const btn = document.getElementById('btnAbsen');
 
                 if (distance <= MAX_RADIUS) {
                     statusEl.innerHTML =
                         `✅ <b>Dalam area kantor</b><br>Jarak: ${Math.round(distance)} meter`;
                     statusEl.style.color = 'green';
-                    btn.disabled = false;
                 } else {
                     statusEl.innerHTML =
                         `⚠️ <b>Di luar area kantor</b><br>Jarak: ${Math.round(distance)} meter`;
                     statusEl.style.color = 'red';
-                    btn.disabled = true;
                 }
 
             }, () => {
                 document.getElementById('locationStatus').innerText =
                     '❌ Gagal mengambil lokasi';
-                document.getElementById('btnAbsen').disabled = true;
             }, {
                 enableHighAccuracy: true
             });
