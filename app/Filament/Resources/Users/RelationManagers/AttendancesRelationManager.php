@@ -48,25 +48,41 @@ class AttendancesRelationManager extends RelationManager
             ->recordTitleAttribute('date')
             ->columns([
                 TextColumn::make('date')
+                    ->label('Tanggal')
                     ->date()
                     ->sortable(),
                 TextColumn::make('check_in')
+                    ->label('Waktu Hadir')
                     ->time(),
                 TextColumn::make('check_out')
+                    ->label('Waktu Pulang')
                     ->time(),
                 TextColumn::make('status')
+                    ->badge()
+                    ->size('md')
                     ->formatStateUsing(fn ($state) => match ($state) {
                         'present' => 'Hadir',
                         'sick' => 'Sakit',
+                        'late' => 'Terlambat',
                         'permission' => 'Izin',
-                        'alpha' => 'Alfa',
+                        'absent' => 'Alfa',
+                    })
+                    ->color(fn (string $state) => match ($state) {
+                        'present' => 'success',
+                        'sick' => 'info',
+                        'permission' => 'gray',
+                        'late' => 'warning',
+                        'absent' => 'danger',
+                        default => 'gray',
                     })
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('note')
-                    ->searchable(),
                 TextColumn::make('photo')
-                    ->searchable(),
+                    ->url(fn ($record) => 'https://drive.google.com/'.$record->photo.'/view')
+                    ->openUrlInNewTab(),
+                TextColumn::make('note')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('latitude')
                     ->numeric()
                     ->sortable()
