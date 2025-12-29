@@ -71,7 +71,9 @@ class UserResource extends Resource
                 TextColumn::make('department.name')
                     ->label('Divisi'),
                 TextColumn::make('status')
+                    ->sortable()
                     ->badge()
+                    ->size('md')
                     ->formatStateUsing(fn ($state) => match ($state) {
                         'pending' => 'Menunggu',
                         'active' => 'Aktif',

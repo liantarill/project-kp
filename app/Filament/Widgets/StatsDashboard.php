@@ -24,7 +24,7 @@ class StatsDashboard extends StatsOverviewWidget
 
         return [
             Stat::make('Peserta Aktif', $total),
-            Stat::make('Hadir Hari Ini', '21%'),
+            Stat::make('Hadir Hari Ini', 'x'),
             Stat::make('Divisi Penuh', $fullDepartmentsCount.' / '.$totalDepartments),
         ];
     }

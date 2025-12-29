@@ -34,7 +34,7 @@ class InstitutionResource extends Resource
         return 'Instansi';
     }
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::HomeModern;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::AcademicCap;
 
     protected static ?string $recordTitleAttribute = 'name';
 

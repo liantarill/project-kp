@@ -12,6 +12,7 @@ use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class DepartmentResource extends Resource
@@ -44,7 +45,23 @@ class DepartmentResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return DepartmentsTable::configure($table);
+        // return DepartmentsTable::configure($table);
+        return $table
+            ->columns([
+                TextColumn::make('name'),
+                TextColumn::make('quota')
+                    ->label('Kuota'),
+                TextColumn::make('users_count')
+                    ->label('Jumlah Peserta')
+                    ->counts('users')
+                    ->badge(),
+                TextColumn::make('sisa_kuota')
+                    ->label('Sisa Kuota')
+                    ->getStateUsing(fn ($record) => $record->quota - $record->users_count)
+                    ->badge()
+                    ->color(fn ($state) => $state <= 0 ? 'danger' : 'success'
+                    ),
+            ]);
     }
 
     public static function getRelations(): array
