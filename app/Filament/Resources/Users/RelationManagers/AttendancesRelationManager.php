@@ -13,6 +13,7 @@ use Filament\Actions\DissociateBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ExportAction;
 use Filament\Actions\Exports\Enums\ExportFormat;
+use Filament\Actions\ViewAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
@@ -114,6 +115,16 @@ class AttendancesRelationManager extends RelationManager
             ])
             ->filters([
                 //
+            ])
+            ->recordActions([
+                ViewAction::make()
+                    ->label('Detail')
+                    ->modalHeading(fn ($record) => 'Detail Kehadiran: '.$record->date)
+                    ->modalContent(function ($record) {
+                        return view('filament.partials.attendance-detail', [
+                            'record' => $record,
+                        ]);
+                    }),
             ]);
         // ->headerActions([
         //     CreateAction::make(),

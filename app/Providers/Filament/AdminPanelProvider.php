@@ -10,6 +10,7 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Facades\FilamentView;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -17,6 +18,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
@@ -61,5 +63,29 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+
+    }
+
+    public function boot(): void
+    {
+        FilamentView::registerRenderHook(
+            'panels::head.end',
+            fn (): string => $this->shouldLoadLeaflet()
+                ? Blade::render('<link rel="stylesheet" href="'.asset('assets/leaflet/leaflet.css').'" />')
+                : ''
+        );
+
+        FilamentView::registerRenderHook(
+            'panels::body.end',
+            fn (): string => $this->shouldLoadLeaflet()
+                ? Blade::render('<script src="'.asset('assets/leaflet/leaflet.js').'"></script>')
+                : ''
+        );
+    }
+
+    protected function shouldLoadLeaflet(): bool
+    {
+        // Load hanya di halaman User resource
+        return request()->is('admin/users/*');
     }
 }
