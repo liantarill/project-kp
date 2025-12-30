@@ -11,7 +11,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class UserEndingSoon extends TableWidget
 {
-    protected static ?string $heading = 'Peserta Akan Berakhir';
+    protected static ?string $heading = 'Peserta Segera Selesai';
+
+    protected int|string|array $columnSpan = 'full';
 
     public function table(Table $table): Table
     {

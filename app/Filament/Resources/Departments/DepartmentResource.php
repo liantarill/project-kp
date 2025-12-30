@@ -54,11 +54,14 @@ class DepartmentResource extends Resource
                 TextColumn::make('users_count')
                     ->label('Jumlah Peserta')
                     ->counts('users')
-                    ->badge(),
+                    ->badge()
+                    ->size('md'),
+
                 TextColumn::make('sisa_kuota')
                     ->label('Sisa Kuota')
                     ->getStateUsing(fn ($record) => $record->quota - $record->users_count)
                     ->badge()
+                    ->size('md')
                     ->color(fn ($state) => $state <= 0 ? 'danger' : 'success'
                     ),
             ]);

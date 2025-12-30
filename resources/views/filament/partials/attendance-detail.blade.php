@@ -17,7 +17,7 @@
                 container.innerHTML = '';
             }
 
-            const map = L.map(self.mapId).setView([self.lat, self.lng], 15);
+            const map = L.map(self.mapId).setView([self.lat, self.lng], 19);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
             L.marker([self.lat, self.lng]).addTo(map).bindPopup('{{ $record->user->name }}').openPopup();
 
