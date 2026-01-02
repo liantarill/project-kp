@@ -26,9 +26,18 @@
     }
 }" x-init="initMap()">
     <div class="space-y-2 mb-4">
-        <p><strong>Tanggal:</strong> {{ $record->date }}</p>
         <p><strong>Nama:</strong> {{ $record->user->name }}</p>
+        <p><strong>jam Masuk:</strong> {{ $record->check_in?->format('H:i') }}</p>
+        <p><strong>Status Kehadiran:</strong>
+            @foreach (['present' => 'Hadir', 'late' => 'Terlambat', 'sick' => 'Sakit', 'permission' => 'Izin', 'absent' => 'Alpa'] as $key => $value)
+                @if ($record->status === $key)
+                    {{ $value }}
+                @endif
+            @endforeach
+
+        </p>
         <p><strong>Lokasi:</strong> {{ $record->latitude }}, {{ $record->longitude }}</p>
+        <p><strong>Catatan:</strong> {{ $record->note ?? '-' }}</p>
     </div>
 
     <div :id="mapId" style="height: 400px; width: 100%; border: 1px solid #e5e7eb; border-radius: 0.5rem;">

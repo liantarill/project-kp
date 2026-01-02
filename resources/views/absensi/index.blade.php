@@ -26,8 +26,6 @@
                 @csrf
 
                 {{-- Hidden fields --}}
-                <input type="hidden" name="date" value="{{ now()->toDateString() }}">
-                <input type="hidden" name="check_in" value="{{ now()->setTimezone('Asia/Jakarta')->format('H:i:s') }}">
                 <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                 <input type="hidden" name="status" id="statusInput" value="present">
                 <input type="hidden" name="latitude" id="latitude">
@@ -89,6 +87,11 @@
                     Mengambil lokasi...
                 </p>
 
+                <button type="button" onclick="requestLocation()" id="btnLocation"
+                    class="hidden w-full bg-blue-600 text-white px-4 py-2 rounded text-sm mb-3 hover:bg-blue-700 transition">
+                    📍 Izinkan Akses Lokasi
+                </button>
+
                 <button type="submit" id="submitBtn" disabled
                     class="w-full bg-green-600 text-white py-2 rounded opacity-50 text-sm hover:bg-green-700 transition">
                     Absen Sekarang
@@ -146,13 +149,7 @@
 
                 const ctx = canvas.getContext('2d');
 
-                // Flip horizontal untuk hasil foto normal (tidak mirror)
-                ctx.translate(canvas.width, 0);
-                ctx.scale(-1, 1);
-                ctx.drawImage(video, 0, 0);
-
-                // Reset transform
-                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
                 // Hasil foto
                 const imageData = canvas.toDataURL('image/jpeg');
@@ -239,7 +236,23 @@
                 return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
             }
 
-            navigator.geolocation.getCurrentPosition(position => {
+            // Function untuk request lokasi
+            function requestLocation() {
+                document.getElementById('locationStatus').innerText = 'Meminta akses lokasi...';
+                document.getElementById('locationStatus').style.color = 'gray';
+
+                navigator.geolocation.getCurrentPosition(
+                    handleLocationSuccess,
+                    handleLocationError, {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0
+                    }
+                );
+            }
+
+            // Success handler
+            function handleLocationSuccess(position) {
                 const userLat = position.coords.latitude;
                 const userLng = position.coords.longitude;
 
@@ -265,12 +278,48 @@
                     statusEl.style.color = 'red';
                 }
 
-            }, () => {
-                document.getElementById('locationStatus').innerText =
-                    '❌ Gagal mengambil lokasi';
-            }, {
-                enableHighAccuracy: true
-            });
+                // Sembunyikan button location setelah berhasil
+                document.getElementById('btnLocation').classList.add('hidden');
+            }
+
+            // Error handler
+            function handleLocationError(error) {
+                const statusEl = document.getElementById('locationStatus');
+
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        statusEl.innerHTML =
+                            '❌ <b>Akses lokasi ditolak!</b><br>' +
+                            '<span class="text-xs">Aktifkan di Settings Safari → Privacy & Security → Location</span>';
+                        // Tampilkan button untuk retry
+                        document.getElementById('btnLocation').classList.remove('hidden');
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        statusEl.innerHTML = '❌ <b>Lokasi tidak tersedia</b><br>' +
+                            '<span class="text-xs">Coba lagi</span>';
+                        document.getElementById('btnLocation').classList.remove('hidden');
+                        break;
+                    case error.TIMEOUT:
+                        statusEl.innerHTML = '❌ <b>Timeout mengambil lokasi</b><br>' +
+                            '<span class="text-xs">Coba lagi</span>';
+                        document.getElementById('btnLocation').classList.remove('hidden');
+                        break;
+                    default:
+                        statusEl.innerHTML = '❌ <b>Error mengambil lokasi</b>';
+                        document.getElementById('btnLocation').classList.remove('hidden');
+                }
+                statusEl.style.color = 'red';
+            }
+
+            // Cek apakah geolocation tersedia dan langsung request
+            if (!navigator.geolocation) {
+                document.getElementById('locationStatus').innerHTML =
+                    '❌ <b>Browser tidak mendukung GPS</b>';
+                document.getElementById('locationStatus').style.color = 'red';
+            } else {
+                // Langsung minta akses lokasi saat page load
+                requestLocation();
+            }
         </script>
 
     </div>

@@ -20,6 +20,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/absensi', [AttendanceController::class, 'index'])->name('absensi.index');
     Route::post('/absensi', [AttendanceController::class, 'store'])->name('absensi.store');
     Route::get('/riwayat-absensi', [AttendanceController::class, 'history'])->name('absensi.riwayat');
+    Route::get('/riwayat-absensi/{attendance}', [AttendanceController::class, 'detail'])->name('absensi.detail');
+    Route::get('/download', [AttendanceController::class, 'export'])->name('absensi.export');
 
 });
 
