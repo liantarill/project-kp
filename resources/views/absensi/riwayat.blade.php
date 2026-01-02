@@ -3,10 +3,13 @@
     <link rel="stylesheet" href="{{ asset('assets/leaflet/leaflet.css') }}">
 
     <div class="max-w-4xl mx-auto mt-6 px-6">
-
-        <h2 class="text-xl font-bold mb-4">Riwayat Absensi</h2>
-        <a href="{{ route('absensi.export', auth()->id()) }}">download</a>
-
+        <div class="flex justify-between items-center">
+            <h2 class="text-xl font-bold mb-4 ">Riwayat Absensi</h2>
+            <a href="{{ route('absensi.export', auth()->id()) }}"
+                class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+                Download
+            </a>
+        </div>
         <table class="w-full border-collapse border">
             <thead class="bg-gray-100">
                 <tr>
@@ -46,7 +49,7 @@
                                 @break
 
                                 @case('late')
-                                    Telat
+                                    Terlambat
                                 @break
 
                                 @default
@@ -80,25 +83,8 @@
                     @endforelse
                 </tbody>
             </table>
-            <div id="attendance-popup" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-                <div class="bg-white w-2/3 rounded-lg p-4 relative">
-                    <button onclick="closeAttendancePopup()" class="absolute top-2 right-2 text-xl">✕</button>
 
-                    <h2 class="text-lg font-semibold mb-3">Detail Attendance</h2>
-
-                    <div class="space-y-1 mb-4">
-                        <p><strong>Tanggal:</strong> <span id="popup-date"></span></p>
-                        <p><strong>Nama:</strong> <span id="popup-name"></span></p>
-                        <p><strong>Lokasi:</strong>
-                            <span id="popup-lat"></span>,
-                            <span id="popup-lng"></span>
-                        </p>
-                    </div>
-
-                    @include('components.attendance-detail')
-                </div>
-            </div>
-
+            @include('components.attendance-detail')
         </div>
 
 

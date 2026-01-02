@@ -27,7 +27,7 @@ class AdminPanelProvider extends PanelProvider
     {
 
         return $panel
-            ->font('Lexend')
+            ->font('Poppins')
             ->brandLogo(asset('logo.png'))
             ->brandLogoHeight('3rem')
             // ->brandName('Filament Demo')

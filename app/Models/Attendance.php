@@ -18,6 +18,11 @@ class Attendance extends Model
         'longitude',
     ];
 
+    protected $casts = [
+        'date' => 'date',
+        'check_in' => 'datetime',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
