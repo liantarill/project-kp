@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\Users\RelationManagers;
 
+use App\Exports\AttendanceExcelExport;
 use App\Filament\Exports\AttendanceExporter;
+use Filament\Actions\Action;
 use Filament\Actions\AssociateAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -13,14 +15,15 @@ use Filament\Actions\DissociateBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ExportAction;
 use Filament\Actions\Exports\Enums\ExportFormat;
-use Filament\Actions\ViewAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AttendancesRelationManager extends RelationManager
 {
@@ -55,14 +58,14 @@ class AttendancesRelationManager extends RelationManager
             ->columns([
                 TextColumn::make('date')
                     ->label('Tanggal')
-                    ->date()
+                    ->date('d F Y')
                     ->sortable(),
                 TextColumn::make('check_in')
                     ->label('Waktu Hadir')
-                    ->time(),
-                TextColumn::make('check_out')
-                    ->label('Waktu Pulang')
-                    ->time(),
+                    ->time('H:i'),
+                // TextColumn::make('check_out')
+                //     ->label('Waktu Pulang')
+                //     ->time(),
                 TextColumn::make('status')
                     ->badge()
                     ->size('md')
@@ -84,8 +87,18 @@ class AttendancesRelationManager extends RelationManager
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('photo')
-                    ->url(fn ($record) => 'https://drive.google.com/'.$record->photo.'/view')
-                    ->openUrlInNewTab(),
+                    ->label('Foto')
+                    ->size('md')
+                    ->badge()
+                    ->icon(Heroicon::OutlinedUser)
+                    ->iconColor('info')
+                    ->formatStateUsing(fn () => 'Lihat Foto')
+                    ->url(fn ($record) => $record->photo
+                            ? 'https://drive.google.com/file/d/'.$record->photo.'/view'
+                            : null
+                    )
+                    ->openUrlInNewTab()
+                    ->disabled(fn ($record) => is_null($record->photo)),
                 TextColumn::make('note')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -107,24 +120,35 @@ class AttendancesRelationManager extends RelationManager
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->headerActions([
-                ExportAction::make()
-                    ->exporter(AttendanceExporter::class)
-                    ->formats([
-                        ExportFormat::Xlsx,
-                    ]),
+                // ExportAction::make()
+                //     ->exporter(AttendanceExporter::class)
+                //     ->formats([
+                //         ExportFormat::Xlsx,
+                //     ]),
+
+                Action::make('exportAttendance')
+                    ->label('Export Attendance')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->action(fn () => Excel::download(
+                        new AttendanceExcelExport($this->ownerRecord->id),
+                        'Rekap Absensi-'.$this->ownerRecord->name.'.xlsx'
+                    )
+                    ),
             ])
             ->filters([
                 //
             ])
             ->recordActions([
-                ViewAction::make()
+                Action::make('detail')
                     ->label('Detail')
-                    ->modalHeading(fn ($record) => 'Detail Kehadiran: '.$record->date)
-                    ->modalContent(function ($record) {
-                        return view('filament.partials.attendance-detail', [
-                            'record' => $record,
-                        ]);
-                    }),
+                    ->icon(Heroicon::Eye)
+                    ->modalHeading(fn ($record) => 'Detail Kehadiran: '.$record->date->locale('id')->isoFormat('D MMMM Y'))
+                    ->modalContent(fn ($record) => view(
+                        'filament.partials.attendance-detail',
+                        ['record' => $record]
+                    ))
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Tutup'),
             ]);
         // ->headerActions([
         //     CreateAction::make(),

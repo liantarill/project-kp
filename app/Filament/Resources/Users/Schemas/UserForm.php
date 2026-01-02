@@ -15,10 +15,11 @@ class UserForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Nama Lengkap')
                     ->readOnly()
                     ->required(),
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label('Alamat Email')
                     ->email()
                     ->required()
                     ->readOnly(),
@@ -52,6 +53,7 @@ class UserForm
                     ->preload()
                     ->required(),
                 TextInput::make('acceptance_proof')
+                    ->label('Bukti Penerimaan')
                     ->readOnly(),
                 Select::make('status')
                     ->options([
@@ -64,9 +66,17 @@ class UserForm
                     ->required()
                     ->default('pending'),
                 DatePicker::make('start_date')
-                    ->label('Tanggal Mulai'),
+                    ->label('Tanggal Mulai')
+                    ->displayFormat('d F Y') // contoh: 03 Januari 2026
+                    ->format('Y-m-d')
+                    ->locale('id')
+                    ->native(false),
                 DatePicker::make('end_date')
-                    ->label('Tanggal Selesai'),
+                    ->label('Tanggal Selesai')
+                    ->displayFormat('d F Y')
+                    ->format('Y-m-d')
+                    ->locale('id')
+                    ->native(false),
                 DateTimePicker::make('email_verified_at')
                     ->disabled(),
             ]);

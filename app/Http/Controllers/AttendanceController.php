@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AttendanceExcelExport;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
+use Maatwebsite\Excel\Facades\Excel;
+
+use function Symfony\Component\Clock\now;
 
 class AttendanceController extends Controller
 {
@@ -23,18 +29,26 @@ class AttendanceController extends Controller
 
     public function history()
     {
-        $attendances = Attendance::where('user_id', Auth::id())
+        $attendances = Attendance::with('user')
+            ->where('user_id', Auth::id())
             ->latest()
             ->get();
 
         return view('absensi.riwayat', compact('attendances'));
     }
 
+    public function export()
+    {
+        // return Excel::download(new AttendanceExcelExport, 'invoices.xlsx');
+
+        return Excel::download(
+            new AttendanceExcelExport(Auth::id()),
+            'Rekap Absensi-'.Auth::user()->name.'.xlsx');
+    }
+
     public function store(Request $request)
     {
         $request->validate([
-            'date' => ['required', 'date'],
-            'check_in' => ['nullable'],
             'status' => ['required', 'in:present,permission,sick,absent,late'],
             'note' => ['nullable'],
             'photo' => ['required'],
@@ -57,31 +71,34 @@ class AttendanceController extends Controller
         }
 
         $image = $request->photo;
-        // bersihkan base64
+        // 1. Bersihkan base64
         $image = preg_replace('/^data:image\/\w+;base64,/', '', $image);
         $image = str_replace(' ', '+', $image);
         $imageData = base64_decode($image);
-        // nama user (aman)
+
         $userName = Str::slug(Auth::user()->name, '_');
-        // tanggal & jam (WIB)
-        $dateTime = now()->setTimezone('Asia/Jakarta')->format('Y-m-d_H-i-s');
-        // nama file
+        $dateTime = now()->format('Y-m-d_H-i-s');
         $fileName = "attendance/{$userName}_{$dateTime}.jpg";
-        // simpan
-        Storage::disk('public')->put($fileName, $imageData);
+
+        $manager = new ImageManager(new Driver);
+        $compressedImage = $manager
+            ->read($imageData)
+            ->toJpeg(75); // q
+
+        Storage::disk('public')->put($fileName, (string) $compressedImage);
 
         // batas jam absen
         $batasJam = '08:00:00';
         $attendanceStatus = $request->status;
 
         // kalau mau absen hadir tapi terlambat nanti dia jadi terlambat
-        if ($request->status === 'present' && now()->timezone('Asia/Jakarta')->format('H:i:s') > $batasJam) {
+        if ($request->status === 'present' && now()->format('H:i:s') > $batasJam) {
             $attendanceStatus = 'late';
         }
 
         Attendance::create([
-            'date' => $request->date,
-            'check_in' => $request->check_in,
+            'date' => today(),
+            'check_in' => now()->format('H:i:s'),
             'user_id' => Auth::id(),
             'status' => $attendanceStatus,
             'note' => $request->note,

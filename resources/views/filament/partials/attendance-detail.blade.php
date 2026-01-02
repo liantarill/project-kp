@@ -18,7 +18,8 @@
             }
 
             const map = L.map(self.mapId).setView([self.lat, self.lng], 19);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            L.tileLayer(
+                'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map);
             L.marker([self.lat, self.lng]).addTo(map).bindPopup('{{ $record->user->name }}').openPopup();
 
             setTimeout(() => map.invalidateSize(), 300);
