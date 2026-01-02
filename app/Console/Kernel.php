@@ -28,7 +28,6 @@ class Kernel extends ConsoleKernel
     {
         // Auto absen ALFA setiap hari jam 10:01 WIB
         $schedule->command('attendance:auto-alpha')
-            ->timezone('Asia/Jakarta')
             ->weekdays()
             ->dailyAt('10:01')
             ->withoutOverlapping()

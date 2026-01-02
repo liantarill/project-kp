@@ -19,7 +19,7 @@ class AutoAlphaAttendance extends Command
         $batasJam = '10:00:00';
 
         // cek apakah sudah lewat jam batas
-        if (now()->timezone('Asia/Jakarta')->format('H:i:s') < $batasJam) {
+        if (now()->format('H:i:s') < $batasJam) {
             $this->info('Belum jam 10:00 WIB, command tidak dijalankan.');
 
             return;
