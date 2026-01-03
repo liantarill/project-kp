@@ -17,7 +17,28 @@ class DepartmentSeeder extends Seeder
             'quota' => 4,
         ]);
         Department::create([
-            'name' => 'Keuangan dan Akuntansi',
+            'name' => 'Akuntansi dan Keuangan (ANK)',
+            'quota' => 4,
+        ]);
+
+        Department::create([
+            'name' => 'Sekretariat dan Hukum (SKR)',
+            'quota' => 4,
+        ]);
+        Department::create([
+            'name' => 'Tanaman dan Teknik Pengolahan',
+            'quota' => 4,
+        ]);
+        Department::create([
+            'name' => 'Manajemen Aset dan Pemasaran',
+            'quota' => 4,
+        ]);
+        Department::create([
+            'name' => 'Kepatuhan dan Manajemen Risiko',
+            'quota' => 4,
+        ]);
+        Department::create([
+            'name' => 'Project Management Office (PMO)',
             'quota' => 4,
         ]);
     }
