@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\AttendanceExcelExport;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -48,13 +49,19 @@ class AttendanceController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'status' => ['required', 'in:present,permission,sick,absent,late'],
-            'note' => ['nullable'],
-            'photo' => ['nullable'],
-            'latitude' => ['required_if:status,present'],
-            'longitude' => ['required_if:status,present'],
-        ]);
+        $request->validate(
+            [
+                'status' => ['required', 'in:present,permission,sick,absent,late'],
+                'note' => ['required_if:status,permission,sick', 'nullable', 'string'],
+                'latitude' => ['required_if:status,present'],
+                'longitude' => ['required_if:status,present'],
+            ],
+            [
+                'note.required_if' => 'Catatan wajib diisi jika status izin atau sakit.',
+                'latitude.required_if' => 'Lokasi tidak terbaca.',
+                'longitude.required_if' => 'Lokasi tidak terbaca.',
+            ]
+        );
 
         $attendanceStatus = $request->status;
         $fileName = null;
@@ -144,14 +151,32 @@ class AttendanceController extends Controller
     {
         $user = Auth::user();
 
-        $userName = Str::slug(Auth::user()->name, '_');
+        $userName = Str::slug($user->name, '_');
         $path = "attendance/{$userName}";
 
         if (! Storage::disk('public')->exists($path)) {
             abort(404, 'Folder foto tidak ditemukan');
         }
 
-        $photos = Storage::disk('public')->files($path);
+        $files = Storage::disk('public')->files($path);
+
+        $photos = collect($files)->map(function ($file) {
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+
+            // Ambil tanggal dari nama file (YYYY-MM-DD)
+            preg_match('/\d{4}-\d{2}-\d{2}/', $filename, $match);
+
+            $date = $match
+                ? Carbon::parse($match[0])
+                : Carbon::createFromTimestamp(
+                    Storage::disk('public')->lastModified($file)
+                );
+
+            return [
+                'path' => $file,
+                'date' => $date,
+            ];
+        })->sortByDesc('date');
 
         return view('absensi.foto', compact('photos'));
     }
