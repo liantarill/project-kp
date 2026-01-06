@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Users\RelationManagers;
 
 use App\Exports\AttendanceExcelExport;
 use App\Filament\Exports\AttendanceExporter;
+use App\Models\Attendance;
 use Filament\Actions\Action;
 use Filament\Actions\AssociateAction;
 use Filament\Actions\BulkActionGroup;
@@ -20,9 +21,12 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\Alignment;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AttendancesRelationManager extends RelationManager
@@ -99,6 +103,17 @@ class AttendancesRelationManager extends RelationManager
                     )
                     ->openUrlInNewTab()
                     ->disabled(fn ($record) => is_null($record->photo)),
+
+                // ImageColumn::make('photo')
+                //     ->label('Foto Absensi')
+                //     ->getStateUsing(function ($record) {
+                //         return Storage::url($record->photo);
+                //     }),
+
+                TextColumn::make('date')
+                    ->label('Tanggal')
+                    ->date('d M Y H:i'),
+
                 TextColumn::make('note')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -132,8 +147,25 @@ class AttendancesRelationManager extends RelationManager
                     ->action(fn () => Excel::download(
                         new AttendanceExcelExport($this->ownerRecord->id),
                         'Rekap Absensi-'.$this->ownerRecord->name.'.xlsx'
-                    )
-                    ),
+                    )),
+
+                Action::make('lihatSemuaFoto')
+                    ->label('Foto Absensi')
+                    ->icon(Heroicon::Eye)
+                    ->color('gray')
+                    ->modalHeading(fn () => 'Foto Absensi: '.$this->ownerRecord->name)
+                    ->modalDescription('Galeri foto absensi berdasarkan tanggal kehadiran')
+                    ->modalAlignment(Alignment::Center)
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Tutup')
+                    ->modalCancelAction(fn ($action) => $action->color('gray')->outlined())
+                    ->modalContent(function () {
+                        return view('filament.partials.attendance-photos', [
+                            'user' => $this->ownerRecord,
+                            'attendances' => Attendance::where('user_id', $this->ownerRecord->id)->get(),
+                        ]);
+                    }),
+
             ])
             ->filters([
                 //

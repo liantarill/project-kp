@@ -363,9 +363,16 @@ function handleLocationSuccess(position) {
     } else {
         locationIcon.textContent = "error";
         locationText.textContent = "Di luar area kantor";
-        locationDistance.textContent = `Jarak: ${Math.round(
-            distance
-        )} meter dari kantor`;
+        if (distance < 1000) {
+            locationDistance.textContent = `Jarak: ${Math.round(
+                distance
+            )} meter dari kantor`;
+        } else {
+            const distanceInKm = distance / 1000;
+            locationDistance.textContent = `Jarak: ${distanceInKm.toFixed(
+                1
+            )} kilometer dari kantor`;
+        }
         locationInfoBox
             .querySelector(".w-8")
             .classList.remove("bg-emerald-50", "text-emerald-600");

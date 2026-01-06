@@ -123,9 +123,9 @@ class AttendanceController extends Controller
         );
 
         if (! $attendance->wasRecentlyCreated) {
-            return back()->withErrors([
-                'attendance' => 'Anda sudah absen hari ini.',
-            ]);
+            Storage::disk('public')->delete($fileName);
+
+            return back()->withErrors(['attendance' => 'Anda sudah absen hari ini.']);
         }
 
         return redirect()->back()->with('success', 'absensi berhasil');
@@ -151,33 +151,34 @@ class AttendanceController extends Controller
     {
         $user = Auth::user();
 
-        $userName = Str::slug($user->name, '_');
-        $path = "attendance/{$userName}";
+        // Ambil semua attendance user yang ada foto
+        $attendances = Attendance::where('user_id', $user->id)
+            ->whereNotNull('photo')
+            ->get();
 
-        if (! Storage::disk('public')->exists($path)) {
-            abort(404, 'Folder foto tidak ditemukan');
-        }
+        // $photos = $attendances->map(function ($attendance) {
+        //     $file = $attendance->photo; // asumsikan ini path relatif di storage 'public'
+        //     $fullPath = "attendance/{$file}";
 
-        $files = Storage::disk('public')->files($path);
+        //     if (! Storage::disk('public')->exists($fullPath)) {
+        //         return null; // skip jika file tidak ada
+        //     }
 
-        $photos = collect($files)->map(function ($file) {
-            $filename = pathinfo($file, PATHINFO_FILENAME);
+        //     // Ambil tanggal dari nama file atau dari created_at attendance
+        //     preg_match('/\d{4}-\d{2}-\d{2}/', $file, $match);
 
-            // Ambil tanggal dari nama file (YYYY-MM-DD)
-            preg_match('/\d{4}-\d{2}-\d{2}/', $filename, $match);
+        //     $date = $match
+        //         ? Carbon::parse($match[0])
+        //         : $attendance->created_at;
 
-            $date = $match
-                ? Carbon::parse($match[0])
-                : Carbon::createFromTimestamp(
-                    Storage::disk('public')->lastModified($file)
-                );
+        //     return [
+        //         'path' => $fullPath,
+        //         'date' => $date,
+        //     ];
+        // })
+        //     ->filter() // hapus yang null karena filenya tidak ada
+        //     ->sortByDesc('date');
 
-            return [
-                'path' => $file,
-                'date' => $date,
-            ];
-        })->sortByDesc('date');
-
-        return view('absensi.foto', compact('photos'));
+        return view('absensi.foto', compact('attendances'));
     }
 }

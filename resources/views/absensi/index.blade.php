@@ -2,6 +2,7 @@
     <script src="{{ asset('assets/leaflet/leaflet.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/leaflet/leaflet.css') }}">
 
+    @vite(['resources/js/attendance.js'])
 
     <style>
         .glass-nav {
@@ -221,7 +222,7 @@
         </div>
     </div>
 
-    @push('scripts')
+    {{-- @push('scripts')
         @vite('resources/js/attendance.js')
-    @endpush
+    @endpush --}}
 </x-app-layout>
