@@ -23,10 +23,15 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Manajemen User';
+
+    // protected static ?string $navigationParentItem = 'Products';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::User;
 

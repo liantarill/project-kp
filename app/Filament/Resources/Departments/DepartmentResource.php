@@ -9,6 +9,8 @@ use App\Filament\Resources\Departments\Schemas\DepartmentForm;
 use App\Filament\Resources\Departments\Tables\DepartmentsTable;
 use App\Models\Department;
 use BackedEnum;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -64,6 +66,11 @@ class DepartmentResource extends Resource
                     ->size('md')
                     ->color(fn ($state) => $state <= 0 ? 'danger' : 'success'
                     ),
+            ])
+            ->recordActions([
+                EditAction::make(),
+                // ViewAction::make(),
+                DeleteAction::make(),
             ]);
     }
 
@@ -78,8 +85,8 @@ class DepartmentResource extends Resource
     {
         return [
             'index' => ListDepartments::route('/'),
-            'create' => CreateDepartment::route('/create'),
-            'edit' => EditDepartment::route('/{record}/edit'),
+            // 'create' => CreateDepartment::route('/create'),
+            // 'edit' => EditDepartment::route('/{record}/edit'),
         ];
     }
 }
