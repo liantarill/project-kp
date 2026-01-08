@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = auth()->user();
 
-        if ($user->status === 'pending') {
+        if ($user->role === 'participant' && $user->status === 'pending') {
             auth()->logout();
 
             return back()->with('error', 'Akun kamu belum diverifikasi oleh admin');
