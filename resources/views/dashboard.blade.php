@@ -12,17 +12,17 @@
                 <div class="p-6 text-gray-900 flex">
                     <div>
                         <h2>
-                            {{ auth()->user()->name }}
+                            {{ $user->name }}
                         </h2>
                         <div>
-                            {{ auth()->user()->department->name }}
+                            {{ $user->department->name }}
                         </div>
                         <div class="block md:flex  gap-11">
-                            {{ auth()->user()->institution->name }}
+                            {{ $user->institution->name }}
                             <div>
-                                {{ auth()->user()->start_date->translatedFormat('d F Y') }}
+                                {{ $user->start_date->translatedFormat('d F Y') }}
                                 -
-                                {{ auth()->user()->end_date->translatedFormat('d F Y') }}
+                                {{ $user->end_date->translatedFormat('d F Y') }}
                             </div>
 
                         </div>
@@ -31,28 +31,35 @@
             </div>
         </div>
     </div>
+
     <div class="py-4">
         <div
             class="max-w-7xl mx-auto sm:px-6 lg:px-8
                 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
 
-            <div class="bg-white overflow-hidden shadow-sm rounded-lg  p-6 ">
-                Hadir
+            <div class="bg-white overflow-hidden shadow-sm rounded-lg p-6">
+                <div class="text-sm text-gray-600 mb-1">Hadir</div>
+                <div class="text-2xl font-bold text-gray-900">{{ $hadir }}</div>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm rounded-lg p-6">
-                Sakit
+                <div class="text-sm text-gray-600 mb-1">Sakit</div>
+                <div class="text-2xl font-bold text-gray-900">{{ $sakit }}</div>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm rounded-lg p-6">
-                Izin
+                <div class="text-sm text-gray-600 mb-1">Izin</div>
+                <div class="text-2xl font-bold text-gray-900">{{ $izin }}</div>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm rounded-lg p-6">
-                Alfa
+                <div class="text-sm text-gray-600 mb-1">Alfa</div>
+                <div class="text-2xl font-bold text-gray-900">{{ $alfa }}</div>
             </div>
+            
             <div class="bg-white overflow-hidden shadow-sm rounded-lg p-6">
-                Terlambat
+                <div class="text-sm text-gray-600 mb-1">Terlambat</div>
+                <div class="text-2xl font-bold text-gray-900">{{ $terlambat }}</div>
             </div>
 
         </div>
@@ -60,18 +67,26 @@
 
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white  overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex justify-between p-6 text-gray-900 ">
-                    <div>
-                        <h3>
-                            Durasi Magang
-                        </h3>
-                        <p>
-                            Progress berdasarkan hari kerja
-                        </p>
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <h3 class="text-lg font-semibold">
+                                Durasi Magang
+                            </h3>
+                            <p class="text-sm text-gray-600">
+                                Progress berdasarkan hari kerja
+                            </p>
+                        </div>
+                        <div class="text-2xl font-bold">
+                            {{ $progressPercentage }}%
+                        </div>
                     </div>
-                    <div>
-                        20%
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-blue-600 h-2.5 rounded-full transition-all duration-300" style="width: {{ $progressPercentage }}%"></div>
+                    </div>
+                    <div class="mt-2 text-sm text-gray-600">
+                        {{ $elapsedWorkingDays }} dari {{ $totalWorkingDays }} hari kerja
                     </div>
                 </div>
             </div>

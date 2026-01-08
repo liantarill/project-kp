@@ -1,12 +1,13 @@
 <?php
 
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':participant'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -20,9 +21,7 @@ Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':particip
     Route::get('/riwayat-absensi/photos', [AttendanceController::class, 'photos'])->name('absensi.photos');
     Route::get('/riwayat-absensi/{attendance}', [AttendanceController::class, 'detail'])->name('absensi.detail');
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 });
 
