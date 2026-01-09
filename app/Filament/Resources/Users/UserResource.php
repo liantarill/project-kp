@@ -66,7 +66,7 @@ class UserResource extends Resource
                 TextColumn::make('name')
                     ->label('Nama Lengkap')
                     ->searchable(),
-                TextColumn::make('email'),
+                // TextColumn::make('email'),
                 // TextColumn::make('role')
                 //     ->formatStateUsing(fn ($state) => match ($state) {
                 //         'admin' => 'Admin',
@@ -75,6 +75,8 @@ class UserResource extends Resource
                 //     }),
                 TextColumn::make('department.name')
                     ->label('Divisi'),
+                TextColumn::make('institution.name')
+                    ->label('Asal Instansi'),
                 TextColumn::make('status')
                     ->sortable()
                     ->badge()

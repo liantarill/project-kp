@@ -55,7 +55,7 @@ class PendingUsers extends Page implements HasTable
                     ->toggleable(),
 
                 TextColumn::make('institution.name')
-                    ->label('Instansi')
+                    ->label('Asal Instansi')
                     ->sortable()
                     ->toggleable(),
 
