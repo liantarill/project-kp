@@ -21,7 +21,8 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @stack('scripts')
+
+    @stack('styles')
 </head>
 
 <body class="font-sans antialiased">
@@ -44,6 +45,7 @@
 
         <x-footer />
     </div>
+    @stack('scripts')
 </body>
 
 </html>

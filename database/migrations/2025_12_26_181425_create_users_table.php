@@ -31,9 +31,11 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->nullOnDelete();
+            $table->string('phone', 20)->nullable();
 
             $table->string('acceptance_proof')->nullable();
             $table->enum('status', ['pending', 'active', 'completed', 'cancelled'])->default('pending');
+            $table->string('report_file')->nullable();
 
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
