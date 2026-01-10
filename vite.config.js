@@ -8,6 +8,7 @@ export default defineConfig({
                 "resources/css/app.css",
                 "resources/js/app.js",
                 "resources/js/attendance.js",
+                "resources/js/registration.js",
             ],
             refresh: true,
         }),

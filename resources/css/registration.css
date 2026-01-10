@@ -1,0 +1,51 @@
+.select-wrapper {
+    position: relative;
+}
+
+.select-dropdown {
+    animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.select-option {
+    transition: all 0.15s ease;
+}
+
+.select-option:hover {
+    background-color: rgb(249 250 251);
+}
+
+.select-option.selected {
+    background-color: rgb(236 253 245);
+    color: rgb(4 120 87);
+    font-weight: 600;
+}
+
+.select-trigger svg {
+    transition: transform 0.2s ease;
+}
+
+.select-trigger.active svg {
+    transform: rotate(180deg);
+}
+
+.select-value {
+    color: rgb(156 163 175);
+    transition: color 0.2s ease;
+}
+
+.select-value.has-value {
+    color: rgb(17 24 39);
+    font-weight: 500;
+}
