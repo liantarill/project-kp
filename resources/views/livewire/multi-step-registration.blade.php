@@ -538,11 +538,12 @@
                 </div>
 
                 <!-- Footer Link -->
-                <div class="text-center mt-6">
-                    <a href="{{ route('login') }}" class="text-sm text-emerald-800 hover:underline font-medium">
-                        Sudah punya akun? <b> Login di sini</b>
+                <p class="text-sm text-center mt-6  text-gray-600">
+                    Sudah punya akun?
+                    <a href="{{ route('login') }}" class="text-emerald-800 hover:underline font-semibold">
+                        Login di sini
                     </a>
-                </div>
+                </p>
             </div>
         </div>
     </div>

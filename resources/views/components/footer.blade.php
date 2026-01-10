@@ -5,7 +5,7 @@
         <!-- Logo & Nama -->
         <div class="space-y-4">
             <div class="flex items-center gap-3">
-                <img src="{{ asset('images/logo-ptpn.png') }}" alt="PTPN Logo" class="h-12 w-auto">
+                <img src="{{ asset('logo.png') }}" alt="PTPN Logo" class="h-12 w-auto">
                 <div>
                     <p class="font-semibold leading-tight">
                         PT Perkebunan Nusantara I
