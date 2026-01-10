@@ -2,14 +2,15 @@
 
 namespace App\Filament\Pages;
 
-use App\Filament\Resources\Users\UserResource;
 use App\Models\User;
 use Filament\Pages\Page;
-use Filament\Tables\Columns\SelectColumn;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+use Filament\Actions\Action;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Columns\SelectColumn;
+use App\Filament\Resources\Users\UserResource;
+use Filament\Tables\Concerns\InteractsWithTable;
 
 class PendingUsers extends Page implements HasTable
 {
@@ -59,6 +60,21 @@ class PendingUsers extends Page implements HasTable
                     ->sortable()
                     ->toggleable(),
 
+                TextColumn::make('acceptance_proof')
+                    ->label('Bukti Penerimaan')
+                    ->state(fn() => 'Lihat Bukti') // teks yang ditampilkan
+                    ->action(
+                        Action::make('previewAcceptanceProof')
+                            ->modalHeading('Bukti Penerimaan')
+                            ->modalSubmitAction(false) // tidak ada tombol submit
+                            ->modalCancelActionLabel('Tutup') // ganti label tombol cancel
+                            ->modalWidth('md') // sm, md, lg, xl, full
+                            ->modalContent(fn($record) => view(
+                                'filament.modals.acceptance-proof',
+                                ['record' => $record]
+                            ))
+                    )
+                    ->toggleable(),
                 SelectColumn::make('status')
                     ->label('Status')
                     ->options([

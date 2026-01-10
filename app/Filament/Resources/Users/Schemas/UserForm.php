@@ -65,6 +65,8 @@ class UserForm
                     ->preload()
                     ->required()
                     ->default('pending'),
+                TextInput::make('phone'),
+                TextInput::make('report_file'),
                 DatePicker::make('start_date')
                     ->label('Tanggal Mulai')
                     ->displayFormat('d F Y') // contoh: 03 Januari 2026

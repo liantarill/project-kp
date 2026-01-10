@@ -36,6 +36,7 @@ class User extends Authenticatable
         'start_date',
         'end_date',
         'report_file',
+        'phone'
     ];
 
     /**

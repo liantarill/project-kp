@@ -38,6 +38,10 @@ class UsersTable
                     ->searchable(),
                 TextColumn::make('status')
                     ->searchable(),
+                TextColumn::make('phone')
+                    ->searchable(),
+                TextColumn::make('report_file')
+                    ->searchable(),
                 TextColumn::make('start_date')
                     ->date()
                     ->sortable(),
