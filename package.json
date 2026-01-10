@@ -4,7 +4,7 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite",
-        "postinstall": "cp -r node_modules/leaflet/dist public/assets/leaflet"
+        "postinstall": "cpx \"node_modules/leaflet/dist/**/*\" public/assets/leaflet"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
