@@ -20,13 +20,20 @@
 
             <!-- Auth Links -->
             <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-4">
-                <a href="{{ route('login') }}" class="text-sm text-gray-700 hover:text-gray-900 transition">
-                    {{ __('Login') }}
-                </a>
-                <a href="{{ route('register') }}"
-                    class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 transition">
-                    {{ __('Register') }}
-                </a>
+                @auth
+                    <a href="{{ auth()->user()->role == 'admin' ? route('filament.admin.pages.dashboard') : route('dashboard') }}"
+                        class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 transition">
+                        {{ __('Dashboard') }}
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" class="text-sm text-gray-700 hover:text-gray-900 transition">
+                        {{ __('Login') }}
+                    </a>
+                    <a href="{{ route('register') }}"
+                        class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 transition">
+                        {{ __('Register') }}
+                    </a>
+                @endauth
             </div>
 
             <!-- Hamburger -->
@@ -56,13 +63,19 @@
         <!-- Responsive Auth Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="space-y-1">
-                <x-responsive-nav-link :href="route('login')">
-                    {{ __('Login') }}
-                </x-responsive-nav-link>
+                @auth
+                    <x-responsive-nav-link :href="auth()->user()->role === 'admin'? route('filament.admin.pages.dashboard'): route('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-responsive-nav-link>
+                @else
+                    <x-responsive-nav-link :href="route('login')">
+                        {{ __('Login') }}
+                    </x-responsive-nav-link>
 
-                <x-responsive-nav-link :href="route('register')">
-                    {{ __('Register') }}
-                </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('register')">
+                        {{ __('Register') }}
+                    </x-responsive-nav-link>
+                @endauth
             </div>
         </div>
     </div>
