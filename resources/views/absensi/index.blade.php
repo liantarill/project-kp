@@ -70,23 +70,22 @@
                     Kehadiran</label>
                 <div class="grid grid-cols-3 gap-3">
                     <button type="button" onclick="selectStatus('present')"
-                        class="status-btn relative group flex flex-col items-center justify-center p-4 rounded-2xl bg-white border-2 border-emerald-500 shadow-soft transition-all duration-200 scale-105"
+                        class="status-btn flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-50 border-2 border-transparent transition-all duration-200 text-slate-400 hover:text-slate-600"
                         data-status="present">
-                        <div class="absolute top-2 right-2 w-2 h-2 rounded-full bg-emerald-500"></div>
                         <span class="material-symbols-outlined text-emerald-500 mb-2 text-[26px]">check_circle</span>
-                        <span class="text-xs font-semibold text-slate-800">Hadir</span>
+                        <span class="text-xs font-medium">Hadir</span>
                     </button>
                     <button type="button" onclick="selectStatus('permission')"
-                        class="status-btn flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-50 border border-transparent hover:bg-white hover:border-slate-200 transition-all duration-200 text-slate-400 hover:text-slate-600"
+                        class="status-btn flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-50 border-2 border-transparent  transition-all duration-200 text-slate-400 hover:text-slate-600"
                         data-status="permission">
                         <span class="material-symbols-outlined mb-2 text-[26px]">assignment</span>
                         <span class="text-xs font-medium">Izin</span>
                     </button>
                     <button type="button" onclick="selectStatus('sick')"
-                        class="status-btn flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-50 border border-transparent hover:bg-white hover:border-slate-200 transition-all duration-200 text-slate-400 hover:text-slate-600"
+                        class="status-btn flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-50 border-2 border-transparent  transition-all duration-200 text-slate-400 hover:text-slate-600"
                         data-status="sick">
-                        <span class="material-symbols-outlined mb-2 text-[26px]">local_hospital</span>
-                        <span class="text-xs font-medium">Sakit</span>
+                        <span class="material-symbols-outlined mb-2 text-[26px">local_hospital</span>
+                        <span class="text-xs font-medium">sakit</span>
                     </button>
                 </div>
             </section>
@@ -123,12 +122,18 @@
                     <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Foto</label>
                 </div>
                 <div class="relative overflow-hidden rounded-3xl bg-slate-100 shadow-sm ring-1 ring-slate-100">
-                    <video id="video" autoplay playsinline class="w-full aspect-[4/3] object-cover"
-                        style="transform: scaleX(-1);"></video>
+                    <div
+                        class="w-full max-w-md mx-auto overflow-hidden rounded-xl bg-black
+            aspect-[3/4] sm:aspect-[4/3]">
 
-                    <canvas id="canvas" class="hidden"></canvas>
+                        <video id="video" autoplay playsinline class="w-full h-full object-cover"
+                            style="transform: scaleX(-1);">
+                        </video>
 
-                    <img id="previewImage" class="hidden w-full aspect-[4/3] object-cover" />
+                        <canvas id="canvas" class="hidden w-full h-full"></canvas>
+
+                        <img id="previewImage" class="hidden w-full h-full object-cover" />
+                    </div>
 
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none">

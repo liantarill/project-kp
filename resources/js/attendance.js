@@ -13,6 +13,7 @@ window.MAX_RADIUS = 100;
 // Initialize on page load
 document.addEventListener("DOMContentLoaded", () => {
     checkCameraPermission();
+    selectStatus("present");
 
     if (window.selectedStatus === "present") {
         if (navigator.geolocation) {
@@ -163,7 +164,7 @@ window.selectStatus = function (status) {
             "text-blue-500"
         );
         icon.classList.add("text-slate-400");
-        text.classList.remove("font-semibold");
+        text.classList.remove("font-semibold", "text-slate-800");
         text.classList.add("font-medium");
     });
 
@@ -174,7 +175,7 @@ window.selectStatus = function (status) {
     const icon = selectedBtn.querySelector(".material-symbols-outlined");
     const text = selectedBtn.querySelector(".text-xs");
     text.classList.remove("font-medium");
-    text.classList.add("font-semibold");
+    text.classList.add("font-semibold", "text-slate-800");
 
     const cameraSection = document.getElementById("cameraSection");
     const locationSection = document.getElementById("locationSection");
