@@ -2,7 +2,7 @@
     <script src="{{ asset('assets/leaflet/leaflet.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/leaflet/leaflet.css') }}">
 
-    <div class="min-h-screen bg-[#F8FAFC] pb-32">
+    <div class="min-h-screen pb-32">
         <main class="pt-20 px-5 max-w-4xl mx-auto space-y-8">
 
             <!-- Page Header -->

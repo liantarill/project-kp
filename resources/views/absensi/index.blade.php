@@ -12,19 +12,22 @@
         }
     </style>
 
-
+    <x-slot name="header">
+        <h1 class="font-bold text-2xl sm:text-3xl text-gray-800 leading-tight">
+            Absensi Hari Ini
+        </h1>
+        <p class="text-sm text-gray-500 mt-1">Silakan lakukan absensi dengan foto dan lokasi saat ini</p>
+    </x-slot>
 
     <main class=" px-5 max-w-md mx-auto space-y-8">
 
         <!-- Date Header -->
         <div class="flex flex-col items-center justify-center py-2 space-y-1">
             <span
-                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-[11px] font-semibold tracking-wide uppercase">
-                <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-50 text-primary text-[11px] font-semibold tracking-wide uppercase">
+                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
                 {{ now()->translatedFormat('l, d M Y') }}
             </span>
-            <h2 class="text-2xl font-semibold text-slate-900 tracking-tight">Absensi Masuk</h2>
-            <p class="text-sm text-slate-400">Silakan lengkapi data kehadiran Anda</p>
         </div>
 
         <!-- Error Messages -->

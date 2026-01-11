@@ -17,8 +17,9 @@ export default {
             colors: {
                 primary: {
                     DEFAULT: "#004B23",
-                    light: "#60a5fa",
-                    // dark: "#1d4ed8",
+                    light: "#2E8B57",
+                    accent: "#dcfce7",
+                    dark: "#003018",
                 },
                 secondary: {
                     DEFAULT: "#64748b", // slate-500
