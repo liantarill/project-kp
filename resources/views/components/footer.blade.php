@@ -4,7 +4,7 @@
 
         <!-- Logo & Nama -->
         <div class="space-y-4">
-            <div class="flex items-center gap-3">
+            <div class="flex lg:block items-center gap-3 ">
                 <img src="{{ asset('logo.png') }}" alt="PTPN Logo" class="h-12 w-auto">
                 <div>
                     <p class="font-semibold leading-tight">
@@ -33,7 +33,7 @@
             <h4 class="font-semibold mb-4">Hubungi Kami</h4>
             <ul class="space-y-2 text-sm text-green-100">
                 <li>Ruang SDM – PTPN I Regional 7</li>
-                <li>Bandar Lampung, Lampung</li>
+                <li>Jl. Teuku Umar No.300, Kedaton, Kec. Kedaton, Kota Bandar Lampung, Lampung 35141</li>
                 <li>
                     <a href="mailto:sdmptpn1@gmail.com" class="hover:underline">
                         sdmptpn1@gmail.com
@@ -46,7 +46,7 @@
         <!-- Media Sosial -->
         <div>
             <h4 class="font-semibold mb-4">Media Sosial</h4>
-            <div class="flex gap-3">
+            <div class="flex gap-3 flex-wrap">
                 @php
                     $icons = [
                         'instagram' => 'fa-brands fa-instagram',
@@ -60,14 +60,30 @@
 
                 @foreach ($icons as $name => $symbol)
                     <a href="#"
-                        class="w-10 h-10 p-5 flex items-center justify-center
+                        class="w-10 h-10 flex items-center justify-center
               bg-white text-primary rounded-full
               hover:scale-110 transition">
                         <span class="sr-only">{{ $name }}</span>
                         <i class="{{ $symbol }}"></i>
                     </a>
                 @endforeach
+            </div>
+        </div>
 
+    </div>
+
+    <!-- Tim Developer Section -->
+    <div class="border-t border-green-700">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <h4 class="font-semibold mb-3 text-center">Tim Developer</h4>
+            <div class="flex justify-center gap-6 flex-wrap">
+
+                @foreach (['Malsya Cantika', 'Aathifah D. C.', 'Yusuf Herlian A. R.'] as $developer)
+                    <div class="flex items-center gap-2 text-sm text-green-100">
+                        <i class="fa-solid fa-code"></i>
+                        <span>{{ $developer }}</span>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -79,7 +95,7 @@
                     flex flex-col md:flex-row
                     justify-between items-center
                     text-sm text-green-200 gap-2">
-            <span>
+            <span class="text-center">
                 &copy; {{ date('Y') }} PT Perkebunan Nusantara I Regional 7.
                 Semua hak dilindungi.
             </span>

@@ -196,8 +196,8 @@
                                         meter</p>
                                 </div>
                                 <button type="button" onclick="requestLocation()"
-                                    class="text-slate-400 hover:text-blue-600 transition-colors pointer-events-auto">
-                                    <span class="material-symbols-outlined text-[20px]">refresh</span>
+                                    class="text-slate-400  hover:text-blue-600 transition-colors pointer-events-auto">
+                                    <span class="material-symbols-outlined text-[20px] border-blue-500">refresh</span>
                                 </button>
                             </div>
                         </div>

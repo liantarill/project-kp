@@ -35,3 +35,6 @@
     scrollbar-color: rgba(100, 116, 139, 0.5) transparent;
     font-family: "Plus Jakarta Sans", "Inter", sans-serif;
 }
+* {
+    touch-action: manipulation;
+}

@@ -62,7 +62,7 @@
                         <!-- Avatar -->
                         <div class="relative inline-block mb-4">
                             <div
-                                class="w-32 h-32 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white text-4xl font-bold shadow-lg">
+                                class="w-32 h-32 rounded-full bg-gradient-to-br from-primary-light to-primary flex items-center justify-center text-white text-4xl font-bold shadow-lg">
                                 {{ strtoupper(substr($user->name, 0, 1)) }}
                             </div>
                             <div
@@ -140,8 +140,8 @@
                                             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
                                     <span class="text-gray-600">
-                                        {{ \Carbon\Carbon::parse($user->start_date)->format('d M Y') }} -
-                                        {{ \Carbon\Carbon::parse($user->end_date)->format('d M Y') }}
+                                        {{ \Carbon\Carbon::parse($user->start_date)->translatedFormat('d M Y') }} -
+                                        {{ \Carbon\Carbon::parse($user->end_date)->translatedFormat('d M Y') }}
                                     </span>
                                 </div>
                             @endif
@@ -233,13 +233,13 @@
                             <div>
                                 <label class="block text-sm font-semibold text-gray-500 mb-1">Tanggal Mulai</label>
                                 <p class="text-gray-900 font-medium">
-                                    {{ \Carbon\Carbon::parse($user->start_date)->format('d F Y') }}
+                                    {{ \Carbon\Carbon::parse($user->start_date)->translatedFormat('d F Y') }}
                                 </p>
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-gray-500 mb-1">Tanggal Selesai</label>
                                 <p class="text-gray-900 font-medium">
-                                    {{ \Carbon\Carbon::parse($user->end_date)->format('d F Y') }}
+                                    {{ \Carbon\Carbon::parse($user->end_date)->translatedFormat('d F Y') }}
                                 </p>
                             </div>
                         @endif
