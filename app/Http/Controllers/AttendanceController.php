@@ -44,7 +44,8 @@ class AttendanceController extends Controller
 
         return Excel::download(
             new AttendanceExcelExport(Auth::id()),
-            'Rekap Absensi-'.Auth::user()->name.'.xlsx');
+            'Rekap Absensi-' . Auth::user()->name . '.xlsx'
+        );
     }
 
     public function store(Request $request)
@@ -77,7 +78,7 @@ class AttendanceController extends Controller
 
             if ($distance > $this->maxRadius) {
                 return back()->withErrors([
-                    'location' => 'Anda berada di luar area kantor ('.round($distance).' meter)',
+                    'location' => 'Anda berada di luar area kantor (' . round($distance) . ' meter)',
                 ]);
             }
 
@@ -123,13 +124,14 @@ class AttendanceController extends Controller
         );
 
         if (! $attendance->wasRecentlyCreated) {
-            Storage::disk('public')->delete($fileName);
+            if ($fileName) {
+                Storage::disk('public')->delete($fileName);
+            }
 
             return back()->withErrors(['attendance' => 'Anda sudah absen hari ini.']);
         }
 
         return redirect()->back()->with('success', 'absensi berhasil');
-
     }
 
     private function distance($lat1, $lon1, $lat2, $lon2): float

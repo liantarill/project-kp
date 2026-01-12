@@ -20,7 +20,9 @@
     </x-slot>
 
     <main class=" px-5 max-w-md mx-auto space-y-8">
-
+        @if (session('success'))
+            <x-attendance-success-popup />
+        @endif
         <!-- Date Header -->
         <div class="flex flex-col items-center justify-center py-2 space-y-1">
             <span
@@ -44,15 +46,9 @@
             </div>
         @endif
 
-        <!-- Success Message -->
-        @if (session('success'))
-            <div class="bg-emerald-50 border-l-4 border-emerald-500 rounded-xl p-4">
-                <div class="flex">
-                    <span class="material-symbols-outlined text-emerald-500 text-[20px] mr-3">check_circle</span>
-                    <p class="text-sm text-emerald-700">{{ session('success') }}</p>
-                </div>
-            </div>
-        @endif
+
+
+
 
         <form method="POST" action="{{ route('absensi.store') }}" enctype="multipart/form-data" id="attendanceForm">
             @csrf
