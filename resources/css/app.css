@@ -50,3 +50,14 @@
     --tw-border-opacity: 1;
     border-color: rgb(16 185 129 / var(--tw-border-opacity, 1)) /* #10b981 */;
 }
+.border-blue-500 {
+    --tw-border-opacity: 1;
+    border-color: rgb(59 130 246 / var(--tw-border-opacity, 1)) /* #3b82f6 */;
+}
+
+.top-2 {
+    top: 0.5rem /* 8px */;
+}
+.right-2 {
+    right: 0.5rem /* 8px */;
+}

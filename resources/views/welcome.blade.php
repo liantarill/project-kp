@@ -19,7 +19,7 @@
                 berbasis lokasi dan foto bukti secara real-time.
             </p>
 
-            <a href="{{ route('login') }}"
+            <a href="{{ auth()->user() ? route('absensi.index') : route('login') }}"
                 class="inline-block bg-green-700 hover:bg-green-800
                   text-white font-medium px-8 py-3 rounded-full shadow-md">
                 Masuk Absensi
