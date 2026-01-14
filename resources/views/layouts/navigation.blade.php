@@ -80,10 +80,8 @@
             </div>
         </div>
     </div>
+    <div x-cloak x-show="open" x-collapse.duration.300ms x-transition.opacity class="sm:hidden overflow-hidden">
 
-    <!-- Responsive Navigation Menu -->
-    <div class="block sm:hidden overflow-hidden transition-all duration-300 ease-linear"
-        :style="open ? 'max-height: 500px; opacity: 1' : 'max-height: 0; opacity: 0'">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
@@ -106,7 +104,7 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+                <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 

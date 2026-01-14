@@ -61,3 +61,7 @@
 .right-2 {
     right: 0.5rem /* 8px */;
 }
+
+[x-cloak] {
+    display: none !important;
+}

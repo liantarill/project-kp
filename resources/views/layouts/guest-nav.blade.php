@@ -53,7 +53,7 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
+    <div x-cloak x-show="open" x-collapse.duration.300ms x-transition.opacity class="sm:hidden overflow-hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
                 {{ __('Beranda') }}
@@ -68,11 +68,11 @@
                         {{ __('Dashboard') }}
                     </x-responsive-nav-link>
                 @else
-                    <x-responsive-nav-link :href="route('login')">
+                    <x-responsive-nav-link :href="route('login')" :active="request()->routeIs('login')">
                         {{ __('Login') }}
                     </x-responsive-nav-link>
 
-                    <x-responsive-nav-link :href="route('register')">
+                    <x-responsive-nav-link :href="route('register')" :active="request()->routeIs('register')">
                         {{ __('Register') }}
                     </x-responsive-nav-link>
                 @endauth
