@@ -2,12 +2,13 @@
 
 namespace App\Filament\Resources\Users\Pages;
 
+use Filament\Actions\DeleteAction;
+use Filament\Actions\RestoreAction;
+use Filament\Actions\ForceDeleteAction;
+use Filament\Resources\Pages\EditRecord;
 use App\Filament\Resources\Users\UserResource;
 use App\Filament\Resources\Users\Widgets\UserAttendanceStatistics;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\ForceDeleteAction;
-use Filament\Actions\RestoreAction;
-use Filament\Resources\Pages\EditRecord;
+use App\Filament\Resources\Users\RelationManagers\AttendancesRelationManager;
 
 class EditUser extends EditRecord
 {
@@ -26,6 +27,12 @@ class EditUser extends EditRecord
     {
         return [
             UserAttendanceStatistics::class,
+        ];
+    }
+    protected function getRelations(): array
+    {
+        return [
+            AttendancesRelationManager::class,
         ];
     }
 }

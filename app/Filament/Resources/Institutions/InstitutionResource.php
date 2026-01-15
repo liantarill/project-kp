@@ -14,10 +14,12 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class InstitutionResource extends Resource
 {
     protected static ?string $model = Institution::class;
+    protected static string|UnitEnum|null $navigationGroup = 'Data Master';
 
     public static function getLabel(): string
     {
@@ -53,7 +55,7 @@ class InstitutionResource extends Resource
                     ->searchable(),
                 TextColumn::make('type')
                     ->label('Jenis Instansi')
-                    ->formatStateUsing(fn ($state) => match ($state) {
+                    ->formatStateUsing(fn($state) => match ($state) {
                         'SMA' => 'Sekolah Menengah Atas',
                         'SMK' => 'Sekolah Menengah Kejuruan',
                         'PERGURUAN_TINGGI' => 'Perguruan Tinggi'

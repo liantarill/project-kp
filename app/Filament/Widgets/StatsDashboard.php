@@ -32,12 +32,13 @@ class StatsDashboard extends StatsOverviewWidget
                 ->color('primary')
                 ->url(ActiveUsers::getUrl())
                 ->description('Lihat semua User Aktif')
-                ->descriptionIcon(Heroicon::ArrowRight, IconPosition::Before)
+                ->descriptionIcon(Heroicon::ArrowRightCircle, IconPosition::Before)
                 ->icon(Heroicon::CheckCircle),
             Stat::make('Peserta Menunggu Verifikasi', $total)
                 ->icon(Heroicon::CheckCircle)
+                ->descriptionIcon(Heroicon::ArrowRightCircle, IconPosition::Before)
                 ->url(PendingUsers::getUrl()),
-            Stat::make('Divisi Penuh', $fullDepartmentsCount.' / '.$totalDepartments)
+            Stat::make('Bagian Penuh', $fullDepartmentsCount . ' / ' . $totalDepartments)
                 ->url(DepartmentResource::getUrl('index'))
                 ->description('Lihat semua department')
                 ->icon(Heroicon::Squares2x2),

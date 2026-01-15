@@ -9,6 +9,7 @@ use App\Filament\Resources\Departments\Schemas\DepartmentForm;
 use App\Filament\Resources\Departments\Tables\DepartmentsTable;
 use App\Models\Department;
 use BackedEnum;
+use UnitEnum;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
@@ -20,20 +21,21 @@ use Filament\Tables\Table;
 class DepartmentResource extends Resource
 {
     protected static ?string $model = Department::class;
+    protected static string|UnitEnum|null $navigationGroup = 'Data Master';
 
     public static function getLabel(): string
     {
-        return 'Divisi';
+        return 'Bagian';
     }
 
     public static function getPluralLabel(): string
     {
-        return 'Divisi';
+        return 'Bagian';
     }
 
     public static function getNavigationLabel(): string
     {
-        return 'Divisi';
+        return 'Bagian';
     }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Squares2x2;
@@ -61,10 +63,11 @@ class DepartmentResource extends Resource
 
                 TextColumn::make('sisa_kuota')
                     ->label('Sisa Kuota')
-                    ->getStateUsing(fn ($record) => $record->quota - $record->users_count)
+                    ->getStateUsing(fn($record) => $record->quota - $record->users_count)
                     ->badge()
                     ->size('md')
-                    ->color(fn ($state) => $state <= 0 ? 'danger' : 'success'
+                    ->color(
+                        fn($state) => $state <= 0 ? 'danger' : 'success'
                     ),
             ])
             ->recordActions([

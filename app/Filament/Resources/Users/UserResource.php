@@ -81,19 +81,19 @@ class UserResource extends Resource
                     ->sortable()
                     ->badge()
                     ->size('md')
-                    ->formatStateUsing(fn ($state) => match ($state) {
+                    ->formatStateUsing(fn($state) => match ($state) {
                         'pending' => 'Menunggu',
                         'active' => 'Aktif',
                         'completed' => 'Lulus',
                         'cancelled' => 'Batal',
                     })
-                    ->icon(fn (string $state): Heroicon => match ($state) {
+                    ->icon(fn(string $state): Heroicon => match ($state) {
                         'pending' => Heroicon::OutlinedClock,
                         'active' => Heroicon::OutlinedCheckCircle,
-                        'completed' => Heroicon::OutlinedClipboard  ,
+                        'completed' => Heroicon::OutlinedClipboard,
                         'cancelled' => Heroicon::OutlinedXCircle,
                     })
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'pending' => 'warning',
                         'active' => 'success',
                         'completed' => 'gray',
@@ -106,7 +106,6 @@ class UserResource extends Resource
                 // ViewAction::make(),
                 DeleteAction::make(),
             ]);
-
     }
 
     public static function getRelations(): array

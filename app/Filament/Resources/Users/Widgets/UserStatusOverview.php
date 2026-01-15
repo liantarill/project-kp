@@ -32,25 +32,25 @@ class UserStatusOverview extends StatsOverviewWidget
                 ->color('warning')
                 ->url(PendingUsers::getUrl())
                 ->description('Lihat semua')
-                ->descriptionIcon(Heroicon::ArrowRight, IconPosition::Before)
+                ->descriptionIcon(Heroicon::ArrowRightCircle, IconPosition::Before)
                 ->icon(Heroicon::Clock),
             Stat::make('Aktif', $counts['active'] ?? 0)
                 ->color('primary')
                 ->url(ActiveUsers::getUrl())
                 ->description('Lihat semua')
-                ->descriptionIcon(Heroicon::ArrowRight, IconPosition::Before)
+                ->descriptionIcon(Heroicon::ArrowRightCircle, IconPosition::Before)
                 ->icon(Heroicon::CheckCircle),
             Stat::make('Lulus', $counts['completed'] ?? 0)
                 ->color('success')
-                ->url(PendingUsers::getUrl())
+                // ->url(PendingUsers::getUrl())
                 ->description('Lihat semua')
-                ->descriptionIcon(Heroicon::ArrowRight, IconPosition::Before)
+                ->descriptionIcon(Heroicon::ArrowRightCircle, IconPosition::Before)
                 ->icon(Heroicon::Clipboard),
             Stat::make('Batal', $counts['cancelled'] ?? 0)
                 ->color('danger')
-                ->url(PendingUsers::getUrl())
+                // ->url(PendingUsers::getUrl())
                 ->description('Lihat semua')
-                ->descriptionIcon(Heroicon::ArrowRight, IconPosition::Before)
+                ->descriptionIcon(Heroicon::ArrowRightCircle, IconPosition::Before)
                 ->icon(Heroicon::XCircle),
         ];
     }

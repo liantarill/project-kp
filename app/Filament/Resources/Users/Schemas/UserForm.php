@@ -16,7 +16,6 @@ class UserForm
             ->components([
                 TextInput::make('name')
                     ->label('Nama Lengkap')
-                    ->readOnly()
                     ->required(),
                 TextInput::make('email')
                     ->label('Alamat Email')
@@ -31,7 +30,6 @@ class UserForm
                     ->preload(),
                 TextInput::make('major')
                     ->label('Jurusan')
-                    ->readOnly()
                     ->required(),
                 Select::make('level')
                     ->label('Jenjang')
@@ -47,7 +45,7 @@ class UserForm
                     ->preload()
                     ->required(),
                 Select::make('department_id')
-                    ->label('Divisi')
+                    ->label('Bagian')
                     ->relationship('department', 'name')
                     ->searchable()
                     ->preload()

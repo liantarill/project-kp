@@ -2,24 +2,31 @@
 
 namespace App\Filament\Pages;
 
-use App\Filament\Resources\Users\UserResource;
+use UnitEnum;
+use BackedEnum;
 use App\Models\User;
 use Filament\Pages\Page;
-use Filament\Tables\Columns\SelectColumn;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+use Filament\Facades\Filament;
+use Filament\View\PanelsIconAlias;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Columns\SelectColumn;
+use Filament\Support\Facades\FilamentIcon;
+use Illuminate\Contracts\Support\Htmlable;
+use App\Filament\Resources\Users\UserResource;
+use Filament\Tables\Concerns\InteractsWithTable;
 
 class ActiveUsers extends Page implements HasTable
 {
     use InteractsWithTable;
 
-    protected static ?string $navigationLabel = 'User Aktif';
+    protected static ?string $navigationLabel = 'Peserta Aktif';
 
     public function getTitle(): string
     {
-        return 'User Aktif';
+        return 'Peserta Aktif';
     }
 
     protected string $view = 'filament.pages.active-users';
@@ -28,15 +35,21 @@ class ActiveUsers extends Page implements HasTable
     {
         return [
             UserResource::getUrl('index') => 'User',
-            'User Aktif',
+            'Peserta Aktif',
         ];
     }
 
-    public static function shouldRegisterNavigation(): bool
-    {
-        return false;
-    }
 
+    // public static function shouldRegisterNavigation(): bool
+    // {
+    //     return false;
+    // }
+
+
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::CheckBadge;
+
+    protected static string | UnitEnum | null $navigationGroup = 'Manajemen User';
+    // }
     public function table(Table $table): Table
     {
         return $table
@@ -48,7 +61,7 @@ class ActiveUsers extends Page implements HasTable
                     ->sortable(),
 
                 TextColumn::make('department.name')
-                    ->label('Divisi')
+                    ->label('Bagian')
                     ->sortable()
                     ->toggleable(),
 

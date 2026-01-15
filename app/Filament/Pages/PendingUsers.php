@@ -2,10 +2,13 @@
 
 namespace App\Filament\Pages;
 
+use UnitEnum;
+use BackedEnum;
 use App\Models\User;
 use Filament\Pages\Page;
 use Filament\Tables\Table;
 use Filament\Actions\Action;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Columns\SelectColumn;
@@ -16,11 +19,11 @@ class PendingUsers extends Page implements HasTable
 {
     use InteractsWithTable;
 
-    protected static ?string $navigationLabel = 'User Menunggu Verifikasi';
+    protected static ?string $navigationLabel = 'Verifikasi Peserta';
 
     public function getTitle(): string
     {
-        return 'User Menunggu Verifikasi';
+        return 'Verifikasi Peserta';
     }
 
     protected string $view = 'filament.pages.pending-users';
@@ -29,14 +32,18 @@ class PendingUsers extends Page implements HasTable
     {
         return [
             UserResource::getUrl('index') => 'User',
-            'User Menunggu Verifikasi',
+            'Verifikasi Peserta',
         ];
     }
 
-    public static function shouldRegisterNavigation(): bool
-    {
-        return false;
-    }
+    // public static function shouldRegisterNavigation(): bool
+    // {
+    //     return false;
+    // }
+
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::Clock;
+
+    protected static string | UnitEnum | null $navigationGroup = 'Manajemen User';
 
     public function table(Table $table): Table
     {
@@ -51,7 +58,7 @@ class PendingUsers extends Page implements HasTable
                     ->sortable(),
 
                 TextColumn::make('department.name')
-                    ->label('Divisi')
+                    ->label('Bagian')
                     ->sortable()
                     ->toggleable(),
 
@@ -62,13 +69,15 @@ class PendingUsers extends Page implements HasTable
 
                 TextColumn::make('acceptance_proof')
                     ->label('Bukti Penerimaan')
-                    ->state(fn() => 'Lihat Bukti') // teks yang ditampilkan
+                    ->state(fn() => 'Lihat Bukti')
+                    ->badge('info')
+                    ->size('md')
                     ->action(
                         Action::make('previewAcceptanceProof')
                             ->modalHeading('Bukti Penerimaan')
+                            ->modalWidth('3xl')
                             ->modalSubmitAction(false) // tidak ada tombol submit
                             ->modalCancelActionLabel('Tutup') // ganti label tombol cancel
-                            ->modalWidth('md') // sm, md, lg, xl, full
                             ->modalContent(fn($record) => view(
                                 'filament.modals.acceptance-proof',
                                 ['record' => $record]

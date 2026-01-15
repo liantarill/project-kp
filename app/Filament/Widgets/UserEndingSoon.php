@@ -18,27 +18,29 @@ class UserEndingSoon extends TableWidget
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn (): Builder => User::query()
-                ->where('status', 'active')
-                ->whereBetween('end_date', [
-                    now(),
-                    now()->addWeeks(2),
-                ])
-                ->orderBy('end_date')
+            ->query(
+                fn(): Builder => User::query()
+                    ->where('status', 'active')
+                    ->whereBetween('end_date', [
+                        now(),
+                        now()->addWeeks(2),
+                    ])
+                    ->orderBy('end_date')
             )
             ->columns([
                 TextColumn::make('name')
                     ->label('Nama Lengkap'),
                 TextColumn::make('department.name')
-                    ->label('Divisi'),
-                TextColumn::make('end_date'),
+                    ->label('Bagian'),
+                TextColumn::make('end_date')
+                    ->date('d F Y'),
 
                 TextColumn::make('remaining_days')
                     ->label('Hari Tersisa')
-                    ->getStateUsing(fn ($record) => (int) ceil(now()->diffInDays($record->end_date, false)))
+                    ->getStateUsing(fn($record) => (int) ceil(now()->diffInDays($record->end_date, false)))
                     ->suffix(' hari')
                     ->badge()
-                    ->color(fn ($state) => $state <= 3 ? 'danger' : 'warning'),
+                    ->color(fn($state) => $state <= 3 ? 'danger' : 'warning'),
             ])
             ->filters([
                 //
