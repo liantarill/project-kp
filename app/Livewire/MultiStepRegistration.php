@@ -90,8 +90,8 @@ class MultiStepRegistration extends Component
             'phone.regex' => 'Nomor telepon hanya boleh berisi angka',
 
             // Step 3
-            'department_id.required' => 'Divisi wajib dipilih',
-            'department_id.exists' => 'Divisi tidak valid',
+            'department_id.required' => 'Bagian wajib dipilih',
+            'department_id.exists' => 'Bagian tidak valid',
             'start_date.required' => 'Tanggal mulai wajib diisi',
             'start_date.date' => 'Format tanggal mulai tidak valid',
             'start_date.after_or_equal' => 'Tanggal mulai tidak boleh kurang dari hari ini',
