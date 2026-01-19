@@ -3,61 +3,126 @@
 namespace App\Livewire;
 
 use App\Models\Attendance;
+use App\Services\ReportFilterService;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class AttendanceStatsOverview extends StatsOverviewWidget
 {
-    protected ?string $heading = 'Sebaran Kehadiran Peserta';
+    protected $listeners = ['filterUpdated' => 'updateFilters'];
+
+    public array $filters = [];
+
+    public function mount(): void
+    {
+        $this->filters = ReportFilterService::getDefaults();
+    }
+
+    public function updateFilters(array $filters): void
+    {
+        $this->filters = ReportFilterService::sanitize($filters);
+    }
+
     protected function getStats(): array
     {
-        $period = request('period', 'month');
-        $month = request('month', now()->month);
-        $year = request('year', now()->year);
+        $cacheKey = 'attendance_stats_' . md5(json_encode($this->filters));
 
-        $query = Attendance::query();
+        return Cache::remember($cacheKey, now()->addMinutes(5), function () {
+            $filters = $this->filters;
+            $period = $filters['period'] ?? 'all';
 
-        if ($period === 'month') {
-            $query->whereMonth('date', $month)
-                ->whereYear('date', $year);
-        } elseif ($period === 'year') {
-            $query->whereYear('date', $year);
-        }
+            // Build query dengan filter
+            $query = Attendance::query();
 
-        $present = (clone $query)->where('status', 'present')->count();
-        $permission = (clone $query)->where('status', 'permission')->count();
-        $sick = (clone $query)->where('status', 'sick')->count();
-        $absent = (clone $query)->where('status', 'absent')->count();
-        $late = (clone $query)->where('status', 'late')->count();
+            // Apply date filter
+            switch ($period) {
+                case 'month':
+                    if (!empty($filters['month']) && !empty($filters['year'])) {
+                        $query->whereMonth('date', $filters['month'])
+                            ->whereYear('date', $filters['year']);
+                    }
+                    break;
 
-        $total = $present + $permission + $sick + $absent + $late;
-        $attendanceRate = $total > 0 ? round(($present / $total) * 100, 1) : 0;
+                case 'year':
+                    if (!empty($filters['year'])) {
+                        $query->whereYear('date', $filters['year']);
+                    }
+                    break;
 
-        return [
-            Stat::make('Tingkat Kehadiran', $attendanceRate . '%')
-                ->description('Persentase kehadiran')
-                ->descriptionIcon('heroicon-m-check-badge')
-                ->color('success'),
+                case 'custom':
+                    if (!empty($filters['start_date']) && !empty($filters['end_date'])) {
+                        $query->whereBetween('date', [
+                            $filters['start_date'],
+                            $filters['end_date']
+                        ]);
+                    }
+                    break;
+            }
 
-            Stat::make('Total Hadir', $present)
-                ->description('Kehadiran tepat waktu')
-                ->descriptionIcon('heroicon-m-check-circle')
-                ->color('success'),
+            // Single query untuk semua stats
+            $stats = $query->selectRaw("
+                    COUNT(*) as total,
+                    SUM(CASE WHEN status = 'present' THEN 1 ELSE 0 END) as hadir,
+                    SUM(CASE WHEN status = 'late' THEN 1 ELSE 0 END) as terlambat,
+                    SUM(CASE WHEN status = 'absent' THEN 1 ELSE 0 END) as alpha,
+                    SUM(CASE WHEN status = 'permission' THEN 1 ELSE 0 END) as izin,
+                    SUM(CASE WHEN status = 'sick' THEN 1 ELSE 0 END) as sakit
+                ")
+                ->first();
 
-            Stat::make('Terlambat', $late)
-                ->description('Datang terlambat')
-                ->descriptionIcon('heroicon-m-clock')
-                ->color('warning'),
+            // Hitung persentase kehadiran
+            $totalAttendance = $stats->total ?? 0;
+            $presentCount = ($stats->hadir ?? 0) + ($stats->terlambat ?? 0); // Hadir + Terlambat dianggap hadir
+            $attendanceRate = $totalAttendance > 0
+                ? round(($presentCount / $totalAttendance) * 100, 1)
+                : 0;
 
-            Stat::make('Izin', $permission)
-                ->description('Izin/sakit')
-                ->descriptionIcon('heroicon-m-document-text')
-                ->color('info'),
+            return [
+                Stat::make('Total Kehadiran', number_format($stats->total ?? 0))
+                    ->description('Total record kehadiran')
+                    ->descriptionIcon('heroicon-s-calendar')
+                    ->color('primary'),
 
-            Stat::make('Alpha', $absent)
-                ->description('Tanpa keterangan')
-                ->descriptionIcon('heroicon-m-x-circle')
-                ->color('danger'),
-        ];
+                Stat::make('Tingkat Kehadiran', $attendanceRate . '%')
+                    ->description($presentCount . ' dari ' . $totalAttendance . ' kehadiran')
+                    ->descriptionIcon('heroicon-s-chart-bar')
+                    ->color($attendanceRate >= 80 ? 'success' : ($attendanceRate >= 60 ? 'warning' : 'danger')),
+
+                Stat::make('Hadir Tepat Waktu', number_format($stats->hadir ?? 0))
+                    ->description('Kehadiran tanpa terlambat')
+                    ->descriptionIcon('heroicon-s-check-circle')
+                    ->color('success'),
+
+                Stat::make('Terlambat', number_format($stats->terlambat ?? 0))
+                    ->description('Datang terlambat')
+                    ->descriptionIcon('heroicon-s-clock')
+                    ->color('warning'),
+
+                Stat::make('Izin', number_format($stats->izin ?? 0))
+                    ->description('Izin dengan keterangan')
+                    ->descriptionIcon('heroicon-s-document-text')
+                    ->color('info'),
+
+                Stat::make('Sakit', number_format($stats->sakit ?? 0))
+                    ->description('Sakit dengan surat')
+                    ->descriptionIcon('heroicon-s-heart')
+                    ->color('info'),
+
+                Stat::make('Alpha', number_format($stats->alpha ?? 0))
+                    ->description('Tidak hadir tanpa keterangan')
+                    ->descriptionIcon('heroicon-s-x-circle')
+                    ->color('danger'),
+            ];
+        });
+    }
+
+    /**
+     * Get columns count untuk layout
+     */
+    protected function getColumns(): int
+    {
+        return 4; // 4 kolom untuk layout yang rapi
     }
 }
