@@ -2,20 +2,14 @@
     <script src="{{ asset('assets/leaflet/leaflet.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/leaflet/leaflet.css') }}">
 
+    <x-slot name="header">
+        <h1 class="font-bold text-2xl sm:text-3xl text-gray-800 leading-tight">
+            Riwayat Kehadiran
+        </h1>
+        <p class="text-sm text-gray-500 mt-1">Lihat seluruh data kehadiran Anda</p>
+    </x-slot>
     <div class="min-h-screen pb-32">
-        <main class="pt-20 px-5 max-w-4xl mx-auto space-y-8">
-
-            <!-- Page Header -->
-            <div class="flex flex-col items-center justify-center py-2 space-y-1 mb-6">
-                <span
-                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-[11px] font-semibold tracking-wide uppercase">
-                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-                    Riwayat Kehadiran
-                </span>
-                <h2 class="text-2xl font-semibold text-slate-900 tracking-tight">Riwayat Absensi</h2>
-                <p class="text-sm text-slate-400">Lihat seluruh data kehadiran Anda</p>
-            </div>
-
+        <main class="pt-14 px-5 max-w-4xl mx-auto space-y-8">
             <!-- Action Buttons -->
             <div class="flex gap-3 justify-center">
                 <a href="{{ route('absensi.photos') }}"
@@ -24,7 +18,7 @@
                     <span>Lihat Foto Absen</span>
                 </a>
                 <a href="{{ route('absensi.export', auth()->id()) }}"
-                    class="flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-sm text-sm font-medium">
+                    class="flex items-center gap-2 px-4 py-2.5 bg-slate-600 text-white rounded-xl hover:bg-slate-700 transition-all shadow-sm text-sm font-medium">
                     <span class="material-symbols-outlined text-[18px]">download</span>
                     <span>Download</span>
                 </a>
@@ -82,8 +76,8 @@
 
                                             @case('permission')
                                                 <span
-                                                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold">
-                                                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                                                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-slate-700 text-xs font-semibold">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
                                                     Izin
                                                 </span>
                                             @break
@@ -115,7 +109,7 @@
                                     <td class="px-6 py-4">
                                         @if ($item->photo)
                                             <a href="{{ asset('storage/' . $item->photo) }}" target="_blank"
-                                                class="inline-flex items-center gap-1.5 text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors">
+                                                class="inline-flex items-center gap-1.5 text-slate-800 hover:text-slate-900 text-sm font-medium transition-colors">
                                                 <span class="material-symbols-outlined text-[16px]">image</span>
                                                 <span>Lihat Foto</span>
                                             </a>
@@ -126,7 +120,7 @@
                                     <td class="px-6 py-4">
                                         @if ($item->latitude)
                                             <button onclick="openAttendancePopup({{ $item }})"
-                                                class="inline-flex items-center gap-1.5 text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors">
+                                                class="inline-flex items-center gap-1.5 text-slate-800 hover:text-slate-900 text-sm font-medium transition-colors">
                                                 <span class="material-symbols-outlined text-[16px]">location_on</span>
                                                 <span>Lihat</span>
                                             </button>

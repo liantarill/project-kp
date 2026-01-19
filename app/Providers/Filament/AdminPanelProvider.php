@@ -42,7 +42,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
-                Dashboard::class,
+                // Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
@@ -63,22 +63,21 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
-
     }
 
     public function boot(): void
     {
         FilamentView::registerRenderHook(
             'panels::head.end',
-            fn (): string => $this->shouldLoadLeaflet()
-                ? Blade::render('<link rel="stylesheet" href="'.asset('assets/leaflet/leaflet.css').'" />')
+            fn(): string => $this->shouldLoadLeaflet()
+                ? Blade::render('<link rel="stylesheet" href="' . asset('assets/leaflet/leaflet.css') . '" />')
                 : ''
         );
 
         FilamentView::registerRenderHook(
             'panels::body.end',
-            fn (): string => $this->shouldLoadLeaflet()
-                ? Blade::render('<script src="'.asset('assets/leaflet/leaflet.js').'"></script>')
+            fn(): string => $this->shouldLoadLeaflet()
+                ? Blade::render('<script src="' . asset('assets/leaflet/leaflet.js') . '"></script>')
                 : ''
         );
     }

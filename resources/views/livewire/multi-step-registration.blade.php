@@ -301,10 +301,10 @@
                             </div>
 
                             <div class="space-y-6">
-                                <!-- Divisi dengan style Searchable Select -->
+                                <!-- Bagian dengan style Searchable Select -->
                                 <div class="select-wrapper" data-select-id="department_id" wire:ignore>
                                     <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                                        Divisi <span class="text-red-500">*</span>
+                                        Bagian <span class="text-red-500">*</span>
                                     </label>
                                     <div class="relative">
                                         <button type="button"
@@ -476,7 +476,7 @@
                                 <div>
                                     <h4 class="font-semibold text-gray-900 mb-3">Informasi Magang</h4>
                                     <div class="space-y-2 text-sm">
-                                        <p><span class="text-gray-500">Divisi:</span> <span
+                                        <p><span class="text-gray-500">Bagian:</span> <span
                                                 class="font-medium text-gray-900">{{ $departments->find($department_id)?->name }}</span>
                                         </p>
                                         <p><span class="text-gray-500">Periode:</span> <span

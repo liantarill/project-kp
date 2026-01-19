@@ -207,7 +207,7 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-semibold text-gray-500 mb-1">Divisi</label>
+                            <label class="block text-sm font-semibold text-gray-500 mb-1">Bagian</label>
                             <p class="text-gray-900 font-medium">{{ $user->department->name ?? '-' }}</p>
                         </div>
                         <div>

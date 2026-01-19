@@ -8,6 +8,10 @@
    Scrollbar Global
    ========================= */
 
+html {
+    scroll-behavior: smooth;
+}
+
 /* Chrome, Edge, Safari */
 ::-webkit-scrollbar {
     width: 6px; /* scrollbar vertikal */
