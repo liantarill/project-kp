@@ -1,45 +1,11 @@
 <x-app-layout>
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <div class="max-w-6xl mx-auto px-4 py-8">
-        <!-- Header -->
-        {{-- <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900"></h1>
-            <p class="text-gray-500 mt-1"></p>
-        </div> --}}
-
         <x-slot name="header">
             <h1 class="font-bold text-2xl sm:text-3xl text-gray-800 leading-tight">
                 Profile Saya
             </h1>
             <p class="text-sm text-gray-500 mt-1">Kelola informasi profil dan akun Anda</p>
         </x-slot>
-
 
         <!-- Success Message -->
         @if (session('success'))
@@ -156,7 +122,6 @@
                 <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-bold text-gray-900">Informasi Personal</h3>
-
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -172,7 +137,6 @@
                             <label class="block text-sm font-semibold text-gray-500 mb-1">No. Telepon</label>
                             <p class="text-gray-900 font-medium">{{ $user->phone ?? '-' }}</p>
                         </div>
-
                     </div>
                 </div>
 
@@ -180,7 +144,6 @@
                 <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-bold text-gray-900">Informasi Pendidikan</h3>
-
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -271,7 +234,7 @@
                                         </svg>
                                         Lihat Laporan
                                     </a>
-                                    <form action="{{ route('profile.report.delete') }}" method="POST"
+                                    {{-- <form action="{{ route('profile.report.delete') }}" method="POST"
                                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus laporan ini?')">
                                         @csrf
                                         @method('DELETE')
@@ -284,7 +247,7 @@
                                             </svg>
                                             Hapus
                                         </button>
-                                    </form>
+                                    </form> --}}
                                 </div>
                             @else
                                 <button onclick="openModal('reportModal')"
@@ -351,11 +314,7 @@
         </div>
     </div>
 
-    <!-- Modals -->
-    {{-- @include('profile.partials.personal-modal')
-    @include('profile.partials.education-modal')
-    @include('profile.partials.password-modal')
-    @include('profile.partials.report-modal') --}}
+    @include('profile.partials.report-modal')
 
     <script>
         function openModal(modalId) {
@@ -374,7 +333,7 @@
 
         // Close modal when clicking outside
         document.addEventListener('click', function(event) {
-            const modals = ['personalModal', 'educationModal', 'passwordModal', 'reportModal'];
+            const modals = ['passwordModal', 'reportModal'];
             modals.forEach(modalId => {
                 const modal = document.getElementById(modalId);
                 if (event.target === modal) {
@@ -386,7 +345,7 @@
         // Close modal with ESC key
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
-                const modals = ['personalModal', 'educationModal', 'passwordModal', 'reportModal'];
+                const modals = ['passwordModal', 'reportModal'];
                 modals.forEach(modalId => {
                     const modal = document.getElementById(modalId);
                     if (!modal.classList.contains('hidden')) {
@@ -398,11 +357,7 @@
 
         // Auto open modal if there are errors
         @if ($errors->any())
-            @if ($errors->has('name') || $errors->has('email') || $errors->has('phone'))
-                openModal('personalModal');
-            @elseif ($errors->has('level') || $errors->has('institution_id') || $errors->has('major'))
-                openModal('educationModal');
-            @elseif ($errors->has('current_password') || $errors->has('new_password'))
+            @if ($errors->has('current_password') || $errors->has('new_password'))
                 openModal('passwordModal');
             @elseif ($errors->has('report_file'))
                 openModal('reportModal');

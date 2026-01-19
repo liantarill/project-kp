@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
-Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':participant'])->group(function () {
+Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class . ':participant'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/profile/report/upload', [ProfileController::class, 'uploadReport'])->name('profile.report.upload');
 
     Route::get('/absensi', [AttendanceController::class, 'index'])->name('absensi.index');
     Route::post('/absensi', [AttendanceController::class, 'store'])->name('absensi.store');
@@ -22,7 +23,6 @@ Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':particip
     Route::get('/riwayat-absensi/{attendance}', [AttendanceController::class, 'detail'])->name('absensi.detail');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

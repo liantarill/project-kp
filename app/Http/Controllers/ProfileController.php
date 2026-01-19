@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -56,5 +57,29 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function uploadReport(Request $request)
+    {
+        $request->validate([
+            'report_file' => 'required|file|mimes:pdf|max:5120', // 5MB
+            'notes' => 'nullable|string|max:500',
+        ]);
+
+        $user = Auth::user();
+
+        // Delete old report if exists
+        if ($user->report_file) {
+            Storage::delete($user->report_file);
+        }
+
+        // Store new report
+        $path = $request->file('report_file')->store('reports', 'public');
+
+        $user->update([
+            'report_file' => $path,
+        ]);
+
+        return redirect()->back()->with('success', 'Laporan berhasil diupload!');
     }
 }
