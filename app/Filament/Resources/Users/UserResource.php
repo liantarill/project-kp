@@ -29,11 +29,24 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Manajemen User';
+    protected static string|UnitEnum|null $navigationGroup = 'Manajemen Pengguna';
 
-    // protected static ?string $navigationParentItem = 'Products';
+    public static function getLabel(): string
+    {
+        return 'Pengguna';
+    }
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::User;
+    public static function getPluralLabel(): string
+    {
+        return 'Pengguna';
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Pengguna';
+    }
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Users;
 
     protected static ?string $recordTitleAttribute = 'name';
 

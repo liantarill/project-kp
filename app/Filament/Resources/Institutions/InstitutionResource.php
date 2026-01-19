@@ -2,19 +2,21 @@
 
 namespace App\Filament\Resources\Institutions;
 
-use App\Filament\Resources\Institutions\Pages\CreateInstitution;
-use App\Filament\Resources\Institutions\Pages\EditInstitution;
-use App\Filament\Resources\Institutions\Pages\ListInstitutions;
-use App\Filament\Resources\Institutions\Schemas\InstitutionForm;
-use App\Filament\Resources\Institutions\Tables\InstitutionsTable;
-use App\Models\Institution;
+use UnitEnum;
 use BackedEnum;
-use Filament\Resources\Resource;
+use Filament\Tables\Table;
+use App\Models\Institution;
 use Filament\Schemas\Schema;
+use Filament\Actions\EditAction;
+use Filament\Resources\Resource;
+use Filament\Actions\DeleteAction;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
-use UnitEnum;
+use App\Filament\Resources\Institutions\Pages\EditInstitution;
+use App\Filament\Resources\Institutions\Pages\ListInstitutions;
+use App\Filament\Resources\Institutions\Pages\CreateInstitution;
+use App\Filament\Resources\Institutions\Schemas\InstitutionForm;
+use App\Filament\Resources\Institutions\Tables\InstitutionsTable;
 
 class InstitutionResource extends Resource
 {
@@ -50,16 +52,29 @@ class InstitutionResource extends Resource
         // return InstitutionsTable::configure($table);
         return $table
             ->columns([
+                TextColumn::make('rank')
+                    ->label('#')
+                    ->rowIndex()
+                    ->alignCenter()
+                    ->weight('bold')
+                    ->color('primary'),
                 TextColumn::make('name')
                     ->label('Nama Instansi')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('type')
                     ->label('Jenis Instansi')
                     ->formatStateUsing(fn($state) => match ($state) {
                         'SMA' => 'Sekolah Menengah Atas',
                         'SMK' => 'Sekolah Menengah Kejuruan',
                         'PERGURUAN_TINGGI' => 'Perguruan Tinggi'
-                    }),
+                    })
+                    ->sortable(),
+            ])
+            ->recordActions([
+                EditAction::make(),
+                // ViewAction::make(),
+                DeleteAction::make(),
             ]);
     }
 
@@ -74,8 +89,8 @@ class InstitutionResource extends Resource
     {
         return [
             'index' => ListInstitutions::route('/'),
-            'create' => CreateInstitution::route('/create'),
-            'edit' => EditInstitution::route('/{record}/edit'),
+            // 'create' => CreateInstitution::route('/create'),
+            // 'edit' => EditInstitution::route('/{record}/edit'),
         ];
     }
 }

@@ -52,6 +52,12 @@ class DepartmentResource extends Resource
         // return DepartmentsTable::configure($table);
         return $table
             ->columns([
+                TextColumn::make('rank')
+                    ->label('#')
+                    ->rowIndex()
+                    ->alignCenter()
+                    ->weight('bold')
+                    ->color('primary'),
                 TextColumn::make('name'),
                 TextColumn::make('quota')
                     ->label('Kuota'),

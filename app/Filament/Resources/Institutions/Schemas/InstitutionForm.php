@@ -13,9 +13,11 @@ class InstitutionForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Nama')
                     ->required(),
 
                 Select::make('type')
+                    ->label('Jenis Intansi')
                     ->options([
                         'SMA' => 'Sekolah Menengah Atas (SMA)',
                         'SMK' => 'Sekolah Menengah Kejuruan (SMK)',

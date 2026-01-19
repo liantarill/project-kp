@@ -43,7 +43,7 @@ class PendingUsers extends Page implements HasTable
 
     protected static string | BackedEnum | null $navigationIcon = Heroicon::Clock;
 
-    protected static string | UnitEnum | null $navigationGroup = 'Manajemen User';
+    protected static string | UnitEnum | null $navigationGroup = 'Manajemen Pengguna';
 
     public function table(Table $table): Table
     {

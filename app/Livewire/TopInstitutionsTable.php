@@ -151,7 +151,7 @@ class TopInstitutionsTable extends TableWidget
                     default => 'gray',
                 })
                 ->formatStateUsing(fn(?string $state): string => match ($state) {
-                    'PERGURUAN_TINGGI' => 'PT',
+                    'PERGURUAN_TINGGI' => 'Perguruan Tinggi',
                     'SMK' => 'SMK',
                     'SMA' => 'SMA',
                     default => '-',
