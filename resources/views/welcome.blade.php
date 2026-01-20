@@ -1,16 +1,14 @@
 <x-guest-layout>
     <!-- Background Image Section -->
-    <section
-        class="relative min-h-screen w-full bg-cover bg-center bg-no-repeat
-           flex items-center justify-center pt-24"
-        style="background-image: url('company.jpg')">
+    <section class="relative min-h-screen w-full bg-cover bg-center bg-no-repeat
+           flex items-center justify-center pt-24" style="background-image: url('company.jpg')">
         <!-- Overlay -->
         <div class="absolute inset-0 bg-green-900/60"></div>
 
         <!-- Content -->
         <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
             <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
-                Sistem Absensi Magang Digital
+                E-Prakerin (Elektronik Praktek Kerja Industri)
             </h1>
 
             <p class="text-base md:text-lg text-green-100 mb-8">
@@ -19,8 +17,7 @@
                 berbasis lokasi dan foto bukti secara real-time.
             </p>
 
-            <a href="{{ auth()->user() ? route('absensi.index') : route('login') }}"
-                class="inline-block bg-green-700 hover:bg-green-800
+            <a href="{{ auth()->user() ? route('absensi.index') : route('login') }}" class="inline-block bg-green-700 hover:bg-green-800
                   text-white font-medium px-8 py-3 rounded-full shadow-md">
                 Masuk Absensi
             </a>
@@ -91,10 +88,7 @@
                 <div class="flex flex-col items-center flex-1 max-w-xs">
                     <div
                         class="w-20 h-20 lg:w-24 lg:h-24 bg-orange-300 rounded-2xl lg:rounded-3xl flex items-center justify-center shadow-lg mb-4 lg:mb-6">
-                        <svg class="w-8 h-8 lg:w-10 lg:h-10 text-white" fill="none" stroke="currentColor"
-                            stroke-width="1.5" viewBox="0 0 24 24">
-                            <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                        </svg>
+                        <i class="fa-solid fa-arrow-right-to-bracket text-white text-2xl"></i>
                     </div>
                     <h3 class="text-lg lg:text-xl font-semibold text-gray-900 mb-2 lg:mb-3">Registrasi</h3>
                     <p class="text-sm lg:text-base text-gray-600 text-center">
@@ -113,10 +107,7 @@
                 <div class="flex flex-col items-center flex-1 max-w-xs">
                     <div
                         class="w-20 h-20 lg:w-24 lg:h-24 bg-green-500 rounded-2xl lg:rounded-3xl flex items-center justify-center shadow-lg mb-4 lg:mb-6">
-                        <svg class="w-8 h-8 lg:w-10 lg:h-10 text-white" fill="none" stroke="currentColor"
-                            stroke-width="1.5" viewBox="0 0 24 24">
-                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
+                        <i class="fa-solid fa-circle-check text-white text-2xl"></i>
                     </div>
                     <h3 class="text-lg lg:text-xl font-semibold text-gray-900 mb-2 lg:mb-3">Verifikasi</h3>
                     <p class="text-sm lg:text-base text-gray-600 text-center">
@@ -135,10 +126,7 @@
                 <div class="flex flex-col items-center flex-1 max-w-xs">
                     <div
                         class="w-20 h-20 lg:w-24 lg:h-24 bg-blue-400 rounded-2xl lg:rounded-3xl flex items-center justify-center shadow-lg mb-4 lg:mb-6">
-                        <svg class="w-8 h-8 lg:w-10 lg:h-10 text-white" fill="none" stroke="currentColor"
-                            stroke-width="1.5" viewBox="0 0 24 24">
-                            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
+                        <i class="fa-solid fa-thumbtack text-white text-2xl"></i>
                     </div>
                     <h3 class="text-lg lg:text-xl font-semibold text-gray-900 mb-2 lg:mb-3">Absensi Rutin</h3>
                     <p class="text-sm lg:text-base text-gray-600 text-center">
@@ -152,13 +140,10 @@
             <div class="flex flex-col md:hidden space-y-8">
 
                 <!-- STEP 1 -->
-                <div class="flex items-start gap-4">
+                <div class="flex items-center gap-4">
                     <div class="flex flex-col items-center flex-shrink-0">
                         <div class="w-16 h-16 bg-orange-300 rounded-2xl flex items-center justify-center shadow-lg">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24">
-                                <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                            </svg>
+                            <i class="fa-solid fa-arrow-right-to-bracket text-white text-2xl"></i>
                         </div>
                         <div class="w-0.5 h-12 bg-gray-300 mt-3"></div>
                     </div>
@@ -171,13 +156,10 @@
                 </div>
 
                 <!-- STEP 2 -->
-                <div class="flex items-start gap-4">
+                <div class="flex items-center gap-4">
                     <div class="flex flex-col items-center flex-shrink-0">
                         <div class="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center shadow-lg">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24">
-                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
+                            <i class="fa-solid fa-circle-check text-white text-2xl"></i>
                         </div>
                         <div class="w-0.5 h-12 bg-gray-300 mt-3"></div>
                     </div>
@@ -190,13 +172,10 @@
                 </div>
 
                 <!-- STEP 3 -->
-                <div class="flex items-start gap-4">
+                <div class="flex items-center gap-4">
                     <div class="flex-shrink-0">
                         <div class="w-16 h-16 bg-blue-400 rounded-2xl flex items-center justify-center shadow-lg">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24">
-                                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
+                            <i class="fa-solid fa-thumbtack text-white text-2xl"></i>
                         </div>
                     </div>
                     <div class="flex-1 pt-2">
@@ -223,9 +202,7 @@
                 <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition p-6 text-center">
                     <div class="flex justify-center mb-6">
                         <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center shadow-lg">
-                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M4 22h16v-2H4v2zm2-4h12V9H6v9zm6-16L2 7v2h20V7L12 2z" />
-                            </svg>
+                            <i class="fa-solid fa-building text-white text-2xl"></i>
                         </div>
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2">Sekretariat dan Hukum (SKR)</h3>
@@ -234,20 +211,17 @@
                         hukum
                         perusahaan.</p>
                     <p class="text-xs text-gray-600 mb-4">6 tugas • 8 kegiatan magang</p>
-                    <a href="#"
-                        class="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full hover:bg-green-200">Lihat
-                        Detail →</a>
+                    <button onclick="openBidangModal('skr')"
+                        class="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
+                        Lihat Detail →
+                    </button>
                 </div>
 
                 <!-- Department 2 - Human Resources -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition p-6 text-center">
                     <div class="flex justify-center mb-6">
                         <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center shadow-lg">
-                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z">
-                                </path>
-                            </svg>
+                            <i class="fa-solid fa-brain text-white text-2xl"></i>
                         </div>
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2">Sumber Daya Manusia (SDM)</h3>
@@ -256,20 +230,17 @@
                         pengembangan
                         karyawan.</p>
                     <p class="text-xs text-gray-600 mb-4">9 tugas • 8 kegiatan magang</p>
-                    <a href="#"
-                        class="inline-block px-4 py-2 bg-blue-100 text-blue-700 text-sm font-semibold rounded-full hover:bg-blue-200">Lihat
-                        Detail →</a>
+                    <button onclick="openBidangModal('sdm')"
+                        class="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
+                        Lihat Detail →
+                    </button>
                 </div>
 
                 <!-- Department 3 - Plantation & Processing Engineering -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition p-6 text-center">
                     <div class="flex justify-center mb-6">
                         <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
-                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M17.92 7.02C17.45 4.18 14.97 2 12 2c-2.97 0-5.45 2.18-5.92 5.02C5.97 7.42 4.25 9.22 4.25 11.5c0 2.78 2.22 5 5 5h.93v-1.93H9c-1.71 0-3.07-1.36-3.07-3.07 0-1.5 1.08-2.76 2.51-2.99.4-.23.75-.62 1.01-1.1.26-.48.6-.98 1.04-1.37.44-.38.98-.66 1.56-.83.58-.17 1.19-.23 1.75-.11.56.12 1.08.37 1.54.76.46.39.82.88 1.07 1.42.25.54.4 1.12.44 1.71.04.59-.04 1.18-.2 1.74s-.5 1.08-.91 1.52h-.93V18.5h.93c2.78 0 5-2.22 5-5 0-2.28-1.72-4.08-3.88-4.48z">
-                                </path>
-                            </svg>
+                            <i class="fa-brands fa-envira text-white text-2xl"></i>
                         </div>
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2">Tanaman dan Teknik Pengolahan</h3>
@@ -277,20 +248,17 @@
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab dalam mengelola operasional, budidaya dan
                         pengolahan hasil perkebunan.</p>
                     <p class="text-xs text-gray-600 mb-4">9 tugas • 8 kegiatan magang</p>
-                    <a href="#"
-                        class="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full hover:bg-green-200">Lihat
-                        Detail →</a>
+                    <button onclick="openBidangModal('tanaman')"
+                        class="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
+                        Lihat Detail →
+                    </button>
                 </div>
 
                 <!-- Department 4 - Accounting & Finance -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition p-6 text-center">
                     <div class="flex justify-center mb-6">
                         <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center shadow-lg">
-                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z">
-                                </path>
-                            </svg>
+                            <i class="fa-solid fa-hand-holding-dollar text-white text-2xl"></i>
                         </div>
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2">Akuntansi dan Keuangan (ANK)</h3>
@@ -298,21 +266,17 @@
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab dalam mengelola keuangan dan pelaporan
                         perusahaan.</p>
                     <p class="text-xs text-gray-600 mb-4">9 tugas • 10 kegiatan magang</p>
-                    <a href="#"
-                        class="inline-block px-4 py-2 bg-yellow-100 text-yellow-700 text-sm font-semibold rounded-full hover:bg-yellow-200">Lihat
-                        Detail →</a>
+                    <button onclick="openBidangModal('ank')"
+                        class="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
+                        Lihat Detail →
+                    </button>
                 </div>
 
                 <!-- Department 5 - Asset Management & Marketing -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition p-6 text-center">
                     <div class="flex justify-center mb-6">
                         <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center shadow-lg">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24">
-                                <path
-                                    d="M21 16V8c0-.5-.37-.93-.88-1L12 3.44 3.88 7C3.37 7.07 3 7.5 3 8v8c0 .5.37.93.88 1l8.12 3.56 8.12-3.56c.51-.07.88-.5.88-1zm-9 1.15l-6-2.6v-5.02l6-2.6 6 2.6v5.02l-6 2.6z">
-                                </path>
-                            </svg>
+                            <i class="fa-solid fa-box text-white text-2xl"></i>
                         </div>
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2">Manajemen Aset dan Pemasaran</h3>
@@ -320,41 +284,35 @@
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab dalam mengelola aset serta pemasaran produk
                         perusahaan.</p>
                     <p class="text-xs text-gray-600 mb-4">9 tugas • 8 kegiatan magang</p>
-                    <a href="#"
-                        class="inline-block px-4 py-2 bg-orange-100 text-orange-700 text-sm font-semibold rounded-full hover:bg-orange-200">Lihat
-                        Detail →</a>
+                    <button onclick="openBidangModal('aset')"
+                        class="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
+                        Lihat Detail →
+                    </button>
                 </div>
 
                 <!-- Department 6 - Compliance & Risk Management -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition p-6 text-center">
                     <div class="flex justify-center mb-6">
                         <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center shadow-lg">
-                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7zm0-12c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z">
-                                </path>
-                            </svg>
+                            <i class="fa-solid fa-triangle-exclamation text-white text-2xl"></i>
                         </div>
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2">Kepatuhan dan Manajemen Risiko</h3>
                     <p class="text-xs text-gray-500 mb-3">Kepala: biablablabla, S.Kom., M.M</p>
-                    <p class="text-sm text-gray-700 mb-4">Bertu apana untuk kepatuhan dan risiko dari praktik
+                    <p class="text-sm text-gray-700 mb-4">Bertanggung jawab untuk kepatuhan dan risiko dari praktik
                         manajemen.</p>
                     <p class="text-xs text-gray-600 mb-4">9 tugas • 8 kegiatan magang</p>
-                    <a href="#"
-                        class="inline-block px-4 py-2 bg-yellow-100 text-yellow-700 text-sm font-semibold rounded-full hover:bg-yellow-200">Lihat
-                        Detail →</a>
+                    <button onclick="openBidangModal('risiko')"
+                        class="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
+                        Lihat Detail →
+                    </button>
                 </div>
 
                 <!-- Department 7 - Project Management Office -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition p-6 text-center">
                     <div class="flex justify-center mb-6">
                         <div class="w-16 h-16 bg-blue-400 rounded-full flex items-center justify-center shadow-lg">
-                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 9h4v2h-4v-2zm0 4h4v2h-4v-2zM7 7h10v2H7z">
-                                </path>
-                            </svg>
+                            <i class="fa-solid fa-clipboard text-white text-2xl"></i>
                         </div>
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2">Project Management Office (PMO)</h3>
@@ -362,12 +320,312 @@
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab dalam mengelola dan mengkoordinasikan
                         pelaksanaan proyek.</p>
                     <p class="text-xs text-gray-600 mb-4">9 tugas • 10 kegiatan magang</p>
-                    <a href="#"
-                        class="inline-block px-4 py-2 bg-blue-100 text-blue-700 text-sm font-semibold rounded-full hover:bg-blue-200">Lihat
-                        Detail →</a>
+                    <button onclick="openBidangModal('pmo')"
+                        class="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
+                        Lihat Detail →
+                    </button>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- MODAL BIDANG -->
+    <div id="bidangModal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50">
+
+        <div class="bg-white rounded-2xl max-w-5xl w-full mx-4 overflow-hidden relative">
+
+            <!-- Header -->
+            <div id="modalHeader" class="text-white p-8 relative transition-all duration-300">
+
+                <button onclick="closeBidangModal()"
+                    class="absolute top-4 right-4 text-white text-2xl hover:opacity-80">
+                    ✕
+                </button>
+
+                <div class="text-center">
+                    <div id="modalIconWrapper"
+                        class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i id="modalIcon" class="fa-solid fa-building text-2xl"></i>
+                    </div>
+                    <h2 id="modalTitle" class="text-2xl font-bold"></h2>
+                    <p id="modalHead" class="text-sm mt-2"></p>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="p-8 grid md:grid-cols-3 gap-6 text-sm text-gray-700">
+
+                <div class="bg-blue-50 rounded-xl p-5">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-100">
+                            <i class="fa-solid fa-bullseye text-blue-600 text-lg"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-900">
+                            Tugas dan Tanggung Jawab
+                        </h3>
+                    </div>
+
+                    <ul id="modalTasks" class="space-y-3 text-gray-700"></ul>
+                </div>
+
+                <div class="bg-yellow-50 rounded-xl p-5">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-100">
+                            <i class="fa-solid fa-users text-yellow-600 text-lg"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-900">
+                            Staff Fungsional
+                        </h3>
+                    </div>
+
+                    <ul id="modalStaff" class="space-y-3 text-gray-700"></ul>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-5">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 flex items-center justify-center rounded-full bg-green-100">
+                            <i class="fa-solid fa-list-check text-green-600 text-lg"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-900">
+                            Kegiatan Magang
+                        </h3>
+                    </div>
+
+                    <ul id="modalActivities" class="space-y-3 text-gray-700"></ul>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const bidangData = {
+
+            skr: {
+                title: "Sekretariat dan Hukum (SKR)",
+                head: "Kepala: biablablabla, S.Kom., M.M",
+                desc: "Bertanggung jawab dalam mengelola administrasi dan aspek hukum perusahaan.",
+                icon: "fa-building",
+                color: "bg-red-600",
+                tasks: [
+                    "Pengelolaan administrasi dan tata usaha perusahaan",
+                    "Penyusunan dan pengarsipan dokumen hukum",
+                    "Pendampingan aspek legal kegiatan perusahaan"
+                ],
+                staff: [
+                    "Staff Administrasi",
+                    "Staff Hukum"
+                ],
+                intern: [
+                    "Pengarsipan surat masuk dan keluar",
+                    "Membantu administrasi legal",
+                    "Pendampingan kegiatan hukum"
+                ]
+            },
+
+            sdm: {
+                title: "Sumber Daya Manusia (SDM)",
+                head: "Kepala: biablablabla, S.Kom., M.M",
+                desc: "Bertanggung jawab dalam mengelola perencanaan dan pengembangan karyawan.",
+                icon: "fa-brain",
+                color: "bg-blue-600",
+                tasks: [
+                    "Pengelolaan data pegawai",
+                    "Perencanaan dan pengembangan SDM",
+                    "Evaluasi kinerja pegawai"
+                ],
+                staff: [
+                    "Staff Kepegawaian",
+                    "Staff Pengembangan SDM"
+                ],
+                intern: [
+                    "Input data pegawai",
+                    "Administrasi pelatihan",
+                    "Rekap absensi pegawai"
+                ]
+            },
+
+            tanaman: {
+                title: "Tanaman dan Teknik Pengolahan",
+                head: "Kepala: biablablabla, S.Kom., M.M",
+                desc: "Bertanggung jawab dalam mengelola operasional, budidaya dan pengolahan hasil perkebunan.",
+                icon: "fa-brands fa-envira",
+                color: "bg-green-600",
+                tasks: [
+                    "Pengelolaan budidaya tanaman",
+                    "Pemeliharaan dan produksi perkebunan",
+                    "Pengolahan hasil perkebunan"
+                ],
+                staff: [
+                    "Mandor Lapangan",
+                    "Staff Produksi"
+                ],
+                intern: [
+                    "Pendataan hasil panen",
+                    "Monitoring kegiatan lapangan",
+                    "Pembuatan laporan produksi"
+                ]
+            },
+
+            ank: {
+                title: "Akuntansi dan Keuangan (ANK)",
+                head: "Kepala: biablablabla, S.Kom., M.M",
+                desc: "Bertanggung jawab dalam mengelola keuangan dan pelaporan perusahaan.",
+                icon: "fa-hand-holding-dollar",
+                color: "bg-yellow-500",
+                tasks: [
+                    "Pengelolaan keuangan perusahaan",
+                    "Pencatatan dan pelaporan akuntansi",
+                    "Pengawasan anggaran"
+                ],
+                staff: [
+                    "Staff Akuntansi",
+                    "Staff Keuangan"
+                ],
+                intern: [
+                    "Input transaksi keuangan",
+                    "Rekap laporan keuangan",
+                    "Pengarsipan bukti transaksi"
+                ]
+            },
+
+            aset: {
+                title: "Manajemen Aset dan Pemasaran",
+                head: "Kepala: biablablabla, S.Kom., M.M",
+                desc: "Bertanggung jawab dalam mengelola aset serta pemasaran produk perusahaan.",
+                icon: "fa-box",
+                color: "bg-orange-600",
+                tasks: [
+                    "Pengelolaan aset perusahaan",
+                    "Pemasaran produk perkebunan",
+                    "Distribusi dan penjualan"
+                ],
+                staff: [
+                    "Staff Aset",
+                    "Staff Pemasaran"
+                ],
+                intern: [
+                    "Pendataan aset",
+                    "Membantu promosi produk",
+                    "Administrasi penjualan"
+                ]
+            },
+
+            risiko: {
+                title: "Kepatuhan dan Manajemen Risiko",
+                head: "Kepala: biablablabla, S.Kom., M.M",
+                desc: "Bertanggung jawab untuk kepatuhan dan risiko dari praktik manajemen.",
+                icon: "fa-triangle-exclamation",
+                color: "bg-yellow-600",
+                tasks: [
+                    "Pengawasan kepatuhan internal",
+                    "Identifikasi dan mitigasi risiko",
+                    "Evaluasi kebijakan perusahaan"
+                ],
+                staff: [
+                    "Staff Kepatuhan",
+                    "Staff Risiko"
+                ],
+                intern: [
+                    "Pendataan risiko operasional",
+                    "Dokumentasi evaluasi risiko",
+                    "Administrasi kepatuhan"
+                ]
+            },
+
+            pmo: {
+                title: "Project Management Office (PMO)",
+                head: "Kepala: biablablabla, S.Kom., M.M",
+                desc: "Bertanggung jawab dalam mengelola dan mengkoordinasikan pelaksanaan proyek.",
+                icon: "fa-clipboard",
+                color: "bg-blue-500",
+                tasks: [
+                    "Perencanaan dan pengelolaan proyek",
+                    "Monitoring progres proyek",
+                    "Koordinasi lintas bidang"
+                ],
+                staff: [
+                    "Project Officer",
+                    "Staff Monitoring"
+                ],
+                intern: [
+                    "Membantu dokumentasi proyek",
+                    "Update progres kegiatan",
+                    "Penyusunan laporan proyek"
+                ]
+            }
+
+        };
+    </script>
+
+    <script>
+        function openBidangModal(id) {
+            const data = bidangData[id];
+            if (!data) return;
+
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalHead').innerText = data.head;
+
+            // GANTI WARNA HEADER
+            const header = document.getElementById("modalHeader");
+            header.className = `text-white p-8 relative ${data.color}`;
+
+            // TITLE & HEAD
+            document.getElementById("modalTitle").innerText = data.title;
+            document.getElementById("modalHead").innerText = data.head;
+
+            // ICON
+            const icon = document.getElementById('modalIcon');
+            icon.className = `fa-solid ${data.icon} text-2xl`;
+
+            // TASKS
+            const taskList = document.getElementById('modalTasks');
+            taskList.innerHTML = '';
+            data.tasks.forEach((item, i) => {
+                taskList.innerHTML += `
+            <li class="flex gap-3">
+                <span class="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs">${i + 1}</span>
+                <span>${item}</span>
+            </li>`;
+            });
+
+            // STAFF
+            const staffList = document.getElementById('modalStaff');
+            staffList.innerHTML = '';
+            data.staff.forEach((item, i) => {
+                staffList.innerHTML += `
+            <li class="flex gap-3">
+                <span class="w-6 h-6 bg-yellow-400 text-white rounded-full flex items-center justify-center text-xs">${i + 1}</span>
+                <span>${item}</span>
+            </li>`;
+            });
+
+            // INTERN
+            const internList = document.getElementById('modalActivities');
+            internList.innerHTML = '';
+            data.intern.forEach((item, i) => {
+                internList.innerHTML += `
+            <li class="flex gap-3">
+                <span class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs">${i + 1}</span>
+                <span>${item}</span>
+            </li>`;
+            });
+
+            // SHOW MODAL
+            const modal = document.getElementById('bidangModal');
+            modal.classList.remove('hidden');
+        }
+
+        function closeBidangModal() {
+            document.getElementById('bidangModal').classList.add('hidden');
+        }
+
+        document.getElementById('bidangModal').addEventListener('click', function (e) {
+            if (e.target === this) closeBidangModal();
+        });
+    </script>
+
 
 </x-guest-layout>
