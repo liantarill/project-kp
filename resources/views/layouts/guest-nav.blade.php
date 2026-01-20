@@ -5,9 +5,18 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('welcome') }}">
-                        <img src="{{ asset('logo.png') }}" alt="" class="h-14 w-auto object-contain">
+                    <a href="{{ route('welcome') }}" class="flex items-center gap-3">
+                        {{-- <img src="{{ asset('logo.png') }}" alt="" class="h-14 w-auto object-contain"> --}}
+                        <div class="flex flex-col justify-center leading-none m-0 p-0">
+                            <h1 class="text-lg font-bold text-gray-800 m-0 p-0 leading-none">
+                                E-Prakerin Reg7
+                            </h1>
+                            <span class="text-xs text-gray-500  leading-none">
+                                Elektronik Praktik Kerja Industri
+                            </span>
+                        </div>
                     </a>
+
                 </div>
 
                 <!-- Navigation Links -->

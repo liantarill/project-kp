@@ -31,32 +31,34 @@
                         <thead class="bg-slate-50 border-b border-slate-100">
                             <tr>
                                 <th
-                                    class="px-6 py-4 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                                    class="px-2 sm:px-6 py-4 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
                                     Tanggal</th>
                                 <th
-                                    class="px-6 py-4 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                                    class="px-2 sm:px-6 py-4 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider hidden sm:block">
                                     Jam</th>
                                 <th
-                                    class="px-6 py-4 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                                    class="px-2 sm:px-6 py-4 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
                                     Status</th>
                                 <th
-                                    class="px-6 py-4 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                                    class="px-2 sm:px-6 py-4 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
                                     Bukti</th>
                                 <th
-                                    class="px-6 py-4 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                                    class="px-2 sm:px-6 py-4 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
                                     Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100">
                             @forelse ($attendances as $item)
                                 <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-6 py-4 text-sm text-slate-700 font-medium">
-                                        {{ $item->created_at->locale('id')->translatedFormat('d F Y') }}
+                                    <td class="px-2 sm:px-6 py-4 text-sm text-slate-700 font-medium">
+                                        {{ $item->created_at->locale('id')->translatedFormat('d M Y') }}
+                                        <span
+                                            class="block sm:hidden font-black">{{ $item->created_at->format('H:i') }}</span>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-slate-600">
+                                    <td class="px-2 sm:px-6 py-4 text-sm text-slate-600 hidden sm:block">
                                         {{ $item->created_at->format('H:i') }}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-2 sm:px-6 py-4">
                                         @switch($item->status)
                                             @case('present')
                                                 <span
@@ -106,23 +108,25 @@
                                                 </span>
                                         @endswitch
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-2 sm:px-6 py-4">
                                         @if ($item->photo)
-                                            <a href="{{ asset('storage/' . $item->photo) }}" target="_blank"
+                                            <button onclick="openPhotoPopup('{{ asset('storage/' . $item->photo) }}')"
                                                 class="inline-flex items-center gap-1.5 text-slate-800 hover:text-slate-900 text-sm font-medium transition-colors">
-                                                <span class="material-symbols-outlined text-[16px]">image</span>
-                                                <span>Lihat Foto</span>
-                                            </a>
+                                                {{-- <span class="material-symbols-outlined text-[16px]">image</span> --}}
+                                                <i class="fa-solid fa-image"></i>
+                                                <span class="hidden sm:block">Lihat Foto</span>
+                                            </button>
                                         @else
                                             <span class="text-xs text-slate-400">-</span>
                                         @endif
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-2 sm:px-6 py-4">
                                         @if ($item->latitude)
                                             <button onclick="openAttendancePopup({{ $item }})"
                                                 class="inline-flex items-center gap-1.5 text-slate-800 hover:text-slate-900 text-sm font-medium transition-colors">
-                                                <span class="material-symbols-outlined text-[16px]">location_on</span>
-                                                <span>Lihat</span>
+                                                {{-- <span class="material-symbols-outlined text-[16px]">location_on</span> --}}
+                                                <i class="fa-solid fa-map-pin"></i>
+                                                <span class="hidden sm:block">Lihat</span>
                                             </button>
                                         @else
                                             <span class="text-xs text-slate-400">-</span>
@@ -131,7 +135,7 @@
                                 </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="px-6 py-12 text-center">
+                                        <td colspan="5" class="px-2 sm:px-6 py-12 text-center">
                                             <div class="flex flex-col items-center justify-center space-y-3">
                                                 <div
                                                     class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center">
@@ -154,4 +158,5 @@
         </div>
 
         @include('components.attendance-detail')
+        @include('components.attendance-photo-modal')
     </x-app-layout>
