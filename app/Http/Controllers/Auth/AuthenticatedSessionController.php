@@ -30,11 +30,16 @@ class AuthenticatedSessionController extends Controller
 
         $user = auth()->user();
 
-        if ($user->role === 'participant' && $user->status === 'pending') {
-            auth()->logout();
+        if ($user->hasVerifiedEmail()) {
+            if ($user->role === 'participant' && $user->status === 'pending') {
+                auth()->logout();
 
-            return back()->with('error', 'Akun kamu belum diverifikasi oleh admin');
+                return back()->with('error', 'Akun belum diverifikasi oleh admin. Silakan tunggu proses verifikasi maksimal 1×24 jam untuk dapat login.');
+            }
+        } else {
+            auth()->user()->sendEmailVerificationNotification();
         }
+
         if ($user && $user->canAccessFilament()) {
             return redirect()->route('filament.admin.pages.dashboard');
         }

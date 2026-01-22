@@ -157,6 +157,8 @@ class MultiStepRegistration extends Component
             // Flash success message
             session()->flash('success', 'Pendaftaran berhasil! Akun Anda sedang menunggu verifikasi.');
 
+            auth()->user()->sendEmailVerificationNotification();
+
             // Redirect ke dashboard
             return redirect()->route('dashboard');
         } catch (\Exception $e) {

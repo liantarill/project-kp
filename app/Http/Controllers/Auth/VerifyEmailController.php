@@ -14,14 +14,27 @@ class VerifyEmailController extends Controller
      */
     public function __invoke(EmailVerificationRequest $request): RedirectResponse
     {
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended(route('dashboard', absolute: false).'?verified=1');
+        //ini kalo pencet dari gmail\
+
+        // 1. Jika email BELUM diverifikasi → verifikasi dulu
+        if (! $request->user()->hasVerifiedEmail()) {
+            if ($request->user()->markEmailAsVerified()) {
+                event(new Verified($request->user()));
+            }
         }
 
-        if ($request->user()->markEmailAsVerified()) {
-            event(new Verified($request->user()));
+        // 2. Jika participant tapi masih pending admin
+        if ($request->user()->role === 'participant' && $request->user()->status === 'pending') {
+            auth()->logout();
+
+            return redirect()
+                ->route('login')
+                ->with('error', 'Email berhasil diverifikasi, namun akun kamu masih menunggu verifikasi admin.');
         }
 
-        return redirect()->intended(route('dashboard', absolute: false).'?verified=1');
+        // 3. Selain itu, lanjut ke dashboard
+        return redirect()->intended(
+            route('dashboard', absolute: false) . '?verified=1'
+        );
     }
 }
