@@ -20,12 +20,14 @@ use Filament\Forms\Components\DatePicker;
 use App\Livewire\ParticipantsByDepartmentChart;
 use App\Livewire\ParticipantsByInstitutionChart;
 use Filament\Forms\Concerns\InteractsWithForms;
+use BackedEnum;
 
 class Report extends Page implements HasForms
 {
     use InteractsWithForms;
 
     protected  string $view = 'filament.pages.report';
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::ChartPie;
 
     // Filter properties dengan typing yang jelas
     public string $period = 'all';

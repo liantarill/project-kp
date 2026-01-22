@@ -35,6 +35,13 @@ class AttendanceController extends Controller
             ->latest()
             ->get();
 
+        // $attendances = Attendance::where('user_id', auth()->id())
+        //     ->orderBy('created_at', 'desc')
+        //     ->get()
+        //     ->groupBy(function ($item) {
+        //         return $item->created_at->translatedFormat('F Y');
+        //     });
+
         return view('absensi.riwayat', compact('attendances'));
     }
 

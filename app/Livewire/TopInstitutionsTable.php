@@ -141,22 +141,22 @@ class TopInstitutionsTable extends TableWidget
                         : null
                 ),
 
-            TextColumn::make('type')
-                ->label('Tipe')
-                ->badge()
-                ->color(fn(?string $state): string => match ($state) {
-                    'PERGURUAN_TINGGI' => 'success',
-                    'SMK' => 'warning',
-                    'SMA' => 'info',
-                    default => 'gray',
-                })
-                ->formatStateUsing(fn(?string $state): string => match ($state) {
-                    'PERGURUAN_TINGGI' => 'Perguruan Tinggi',
-                    'SMK' => 'SMK',
-                    'SMA' => 'SMA',
-                    default => '-',
-                })
-                ->alignCenter(),
+            // TextColumn::make('type')
+            //     ->label('Tipe')
+            //     ->badge()
+            //     ->color(fn(?string $state): string => match ($state) {
+            //         'PERGURUAN_TINGGI' => 'success',
+            //         'SMK' => 'warning',
+            //         'SMA' => 'info',
+            //         default => 'gray',
+            //     })
+            //     ->formatStateUsing(fn(?string $state): string => match ($state) {
+            //         'PERGURUAN_TINGGI' => 'Perguruan Tinggi',
+            //         'SMK' => 'SMK',
+            //         'SMA' => 'SMA',
+            //         default => '-',
+            //     })
+            //     ->alignCenter(),
 
             TextColumn::make('total_participants')
                 ->label('Total')

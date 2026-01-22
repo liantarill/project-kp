@@ -263,7 +263,7 @@
                                         Jurusan <span class="text-red-500">*</span>
                                     </label>
                                     <input wire:model="major" id="major" type="text"
-                                        placeholder="Masukkan jurusan Anda"
+                                        placeholder="Ilmu Komputer"
                                         class="w-full px-4 py-3 rounded-lg border border-gray-300 
                 bg-white text-gray-900 placeholder-gray-400 
                 focus:ring-2 focus:ring-emerald-800 focus:border-transparent transition-all outline-none" />
@@ -422,7 +422,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M5 13l4 4L19 7"></path>
                                             </svg>
-                                            <span class="text-sm font-medium">
+                                            <span class="text-sm font-medium break-all">
                                                 File dipilih: {{ $acceptance_proof->getClientOriginalName() }}
                                             </span>
                                         </div>
@@ -483,7 +483,7 @@
                                                 class="font-medium text-gray-900">{{ $start_date }}
                                                 s/d {{ $end_date }}</span></p>
                                         <p><span class="text-gray-500">Bukti Penerimaan:</span> <span
-                                                class="font-medium text-gray-900">{{ $acceptance_proof?->getClientOriginalName() }}</span>
+                                                class="font-medium text-gray-900 break-all">{{ $acceptance_proof?->getClientOriginalName() }}</span>
                                         </p>
                                     </div>
                                 </div>
@@ -498,8 +498,9 @@
                                     font-bold rounded-lg hover:bg-gray-300 transition-all 
                                     disabled:opacity-50 disabled:cursor-not-allowed"
                                     loading.attr="disabled">
-                                    <span wire:loading.remove wire:target="previousStep">Kembali</span>
-                                    <span wire:loading wire:target="previousStep">Memproses...</span>
+                                    <span wire:loading.remove wire:target="previousStep"><i
+                                            class="fa-solid fa-angle-left"></i></span>
+                                    <span wire:loading wire:target="previousStep">...</span>
                                 </button>
                             @else
                                 <div></div>
@@ -511,24 +512,19 @@
                                     font-bold py-3 px-8 rounded-lg shadow-lg shadow-emerald-900/20 transition-all 
                                     active:scale-95 group disabled:opacity-50 disabled:cursor-not-allowed"
                                     wire:loading.attr="disabled">
-                                    <span wire:loading.remove wire:target="nextStep">Lanjutkan</span>
-                                    <span wire:loading wire:target="nextStep">Memproses...</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="h-5 w-5 transition-transform group-hover:translate-x-1"
-                                        viewBox="0 0 20 20" fill="currentColor" wire:loading.remove
-                                        wire:target="nextStep">
-                                        <path fill-rule="evenodd"
-                                            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                            clip-rule="evenodd" />
-                                    </svg>
+                                    <span wire:loading.remove wire:target="nextStep"><i
+                                            class="fa-solid fa-angle-right"></i>
+                                    </span>
+                                    <span wire:loading wire:target="nextStep">...</span>
+
                                 </button>
                             @else
                                 <button type="submit"
-                                    class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 
+                                    class="bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-3 px-8 
                                     rounded-lg shadow-lg transition-all active:scale-95 
                                     disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                                     wire:loading.attr="disabled">
-                                    <span wire:loading.remove wire:target="submit">Daftar Sekarang</span>
+                                    <span wire:loading.remove wire:target="submit">Daftar</span>
                                     <span wire:loading wire:target="submit">Mendaftar...</span>
                                 </button>
                             @endif

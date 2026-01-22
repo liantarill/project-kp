@@ -136,7 +136,7 @@ class MultiStepRegistration extends Component
 
             // Create user
             $user = User::create([
-                'name' => $this->name,
+                'name' => ucwords(strtolower($this->name)),
                 'email' => $this->email,
                 'password' => Hash::make($this->password),
                 'role' => 'participant',
