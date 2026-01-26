@@ -8,7 +8,7 @@ window.cameraPermissionGranted = false;
 // Office location constants
 window.OFFICE_LAT = -5.3851721;
 window.OFFICE_LNG = 105.2605921;
-window.MAX_RADIUS = 100;
+window.MAX_RADIUS = 55;
 
 // Initialize on page load
 document.addEventListener("DOMContentLoaded", () => {
@@ -71,21 +71,36 @@ function initCamera() {
         .catch((error) => {
             console.error("Camera error:", error);
             let message = "Kamera Tidak Aktif";
-            let detail = "Mohon izinkan akses kamera untuk melanjutkan absensi.";
+            let detail =
+                "Mohon izinkan akses kamera untuk melanjutkan absensi.";
 
-            if (error.name === "NotAllowedError" || error.name === "PermissionDeniedError") {
-                detail = "Akses kamera ditolak. Silakan cek pengaturan browser Anda dan izinkan akses kamera.";
-            } else if (error.name === "NotFoundError" || error.name === "DevicesNotFoundError") {
+            if (
+                error.name === "NotAllowedError" ||
+                error.name === "PermissionDeniedError"
+            ) {
+                detail =
+                    "Akses kamera ditolak. Silakan cek pengaturan browser Anda dan izinkan akses kamera.";
+            } else if (
+                error.name === "NotFoundError" ||
+                error.name === "DevicesNotFoundError"
+            ) {
                 detail = "Kamera tidak ditemukan pada perangkat ini.";
-            } else if (error.name === "NotReadableError" || error.name === "TrackStartError") {
+            } else if (
+                error.name === "NotReadableError" ||
+                error.name === "TrackStartError"
+            ) {
                 detail = "Kamera sedang digunakan oleh aplikasi lain.";
             }
 
             // Update warning text dynamically
-            const warningTitle = document.querySelector("#cameraWarning p.font-semibold");
-            const warningDetail = document.querySelector("#cameraWarning p.text-xs");
-            if(warningTitle) warningTitle.textContent = message;
-            if(warningDetail) warningDetail.textContent = detail;
+            const warningTitle = document.querySelector(
+                "#cameraWarning p.font-semibold",
+            );
+            const warningDetail = document.querySelector(
+                "#cameraWarning p.text-xs",
+            );
+            if (warningTitle) warningTitle.textContent = message;
+            if (warningDetail) warningDetail.textContent = detail;
 
             showCameraWarning();
         });
@@ -168,7 +183,7 @@ window.selectStatus = function (status) {
             "border-emerald-500",
             "border-yellow-500",
             "border-blue-500",
-            "scale-105"
+            "scale-105",
         );
         btn.classList.add("bg-slate-50", "border-transparent");
         btn.querySelector(".absolute")?.remove();
@@ -178,7 +193,7 @@ window.selectStatus = function (status) {
         icon.classList.remove(
             "text-emerald-500",
             "text-yellow-500",
-            "text-blue-500"
+            "text-blue-500",
         );
         icon.classList.add("text-slate-400");
         text.classList.remove("font-semibold", "text-slate-800");
@@ -337,7 +352,7 @@ window.requestLocation = function () {
                 enableHighAccuracy: true,
                 timeout: 10000,
                 maximumAge: 0,
-            }
+            },
         );
     });
 };
@@ -353,7 +368,7 @@ function handleLocationSuccess(position) {
         window.OFFICE_LAT,
         window.OFFICE_LNG,
         userLat,
-        userLng
+        userLng,
     );
 
     document.getElementById("mapPlaceholder").style.display = "none";
@@ -370,7 +385,7 @@ function handleLocationSuccess(position) {
         locationIcon.textContent = "check_circle";
         locationText.textContent = "Dalam area kantor";
         locationDistance.textContent = `Jarak: ${Math.round(
-            distance
+            distance,
         )} meter dari kantor`;
         locationInfoBox
             .querySelector(".w-8")
@@ -383,12 +398,12 @@ function handleLocationSuccess(position) {
         locationText.textContent = "Di luar area kantor";
         if (distance < 1000) {
             locationDistance.textContent = `Jarak: ${Math.round(
-                distance
+                distance,
             )} meter dari kantor`;
         } else {
             const distanceInKm = distance / 1000;
             locationDistance.textContent = `Jarak: ${distanceInKm.toFixed(
-                1
+                1,
             )} kilometer dari kantor`;
         }
         locationInfoBox
@@ -416,7 +431,7 @@ function handleLocationError(error) {
                 '<div class="flex flex-col items-center"><span class="material-symbols-outlined text-[24px] mb-1">signal_wifi_off</span><span class="font-bold">Lokasi Tidak Tersedia</span><span class="text-xs font-normal mt-1">Pastikan GPS aktif dan sinyal stabil.</span></div>';
             break;
         case error.TIMEOUT:
-             message =
+            message =
                 '<div class="flex flex-col items-center"><span class="material-symbols-outlined text-[24px] mb-1">timer_off</span><span class="font-bold">Waktu Habis</span><span class="text-xs font-normal mt-1">Gagal mengambil lokasi. Silakan coba lagi.</span></div>';
             break;
         default:
@@ -446,12 +461,20 @@ function showAttendanceMap(lat, lng) {
 
         L.tileLayer(
             "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-            { maxZoom: 19 }
+            { maxZoom: 19 },
         ).addTo(window.attendanceMap);
 
         window.attendanceMarker = L.marker([lat, lng]).addTo(
-            window.attendanceMap
+            window.attendanceMap,
         );
+
+        // Add office radius circle
+        L.circle([window.OFFICE_LAT, window.OFFICE_LNG], {
+            color: "green", // Border color
+            fillColor: "#10b981", // Fill color (Emerald-500)
+            fillOpacity: 0.2, // Semi-transparent
+            radius: window.MAX_RADIUS,
+        }).addTo(window.attendanceMap);
     } else {
         window.attendanceMap.setView([lat, lng], 17);
         window.attendanceMarker.setLatLng([lat, lng]);

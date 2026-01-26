@@ -22,7 +22,7 @@ class AttendanceController extends Controller
 
     private float $officeLng = 105.2605921;
 
-    private int $maxRadius = 100;
+    private int $maxRadius = 55;
 
     public function index()
     {
