@@ -7,6 +7,7 @@ use BackedEnum;
 use App\Models\User;
 use Filament\Pages\Page;
 use Filament\Tables\Table;
+use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Filament\View\PanelsIconAlias;
 use Filament\Support\Icons\Heroicon;
@@ -70,18 +71,41 @@ class ActiveUsers extends Page implements HasTable
                     ->sortable()
                     ->toggleable(),
 
-                SelectColumn::make('status')
+                TextColumn::make('status')
                     ->label('Status')
-                    ->options([
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'pending' => 'warning',
+                        'active' => 'success',
+                        'completed' => 'gray',
+                        'cancelled' => 'danger',
+                    })
+                    ->formatStateUsing(fn(string $state): string => match ($state) {
                         'pending' => 'Menunggu',
                         'active' => 'Aktif',
                         'completed' => 'Lulus',
-                        'cancelled' => 'Batal',
-                    ])
-                    ->sortable()
-                    ->rules(['required'])
-                    ->selectablePlaceholder(false),
+                        'cancelled' => 'Dibatalkan',
+                    }),
+            ])
+            ->actions([
+                Action::make('view')
+                    ->label('Lihat Detail')
+                    ->icon(Heroicon::OutlinedEye)
+                    ->url(fn(User $record): string => UserResource::getUrl('view', ['record' => $record])),
 
+                Action::make('access_report')
+                    ->label('Laporan Akhir')
+                    ->icon(Heroicon::OutlinedDocumentText)
+                    ->color('info')
+                    ->visible(fn(User $record): bool => !is_null($record->report_file))
+                    ->modalHeading(fn($record) => 'Laporan Akhir: ' . $record->name)
+                    ->modalContent(fn($record) => view('filament.modals.report-viewer', [
+                        'record' => $record
+                    ]))
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Tutup')
+                    ->modalWidth('7xl')
+                    ->slideOver(),
             ])
             ->defaultSort('created_at', 'desc')
             ->paginated([10, 25, 50]);
