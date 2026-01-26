@@ -30,7 +30,7 @@
 
                 <!-- Form Container -->
                 <div class="bg-gray-50 rounded-xl p-6 md:p-8 border border-gray-100">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}" id="loginForm">
                         @csrf
 
                         <div class="space-y-6">
@@ -77,12 +77,17 @@
 
                             <!-- Submit Button and Forgot Password -->
                             <div class="space-y-4">
-                                <button type="submit"
+                                <button type="submit" id="loginButton"
                                     class="w-full flex items-center justify-center gap-2 bg-emerald-800 hover:bg-emerald-900 
                                     text-white font-bold py-3 px-8 rounded-lg shadow-lg shadow-emerald-900/20 
-                                    transition-all active:scale-95">
-                                    <span>Masuk</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                    transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-emerald-800">
+                                    <!-- Loading Spinner (hidden by default) -->
+                                    <svg class="animate-spin h-5 w-5 hidden" id="loginSpinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    <span id="loginText">Masuk</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" id="loginIcon" viewBox="0 0 20 20"
                                         fill="currentColor">
                                         <path fill-rule="evenodd"
                                             d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
@@ -101,6 +106,21 @@
                             </div>
                         </div>
                     </form>
+
+                    <script>
+                        document.getElementById('loginForm').addEventListener('submit', function(e) {
+                            const button = document.getElementById('loginButton');
+                            const spinner = document.getElementById('loginSpinner');
+                            const text = document.getElementById('loginText');
+                            const icon = document.getElementById('loginIcon');
+                            
+                            // Disable button and show loading state
+                            button.disabled = true;
+                            spinner.classList.remove('hidden');
+                            text.textContent = 'Memproses...';
+                            icon.classList.add('hidden');
+                        });
+                    </script>
                 </div>
 
                 <!-- Footer Link -->
