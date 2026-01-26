@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\VerifyEmailCustom;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\ResetPasswordCustom;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -101,6 +102,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new VerifyEmail);
+        $this->notify(new VerifyEmailCustom);
     }
 }

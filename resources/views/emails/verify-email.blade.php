@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Atur Ulang Kata Sandi</title>
+    <title>Verifikasi Alamat Email</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
@@ -34,8 +34,7 @@
                             <p style="margin-bottom: 24px; font-weight: 500;">Halo!</p>
 
                             <p style="margin-bottom: 24px; color: #4b5563;">
-                                Anda menerima email ini karena kami menerima permintaan
-                                untuk mengatur ulang kata sandi akun Anda.
+                                Silakan klik tombol di bawah ini untuk memverifikasi alamat email Anda.
                             </p>
 
                             <!-- Button Area -->
@@ -55,20 +54,14 @@
                                                font-size: 15px;
                                                letter-spacing: 0.01em;
                                            ">
-                                            Atur Ulang Kata Sandi
+                                            Verifikasi Alamat Email
                                         </a>
                                     </td>
                                 </tr>
                             </table>
 
                             <p style="margin-bottom: 24px;">
-                                Tautan pengaturan ulang kata sandi ini akan kedaluwarsa dalam
-                                <strong>{{ config('auth.passwords.users.expire') }} menit</strong>.
-                            </p>
-
-                            <p style="margin-bottom: 24px;">
-                                Jika Anda tidak merasa mengajukan permintaan pengaturan ulang kata sandi,
-                                abaikan email ini dan tidak perlu melakukan tindakan apa pun.
+                                Jika Anda tidak membuat akun, tidak ada tindakan lebih lanjut yang diperlukan.
                             </p>
 
                             <p
@@ -96,7 +89,7 @@
                     <tr>
                         <td align="center" style="padding-top: 24px;">
                             <p style="font-size: 12px; color: #9ca3af; text-align: center; max-width: 400px; margin: 0 auto;">
-                                Jika Anda mengalami masalah saat menekan tombol "Atur Ulang Kata Sandi", salin dan
+                                Jika Anda mengalami masalah saat menekan tombol "Verifikasi Alamat Email", salin dan
                                 tempel URL di bawah ini ke browser web Anda: <br>
                                 <a href="{{ $url }}" style="color: #065f46; word-break: break-all;">{{ $url }}</a>
                             </p>
