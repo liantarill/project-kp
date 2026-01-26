@@ -10,7 +10,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        // Eager load attendances to prevent N+1 query
+        $user = Auth::user()->load('attendances');
 
         $attendances = $user->attendances;
 
