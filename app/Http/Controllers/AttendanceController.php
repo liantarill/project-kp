@@ -7,6 +7,7 @@ use App\Models\Attendance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -30,8 +31,9 @@ class AttendanceController extends Controller
 
     public function history()
     {
-        $attendances = Attendance::with('user')
-            ->where('user_id', Auth::id())
+        // No need to eager load user since we're filtering by current user
+        // and not displaying user data in the view
+        $attendances = Attendance::where('user_id', Auth::id())
             ->latest()
             ->get();
 
@@ -71,74 +73,76 @@ class AttendanceController extends Controller
             ]
         );
 
-        $attendanceStatus = $request->status;
-        $fileName = null;
+        return DB::transaction(function () use ($request) {
+            $attendanceStatus = $request->status;
+            $fileName = null;
 
-        // berlaku jika hadir saja
-        if ($request->status === 'present') {
-            $distance = $this->distance(
-                $this->officeLat,
-                $this->officeLng,
-                $request->latitude,
-                $request->longitude
+            // berlaku jika hadir saja
+            if ($request->status === 'present') {
+                $distance = $this->distance(
+                    $this->officeLat,
+                    $this->officeLng,
+                    $request->latitude,
+                    $request->longitude
+                );
+
+                if ($distance > $this->maxRadius) {
+                    return back()->withErrors([
+                        'location' => 'Anda berada di luar area kantor (' . round($distance) . ' meter)',
+                    ]);
+                }
+
+                $image = $request->photo;
+                // 1. Bersihkan base64
+                $image = preg_replace('/^data:image\/\w+;base64,/', '', $image);
+                $image = str_replace(' ', '+', $image);
+                $imageData = base64_decode($image);
+
+                $userName = Str::slug(Auth::user()->name, '_');
+                $dateTime = now()->format('Y-m-d_H-i-s');
+                $fileName = "attendance/{$userName}/{$userName}_{$dateTime}.jpg";
+
+                $manager = new ImageManager(new Driver);
+                $compressedImage = $manager
+                    ->read($imageData)
+                    ->toJpeg(75); // q
+
+                Storage::disk('public')->put($fileName, (string) $compressedImage);
+
+                // batas jam absen
+                $batasJam = '08:00:00';
+
+                // kalau mau absen hadir tapi terlambat nanti dia jadi terlambat
+                if (now()->format('H:i:s') > $batasJam) {
+                    $attendanceStatus = 'late';
+                }
+            }
+
+            $attendance = Attendance::firstOrCreate(
+                [
+                    'user_id' => Auth::id(),
+                    'date' => today(),
+                ],
+                [
+                    'check_in' => now()->format('H:i:s'),
+                    'status' => $attendanceStatus,
+                    'note' => $request->note,
+                    'photo' => $fileName,
+                    'latitude' => $request->latitude,
+                    'longitude' => $request->longitude,
+                ],
             );
 
-            if ($distance > $this->maxRadius) {
-                return back()->withErrors([
-                    'location' => 'Anda berada di luar area kantor (' . round($distance) . ' meter)',
-                ]);
+            if (! $attendance->wasRecentlyCreated) {
+                if ($fileName) {
+                    Storage::disk('public')->delete($fileName);
+                }
+
+                return back()->withErrors(['attendance' => 'Anda sudah absen hari ini.']);
             }
 
-            $image = $request->photo;
-            // 1. Bersihkan base64
-            $image = preg_replace('/^data:image\/\w+;base64,/', '', $image);
-            $image = str_replace(' ', '+', $image);
-            $imageData = base64_decode($image);
-
-            $userName = Str::slug(Auth::user()->name, '_');
-            $dateTime = now()->format('Y-m-d_H-i-s');
-            $fileName = "attendance/{$userName}/{$userName}_{$dateTime}.jpg";
-
-            $manager = new ImageManager(new Driver);
-            $compressedImage = $manager
-                ->read($imageData)
-                ->toJpeg(75); // q
-
-            Storage::disk('public')->put($fileName, (string) $compressedImage);
-
-            // batas jam absen
-            $batasJam = '08:00:00';
-
-            // kalau mau absen hadir tapi terlambat nanti dia jadi terlambat
-            if (now()->format('H:i:s') > $batasJam) {
-                $attendanceStatus = 'late';
-            }
-        }
-
-        $attendance = Attendance::firstOrCreate(
-            [
-                'user_id' => Auth::id(),
-                'date' => today(),
-            ],
-            [
-                'check_in' => now()->format('H:i:s'),
-                'status' => $attendanceStatus,
-                'note' => $request->note,
-                'photo' => $fileName,
-                'latitude' => $request->latitude,
-                'longitude' => $request->longitude,
-            ],
-        );
-
-        if (! $attendance->wasRecentlyCreated) {
-            if ($fileName) {
-                Storage::disk('public')->delete($fileName);
-            }
-
-            return back()->withErrors(['attendance' => 'Anda sudah absen hari ini.']);
-        }
-
-        return redirect()->back()->with('success', 'absensi berhasil');
+            return redirect()->back()->with('success', 'absensi berhasil');
+        });
     }
 
     private function distance($lat1, $lon1, $lat2, $lon2): float
