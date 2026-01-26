@@ -45,6 +45,31 @@
 
         <x-footer />
     </div>
+    <!-- Offline Indicator -->
+    <div id="offlineIndicator" class="fixed bottom-4 left-4 right-4 z-50 transform translate-y-20 transition-transform duration-300 pointer-events-none">
+        <div class="bg-slate-900/90 backdrop-blur-md text-white px-4 py-3 rounded-xl shadow-lg flex items-center justify-center gap-3">
+            <span class="material-symbols-outlined text-red-400 animate-pulse">wifi_off</span>
+            <div class="text-sm font-medium">
+                <p>Anda sedang offline</p>
+                {{-- <p class="text-xs text-slate-400">Beberapa fitur mungkin tidak berjalan</p> --}}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('offline', () => {
+             document.getElementById('offlineIndicator').classList.remove('translate-y-20');
+        });
+        window.addEventListener('online', () => {
+             document.getElementById('offlineIndicator').classList.add('translate-y-20');
+        });
+        
+        // Check initial state
+        if(!navigator.onLine) {
+            document.getElementById('offlineIndicator').classList.remove('translate-y-20');
+        }
+    </script>
+
     @stack('scripts')
 </body>
 

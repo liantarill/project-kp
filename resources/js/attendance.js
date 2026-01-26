@@ -70,6 +70,23 @@ function initCamera() {
         })
         .catch((error) => {
             console.error("Camera error:", error);
+            let message = "Kamera Tidak Aktif";
+            let detail = "Mohon izinkan akses kamera untuk melanjutkan absensi.";
+
+            if (error.name === "NotAllowedError" || error.name === "PermissionDeniedError") {
+                detail = "Akses kamera ditolak. Silakan cek pengaturan browser Anda dan izinkan akses kamera.";
+            } else if (error.name === "NotFoundError" || error.name === "DevicesNotFoundError") {
+                detail = "Kamera tidak ditemukan pada perangkat ini.";
+            } else if (error.name === "NotReadableError" || error.name === "TrackStartError") {
+                detail = "Kamera sedang digunakan oleh aplikasi lain.";
+            }
+
+            // Update warning text dynamically
+            const warningTitle = document.querySelector("#cameraWarning p.font-semibold");
+            const warningDetail = document.querySelector("#cameraWarning p.text-xs");
+            if(warningTitle) warningTitle.textContent = message;
+            if(warningDetail) warningDetail.textContent = detail;
+
             showCameraWarning();
         });
 }
@@ -392,22 +409,22 @@ function handleLocationError(error) {
     switch (error.code) {
         case error.PERMISSION_DENIED:
             message =
-                '<span class="material-symbols-outlined text-[16px] mr-1">error</span>Akses lokasi ditolak';
+                '<div class="flex flex-col items-center"><span class="material-symbols-outlined text-[24px] mb-1">location_off</span><span class="font-bold">Akses Lokasi Ditolak</span><span class="text-xs font-normal mt-1">Mohon aktifkan GPS dan izinkan akses lokasi di browser Anda.</span></div>';
             break;
         case error.POSITION_UNAVAILABLE:
             message =
-                '<span class="material-symbols-outlined text-[16px] mr-1">error</span>Lokasi tidak tersedia';
+                '<div class="flex flex-col items-center"><span class="material-symbols-outlined text-[24px] mb-1">signal_wifi_off</span><span class="font-bold">Lokasi Tidak Tersedia</span><span class="text-xs font-normal mt-1">Pastikan GPS aktif dan sinyal stabil.</span></div>';
             break;
         case error.TIMEOUT:
-            message =
-                '<span class="material-symbols-outlined text-[16px] mr-1">error</span>Waktu habis';
+             message =
+                '<div class="flex flex-col items-center"><span class="material-symbols-outlined text-[24px] mb-1">timer_off</span><span class="font-bold">Waktu Habis</span><span class="text-xs font-normal mt-1">Gagal mengambil lokasi. Silakan coba lagi.</span></div>';
             break;
         default:
             message =
-                '<span class="material-symbols-outlined text-[16px] mr-1">error</span>Error mengambil lokasi';
+                '<div class="flex flex-col items-center"><span class="material-symbols-outlined text-[24px] mb-1">error</span><span class="font-bold">Terjadi Kesalahan</span><span class="text-xs font-normal mt-1">Gagal mengambil lokasi.</span></div>';
     }
 
-    statusEl.innerHTML = `<div class="text-red-600">${message}</div>`;
+    statusEl.innerHTML = `<div class="text-red-500 text-center p-2">${message}</div>`;
 }
 
 function handleNoGeolocation() {

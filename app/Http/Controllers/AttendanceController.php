@@ -26,25 +26,30 @@ class AttendanceController extends Controller
 
     public function index()
     {
-        return view('absensi.index');
+        $attendance = Attendance::where('user_id', Auth::id())
+            ->whereDate('date', today())
+            ->first();
+
+        return view('absensi.index', compact('attendance'));
     }
 
     public function history()
     {
-        // No need to eager load user since we're filtering by current user
-        // and not displaying user data in the view
         $attendances = Attendance::where('user_id', Auth::id())
             ->latest()
             ->get();
 
-        // $attendances = Attendance::where('user_id', auth()->id())
-        //     ->orderBy('created_at', 'desc')
-        //     ->get()
-        //     ->groupBy(function ($item) {
-        //         return $item->created_at->translatedFormat('F Y');
-        //     });
+        $calendarData = $attendances->mapWithKeys(function ($item) {
+            return [
+                $item->date->format('Y-m-d') => [
+                    'status' => $item->status,
+                    'check_in' => $item->check_in,
+                    'note' => $item->note
+                ]
+            ];
+        });
 
-        return view('absensi.riwayat', compact('attendances'));
+        return view('absensi.riwayat', compact('attendances', 'calendarData'));
     }
 
     public function export()
