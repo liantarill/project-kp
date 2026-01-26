@@ -2,6 +2,9 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\AttendanceTodayWidget;
+use App\Filament\Widgets\StatsDashboard;
+use App\Filament\Widgets\UserEndingSoon;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -37,7 +40,7 @@ class AdminPanelProvider extends PanelProvider
             ->login(false)
             ->colors([
                 'primary' => Color::Blue,
-                'emerald' => Color::Emerald
+                'green' => Color::Blue
             ])
             ->databaseNotifications()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
