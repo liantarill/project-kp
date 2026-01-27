@@ -1,7 +1,9 @@
 <x-guest-layout>
     <!-- Background Image Section -->
-    <section class="relative min-h-screen w-full bg-cover bg-center bg-no-repeat
-           flex items-center justify-center pt-24" style="background-image: url('company.jpg')">
+    <section
+        class="relative min-h-screen w-full bg-cover bg-center bg-no-repeat
+           flex items-center justify-center pt-24"
+        style="background-image: url('company.jpg')">
         <!-- Overlay -->
         <div class="absolute inset-0 bg-green-900/60"></div>
 
@@ -17,7 +19,8 @@
                 berbasis lokasi dan foto bukti secara real-time.
             </p>
 
-            <a href="{{ auth()->user() ? route('absensi.index') : route('login') }}" class="inline-block bg-green-700 hover:bg-green-800
+            <a href="{{ auth()->user() ? route('absensi.index') : route('login') }}"
+                class="inline-block bg-green-700 hover:bg-green-800
                   text-white font-medium px-8 py-3 rounded-full shadow-md">
                 Masuk Absensi
             </a>
@@ -81,75 +84,112 @@
             <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">Tahapan Penggunaan</h2>
             <div class="h-1 w-16 sm:w-20 bg-green-700 mb-8 sm:mb-12 lg:mb-20"></div>
 
-          <div class="w-full">
-  <div
-    class="flex items-center gap-6 lg:gap-10
-           overflow-x-auto md:overflow-visible
-           flex-nowrap md:justify-center
-           snap-x snap-mandatory
-           px-4 md:px-0 pb-4">
+            <!-- Desktop & Tablet Layout (md and up) -->
+            <div class="hidden md:flex items-center justify-center gap-4 lg:gap-8">
 
-    <!-- STEP 1 -->
-    <div class="flex flex-col items-center min-w-[220px] max-w-xs snap-center">
-      <div
-        class="w-20 h-20 lg:w-24 lg:h-24 bg-orange-300 rounded-2xl lg:rounded-3xl
-               flex items-center justify-center shadow-lg mb-4">
-        <i class="fa-solid fa-arrow-right-to-bracket text-white text-2xl"></i>
-      </div>
-      <h3 class="text-lg lg:text-xl font-semibold text-gray-900 mb-2">
-        Registrasi
-      </h3>
-      <p class="text-sm lg:text-base text-gray-600 text-center">
-        Buat akun menggunakan email aktif dan isi data diri sesuai instansi asal.
-      </p>
-    </div>
+                <!-- STEP 1 -->
+                <div class="flex flex-col items-center flex-1 max-w-xs">
+                    <div
+                        class="w-20 h-20 lg:w-24 lg:h-24 bg-orange-300 rounded-2xl lg:rounded-3xl flex items-center justify-center shadow-lg mb-4 lg:mb-6">
+                        <i class="fa-solid fa-arrow-right-to-bracket text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg lg:text-xl font-semibold text-gray-900 mb-2 lg:mb-3">Registrasi</h3>
+                    <p class="text-sm lg:text-base text-gray-600 text-center">
+                        Buat akun menggunakan email aktif dan isi data diri sesuai instansi asal.
+                    </p>
+                </div>
 
-    <!-- CONNECTOR -->
-    <div class="hidden md:flex items-center gap-2 flex-shrink-0">
-      <span class="w-2 h-2 bg-orange-300 rounded-full"></span>
-      <div class="w-20 lg:w-28 border-t-2 border-dashed border-gray-300"></div>
-      <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-    </div>
+                <!-- CONNECTOR 1 -->
+                <div class="flex items-center gap-2 flex-shrink-0">
+                    <span class="w-2 h-2 lg:w-2.5 lg:h-2.5 bg-orange-300 rounded-full"></span>
+                    <div class="w-16 lg:w-24 border-t-2 border-dashed border-gray-300"></div>
+                    <span class="w-2 h-2 lg:w-2.5 lg:h-2.5 bg-green-500 rounded-full"></span>
+                </div>
 
-    <!-- STEP 2 -->
-    <div class="flex flex-col items-center min-w-[220px] max-w-xs snap-center">
-      <div
-        class="w-20 h-20 lg:w-24 lg:h-24 bg-green-500 rounded-2xl lg:rounded-3xl
-               flex items-center justify-center shadow-lg mb-4">
-        <i class="fa-solid fa-circle-check text-white text-2xl"></i>
-      </div>
-      <h3 class="text-lg lg:text-xl font-semibold text-gray-900 mb-2">
-        Verifikasi
-      </h3>
-      <p class="text-sm lg:text-base text-gray-600 text-center">
-        Tunggu persetujuan admin atau verifikasi email untuk mengaktifkan akun.
-      </p>
-    </div>
+                <!-- STEP 2 -->
+                <div class="flex flex-col items-center flex-1 max-w-xs">
+                    <div
+                        class="w-20 h-20 lg:w-24 lg:h-24 bg-green-500 rounded-2xl lg:rounded-3xl flex items-center justify-center shadow-lg mb-4 lg:mb-6">
+                        <i class="fa-solid fa-circle-check text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg lg:text-xl font-semibold text-gray-900 mb-2 lg:mb-3">Verifikasi</h3>
+                    <p class="text-sm lg:text-base text-gray-600 text-center">
+                        Tunggu persetujuan admin atau verifikasi email untuk mengaktifkan akun.
+                    </p>
+                </div>
 
-    <!-- CONNECTOR -->
-    <div class="hidden md:flex items-center gap-2 flex-shrink-0">
-      <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-      <div class="w-20 lg:w-28 border-t-2 border-dashed border-gray-300"></div>
-      <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
-    </div>
+                <!-- CONNECTOR 2 -->
+                <div class="flex items-center gap-2 flex-shrink-0">
+                    <span class="w-2 h-2 lg:w-2.5 lg:h-2.5 bg-green-500 rounded-full"></span>
+                    <div class="w-16 lg:w-24 border-t-2 border-dashed border-gray-300"></div>
+                    <span class="w-2 h-2 lg:w-2.5 lg:h-2.5 bg-blue-400 rounded-full"></span>
+                </div>
 
-    <!-- STEP 3 -->
-    <div class="flex flex-col items-center min-w-[220px] max-w-xs snap-center">
-      <div
-        class="w-20 h-20 lg:w-24 lg:h-24 bg-blue-400 rounded-2xl lg:rounded-3xl
-               flex items-center justify-center shadow-lg mb-4">
-        <i class="fa-solid fa-thumbtack text-white text-2xl"></i>
-      </div>
-      <h3 class="text-lg lg:text-xl font-semibold text-gray-900 mb-2">
-        Absensi Rutin
-      </h3>
-      <p class="text-sm lg:text-base text-gray-600 text-center">
-        Lakukan absensi magangmu setiap hari tepat waktu dan sesuai lokasi
-      </p>
-    </div>
+                <!-- STEP 3 -->
+                <div class="flex flex-col items-center flex-1 max-w-xs">
+                    <div
+                        class="w-20 h-20 lg:w-24 lg:h-24 bg-blue-400 rounded-2xl lg:rounded-3xl flex items-center justify-center shadow-lg mb-4 lg:mb-6">
+                        <i class="fa-solid fa-thumbtack text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg lg:text-xl font-semibold text-gray-900 mb-2 lg:mb-3">Absensi Rutin</h3>
+                    <p class="text-sm lg:text-base text-gray-600 text-center">
+                        Lakukan absensi magangmu setiap hari tepat waktu dan sesuai lokasi
+                    </p>
+                </div>
 
-  </div>
-</div>
+            </div>
+
+            <!-- Mobile Layout (below md) -->
+            <div class="flex flex-col md:hidden space-y-8">
+
+                <!-- STEP 1 -->
+                <div class="flex items-center gap-4">
+                    <div class="flex flex-col items-center flex-shrink-0">
+                        <div class="w-16 h-16 bg-orange-300 rounded-2xl flex items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-arrow-right-to-bracket text-white text-2xl"></i>
+                        </div>
+                        <div class="w-0.5 h-12 bg-gray-300 mt-3"></div>
+                    </div>
+                    <div class="flex-1 pt-2">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Registrasi</h3>
+                        <p class="text-sm text-gray-600">
+                            Buat akun menggunakan email aktif dan isi data diri sesuai instansi asal.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- STEP 2 -->
+                <div class="flex items-center gap-4">
+                    <div class="flex flex-col items-center flex-shrink-0">
+                        <div class="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-circle-check text-white text-2xl"></i>
+                        </div>
+                        <div class="w-0.5 h-12 bg-gray-300 mt-3"></div>
+                    </div>
+                    <div class="flex-1 pt-2">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Verifikasi</h3>
+                        <p class="text-sm text-gray-600">
+                            Tunggu persetujuan admin atau verifikasi email untuk mengaktifkan akun.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- STEP 3 -->
+                <div class="flex items-center gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="w-16 h-16 bg-blue-400 rounded-2xl flex items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-thumbtack text-white text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1 pt-2">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Absensi Rutin</h3>
+                        <p class="text-sm text-gray-600">
+                            Lakukan absensi magangmu setiap hari tepat waktu dan sesuai lokasi
+                        </p>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
@@ -162,7 +202,8 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                 <!-- Department 1 - Secretariat & Legal -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
                         p-5 sm:p-6 text-center 
                         flex flex-col h-full">
                     <div class="flex justify-center mb-5 sm:mb-6">
@@ -183,7 +224,8 @@
                 </div>
 
                 <!-- Department 2 - Human Resources -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
                         p-5 sm:p-6 text-center 
                         flex flex-col h-full">
                     <div class="flex justify-center mb-5 sm:mb-6">
@@ -204,7 +246,8 @@
                 </div>
 
                 <!-- Department 3 - Plantation & Processing Engineering -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
                         p-5 sm:p-6 text-center 
                         flex flex-col h-full">
                     <div class="flex justify-center mb-5 sm:mb-6">
@@ -224,7 +267,8 @@
                 </div>
 
                 <!-- Department 4 - Accounting & Finance -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
                         p-5 sm:p-6 text-center 
                         flex flex-col h-full">
                     <div class="flex justify-center mb-5 sm:mb-6">
@@ -244,7 +288,8 @@
                 </div>
 
                 <!-- Department 5 - Asset Management & Marketing -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
                         p-5 sm:p-6 text-center 
                         flex flex-col h-full">
                     <div class="flex justify-center mb-5 sm:mb-6">
@@ -264,7 +309,8 @@
                 </div>
 
                 <!-- Department 6 - Compliance & Risk Management -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
                         p-5 sm:p-6 text-center 
                         flex flex-col h-full">
                     <div class="flex justify-center mb-5 sm:mb-6">
@@ -284,7 +330,8 @@
                 </div>
 
                 <!-- Department 7 - Project Management Office -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
                         p-5 sm:p-6 text-center 
                         flex flex-col h-full">
                     <div class="flex justify-center mb-5 sm:mb-6">
@@ -309,7 +356,8 @@
     <!-- MODAL BIDANG -->
     <div id="bidangModal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50">
 
-        <div class="bg-white rounded-2xl w-full max-w-[95vw] sm:max-w-xl lg:max-w-2xl
+        <div
+            class="bg-white rounded-2xl w-full max-w-[95vw] sm:max-w-xl lg:max-w-2xl
             mx-auto overflow-hidden relative">
 
             <!-- Header -->
@@ -498,7 +546,7 @@
             document.getElementById('bidangModal').classList.add('hidden');
         }
 
-        document.getElementById('bidangModal').addEventListener('click', function (e) {
+        document.getElementById('bidangModal').addEventListener('click', function(e) {
             if (e.target === this) closeBidangModal();
         });
     </script>
