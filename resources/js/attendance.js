@@ -10,6 +10,10 @@ window.OFFICE_LAT = -5.3851721;
 window.OFFICE_LNG = 105.2605921;
 window.MAX_RADIUS = 55;
 
+// Global validation state
+window.isLocationValid = false;
+window.isAccuracyValid = false;
+
 // Initialize on page load
 document.addEventListener("DOMContentLoaded", () => {
     checkCameraPermission();
@@ -290,8 +294,21 @@ function enableSubmitButton() {
     const photoInput = document.getElementById("photo");
     const submitBtn = document.getElementById("submitBtn");
 
-    if (photoInput.value && window.selectedStatus === "present") {
+    if (window.selectedStatus === "present") {
+        if (
+            photoInput.value &&
+            window.isLocationValid &&
+            window.isAccuracyValid
+        ) {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove("opacity-50", "cursor-not-allowed");
+        } else {
+            submitBtn.disabled = true;
+            submitBtn.classList.add("opacity-50", "cursor-not-allowed");
+        }
+    } else {
         submitBtn.disabled = false;
+        submitBtn.classList.remove("opacity-50", "cursor-not-allowed");
     }
 }
 
@@ -327,16 +344,30 @@ function getDistanceFromLatLonInMeters(lat1, lon1, lat2, lon2) {
     return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
 }
 
+// Global variable for watchPosition
+window.watchId = null;
+window.MIN_ACCURACY = 50; // Minimum accuracy in meters
+
 window.requestLocation = function () {
     const statusEl = document.getElementById("locationStatus");
     const mapPlaceholder = document.getElementById("mapPlaceholder");
     const locationInfo = document.getElementById("locationInfo");
 
+    // Clear existing watch if any
+    if (window.watchId !== null) {
+        navigator.geolocation.clearWatch(window.watchId);
+        window.watchId = null;
+    }
+
     // Show loading state
     mapPlaceholder.style.display = "flex";
     locationInfo.style.display = "none";
     statusEl.innerHTML =
-        '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Mengambil lokasi...';
+        '<div class="flex flex-col items-center gap-2">' +
+        '<i class="fa-solid fa-spinner fa-spin text-2xl text-blue-500"></i>' +
+        '<span class="font-medium">Mencari lokasi akurat...</span>' +
+        '<span class="text-xs text-slate-400">Pastikan berada di area terbuka</span>' +
+        "</div>";
 
     navigator.permissions.query({ name: "geolocation" }).then((result) => {
         if (result.state === "denied") {
@@ -345,12 +376,12 @@ window.requestLocation = function () {
             return;
         }
 
-        navigator.geolocation.getCurrentPosition(
+        window.watchId = navigator.geolocation.watchPosition(
             handleLocationSuccess,
             handleLocationError,
             {
                 enableHighAccuracy: true,
-                timeout: 10000,
+                timeout: 20000,
                 maximumAge: 0,
             },
         );
@@ -360,6 +391,10 @@ window.requestLocation = function () {
 function handleLocationSuccess(position) {
     const userLat = position.coords.latitude;
     const userLng = position.coords.longitude;
+    const accuracy = position.coords.accuracy;
+
+    // Optional: Filter out very poor accuracy updates (e.g., > 1000m) unless it's the first one
+    // But showing it with a warning is usually better feedback.
 
     document.getElementById("latitude").value = userLat;
     document.getElementById("longitude").value = userLng;
@@ -381,44 +416,77 @@ function handleLocationSuccess(position) {
     const locationDistance = document.getElementById("locationDistance");
     const locationInfoBox = document.querySelector("#locationInfo > div");
 
-    if (distance <= window.MAX_RADIUS) {
-        locationIcon.textContent = "check_circle";
-        locationText.textContent = "Dalam area kantor";
-        locationDistance.textContent = `Jarak: ${Math.round(
-            distance,
-        )} meter dari kantor`;
-        locationInfoBox
-            .querySelector(".w-8")
-            .classList.remove("bg-red-50", "text-red-600");
-        locationInfoBox
-            .querySelector(".w-8")
-            .classList.add("bg-emerald-50", "text-emerald-600");
+    // Update marker
+    showAttendanceMap(userLat, userLng);
+
+    // Add accuracy circle visualization
+    // if (window.accuracyCircle) {
+    //     window.attendanceMap.removeLayer(window.accuracyCircle);
+    // }
+    // window.accuracyCircle = L.circle([userLat, userLng], {
+    //     color: "#3b82f6",
+    //     fillColor: "#3b82f6",
+    //     fillOpacity: 0.1,
+    //     weight: 1,
+    //     radius: accuracy,
+    // }).addTo(window.attendanceMap);
+
+    // Logic for valid location
+    let statusMessage = "";
+    let statusColorClass = "";
+    let iconName = "";
+
+    // Check accuracy first
+    if (accuracy > window.MIN_ACCURACY) {
+        window.isAccuracyValid = false;
+        iconName = "gps_fixed";
+        statusMessage = `Akurasi Rendah (${Math.round(accuracy)}m)`;
+        // locationDistance.textContent = `Menunggu akurasi lebih baik (Target: < ${window.MIN_ACCURACY}m)`;
+        locationDistance.innerHTML = `<span class="text-amber-600 font-medium">Sinyal GPS lemah. Tunggu sebentar...</span>`;
+
+        locationInfoBox.querySelector(".w-8").className =
+            "w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center flex-shrink-0 text-amber-600";
+        locationIcon.textContent = "satellite_alt";
+        locationText.textContent = statusMessage;
     } else {
-        locationIcon.textContent = "error";
-        locationText.textContent = "Di luar area kantor";
-        if (distance < 1000) {
-            locationDistance.textContent = `Jarak: ${Math.round(
-                distance,
-            )} meter dari kantor`;
-        } else {
-            const distanceInKm = distance / 1000;
-            locationDistance.textContent = `Jarak: ${distanceInKm.toFixed(
-                1,
-            )} kilometer dari kantor`;
-        }
-        locationInfoBox
-            .querySelector(".w-8")
-            .classList.remove("bg-emerald-50", "text-emerald-600");
-        locationInfoBox
-            .querySelector(".w-8")
-            .classList.add("bg-red-50", "text-red-600");
+        window.isAccuracyValid = true;
     }
 
-    showAttendanceMap(userLat, userLng);
+    // Check Distance logic
+    if (distance <= window.MAX_RADIUS) {
+        window.isLocationValid = true;
+        if (accuracy <= window.MIN_ACCURACY) {
+            // Good to go
+            locationIcon.textContent = "check_circle";
+            locationText.textContent = "Dalam area kantor";
+            locationInfoBox.querySelector(".w-8").className =
+                "w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center flex-shrink-0 text-emerald-600";
+        }
+    } else {
+        window.isLocationValid = false;
+        locationIcon.textContent = "error";
+        locationText.textContent = "Di luar area kantor";
+        locationInfoBox.querySelector(".w-8").className =
+            "w-8 h-8 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 text-red-600";
+    }
+
+    // Always show distance
+    if (accuracy <= window.MIN_ACCURACY) {
+        if (distance < 1000) {
+            locationDistance.textContent = `Jarak: ${Math.round(distance)}m (Akurasi: ${Math.round(accuracy)}m)`;
+        } else {
+            locationDistance.textContent = `Jarak: ${(distance / 1000).toFixed(1)}km (Akurasi: ${Math.round(accuracy)}m)`;
+        }
+    }
+
+    enableSubmitButton();
 }
 
 function handleLocationError(error) {
     const statusEl = document.getElementById("locationStatus");
+    window.isLocationValid = false;
+    window.isAccuracyValid = false;
+    enableSubmitButton();
 
     let message = "";
     switch (error.code) {
