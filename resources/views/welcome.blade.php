@@ -81,112 +81,75 @@
             <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">Tahapan Penggunaan</h2>
             <div class="h-1 w-16 sm:w-20 bg-green-700 mb-8 sm:mb-12 lg:mb-20"></div>
 
-            <!-- Desktop & Tablet Layout (md and up) -->
-            <div class="hidden md:flex items-center justify-center gap-4 lg:gap-8">
+          <div class="w-full">
+  <div
+    class="flex items-center gap-6 lg:gap-10
+           overflow-x-auto md:overflow-visible
+           flex-nowrap md:justify-center
+           snap-x snap-mandatory
+           px-4 md:px-0 pb-4">
 
-                <!-- STEP 1 -->
-                <div class="flex flex-col items-center flex-1 max-w-xs">
-                    <div
-                        class="w-20 h-20 lg:w-24 lg:h-24 bg-orange-300 rounded-2xl lg:rounded-3xl flex items-center justify-center shadow-lg mb-4 lg:mb-6">
-                        <i class="fa-solid fa-arrow-right-to-bracket text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-lg lg:text-xl font-semibold text-gray-900 mb-2 lg:mb-3">Registrasi</h3>
-                    <p class="text-sm lg:text-base text-gray-600 text-center">
-                        Buat akun menggunakan email aktif dan isi data diri sesuai instansi asal.
-                    </p>
-                </div>
+    <!-- STEP 1 -->
+    <div class="flex flex-col items-center min-w-[220px] max-w-xs snap-center">
+      <div
+        class="w-20 h-20 lg:w-24 lg:h-24 bg-orange-300 rounded-2xl lg:rounded-3xl
+               flex items-center justify-center shadow-lg mb-4">
+        <i class="fa-solid fa-arrow-right-to-bracket text-white text-2xl"></i>
+      </div>
+      <h3 class="text-lg lg:text-xl font-semibold text-gray-900 mb-2">
+        Registrasi
+      </h3>
+      <p class="text-sm lg:text-base text-gray-600 text-center">
+        Buat akun menggunakan email aktif dan isi data diri sesuai instansi asal.
+      </p>
+    </div>
 
-                <!-- CONNECTOR 1 -->
-                <div class="flex items-center gap-2 flex-shrink-0">
-                    <span class="w-2 h-2 lg:w-2.5 lg:h-2.5 bg-orange-300 rounded-full"></span>
-                    <div class="w-16 lg:w-24 border-t-2 border-dashed border-gray-300"></div>
-                    <span class="w-2 h-2 lg:w-2.5 lg:h-2.5 bg-green-500 rounded-full"></span>
-                </div>
+    <!-- CONNECTOR -->
+    <div class="hidden md:flex items-center gap-2 flex-shrink-0">
+      <span class="w-2 h-2 bg-orange-300 rounded-full"></span>
+      <div class="w-20 lg:w-28 border-t-2 border-dashed border-gray-300"></div>
+      <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+    </div>
 
-                <!-- STEP 2 -->
-                <div class="flex flex-col items-center flex-1 max-w-xs">
-                    <div
-                        class="w-20 h-20 lg:w-24 lg:h-24 bg-green-500 rounded-2xl lg:rounded-3xl flex items-center justify-center shadow-lg mb-4 lg:mb-6">
-                        <i class="fa-solid fa-circle-check text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-lg lg:text-xl font-semibold text-gray-900 mb-2 lg:mb-3">Verifikasi</h3>
-                    <p class="text-sm lg:text-base text-gray-600 text-center">
-                        Tunggu persetujuan admin atau verifikasi email untuk mengaktifkan akun.
-                    </p>
-                </div>
+    <!-- STEP 2 -->
+    <div class="flex flex-col items-center min-w-[220px] max-w-xs snap-center">
+      <div
+        class="w-20 h-20 lg:w-24 lg:h-24 bg-green-500 rounded-2xl lg:rounded-3xl
+               flex items-center justify-center shadow-lg mb-4">
+        <i class="fa-solid fa-circle-check text-white text-2xl"></i>
+      </div>
+      <h3 class="text-lg lg:text-xl font-semibold text-gray-900 mb-2">
+        Verifikasi
+      </h3>
+      <p class="text-sm lg:text-base text-gray-600 text-center">
+        Tunggu persetujuan admin atau verifikasi email untuk mengaktifkan akun.
+      </p>
+    </div>
 
-                <!-- CONNECTOR 2 -->
-                <div class="flex items-center gap-2 flex-shrink-0">
-                    <span class="w-2 h-2 lg:w-2.5 lg:h-2.5 bg-green-500 rounded-full"></span>
-                    <div class="w-16 lg:w-24 border-t-2 border-dashed border-gray-300"></div>
-                    <span class="w-2 h-2 lg:w-2.5 lg:h-2.5 bg-blue-400 rounded-full"></span>
-                </div>
+    <!-- CONNECTOR -->
+    <div class="hidden md:flex items-center gap-2 flex-shrink-0">
+      <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+      <div class="w-20 lg:w-28 border-t-2 border-dashed border-gray-300"></div>
+      <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
+    </div>
 
-                <!-- STEP 3 -->
-                <div class="flex flex-col items-center flex-1 max-w-xs">
-                    <div
-                        class="w-20 h-20 lg:w-24 lg:h-24 bg-blue-400 rounded-2xl lg:rounded-3xl flex items-center justify-center shadow-lg mb-4 lg:mb-6">
-                        <i class="fa-solid fa-thumbtack text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-lg lg:text-xl font-semibold text-gray-900 mb-2 lg:mb-3">Absensi Rutin</h3>
-                    <p class="text-sm lg:text-base text-gray-600 text-center">
-                        Lakukan absensi magangmu setiap hari tepat waktu dan sesuai lokasi
-                    </p>
-                </div>
+    <!-- STEP 3 -->
+    <div class="flex flex-col items-center min-w-[220px] max-w-xs snap-center">
+      <div
+        class="w-20 h-20 lg:w-24 lg:h-24 bg-blue-400 rounded-2xl lg:rounded-3xl
+               flex items-center justify-center shadow-lg mb-4">
+        <i class="fa-solid fa-thumbtack text-white text-2xl"></i>
+      </div>
+      <h3 class="text-lg lg:text-xl font-semibold text-gray-900 mb-2">
+        Absensi Rutin
+      </h3>
+      <p class="text-sm lg:text-base text-gray-600 text-center">
+        Lakukan absensi magangmu setiap hari tepat waktu dan sesuai lokasi
+      </p>
+    </div>
 
-            </div>
-
-            <!-- Mobile Layout (below md) -->
-            <div class="flex flex-col md:hidden space-y-8">
-
-                <!-- STEP 1 -->
-                <div class="flex items-center gap-4">
-                    <div class="flex flex-col items-center flex-shrink-0">
-                        <div class="w-16 h-16 bg-orange-300 rounded-2xl flex items-center justify-center shadow-lg">
-                            <i class="fa-solid fa-arrow-right-to-bracket text-white text-2xl"></i>
-                        </div>
-                        <div class="w-0.5 h-12 bg-gray-300 mt-3"></div>
-                    </div>
-                    <div class="flex-1 pt-2">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Registrasi</h3>
-                        <p class="text-sm text-gray-600">
-                            Buat akun menggunakan email aktif dan isi data diri sesuai instansi asal.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- STEP 2 -->
-                <div class="flex items-center gap-4">
-                    <div class="flex flex-col items-center flex-shrink-0">
-                        <div class="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center shadow-lg">
-                            <i class="fa-solid fa-circle-check text-white text-2xl"></i>
-                        </div>
-                        <div class="w-0.5 h-12 bg-gray-300 mt-3"></div>
-                    </div>
-                    <div class="flex-1 pt-2">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Verifikasi</h3>
-                        <p class="text-sm text-gray-600">
-                            Tunggu persetujuan admin atau verifikasi email untuk mengaktifkan akun.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- STEP 3 -->
-                <div class="flex items-center gap-4">
-                    <div class="flex-shrink-0">
-                        <div class="w-16 h-16 bg-blue-400 rounded-2xl flex items-center justify-center shadow-lg">
-                            <i class="fa-solid fa-thumbtack text-white text-2xl"></i>
-                        </div>
-                    </div>
-                    <div class="flex-1 pt-2">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Absensi Rutin</h3>
-                        <p class="text-sm text-gray-600">
-                            Lakukan absensi magangmu setiap hari tepat waktu dan sesuai lokasi
-                        </p>
-                    </div>
-                </div>
-
-            </div>
+  </div>
+</div>
         </div>
     </section>
 
@@ -197,10 +160,12 @@
             <h2 class="text-4xl font-bold text-gray-900 mb-2">Bidang Penempatan</h2>
             <div class="h-1 w-20 bg-green-700 mb-16"></div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                 <!-- Department 1 - Secretariat & Legal -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition p-6 text-center">
-                    <div class="flex justify-center mb-6">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
+                        p-5 sm:p-6 text-center 
+                        flex flex-col h-full">
+                    <div class="flex justify-center mb-5 sm:mb-6">
                         <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center shadow-lg">
                             <i class="fa-solid fa-building text-white text-2xl"></i>
                         </div>
@@ -210,16 +175,18 @@
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab dalam mengelola administrasi dan aspek
                         hukum
                         perusahaan.</p>
-                    <p class="text-xs text-gray-600 mb-4">6 tugas • 8 kegiatan magang</p>
+                    <p class="text-xs text-gray-600 mb-4">6 kegiatan magang</p>
                     <button onclick="openBidangModal('skr')"
-                        class="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
-                        Lihat Detail →
+                        class="mt-auto inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
+                        Lihat Kegiatan →
                     </button>
                 </div>
 
                 <!-- Department 2 - Human Resources -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition p-6 text-center">
-                    <div class="flex justify-center mb-6">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
+                        p-5 sm:p-6 text-center 
+                        flex flex-col h-full">
+                    <div class="flex justify-center mb-5 sm:mb-6">
                         <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center shadow-lg">
                             <i class="fa-solid fa-brain text-white text-2xl"></i>
                         </div>
@@ -229,16 +196,18 @@
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab dalam mengelola perencanaan dan
                         pengembangan
                         karyawan.</p>
-                    <p class="text-xs text-gray-600 mb-4">9 tugas • 8 kegiatan magang</p>
+                    <p class="text-xs text-gray-600 mb-4">5 kegiatan magang</p>
                     <button onclick="openBidangModal('sdm')"
-                        class="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
-                        Lihat Detail →
+                        class="mt-auto inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
+                        Lihat Kegiatan →
                     </button>
                 </div>
 
                 <!-- Department 3 - Plantation & Processing Engineering -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition p-6 text-center">
-                    <div class="flex justify-center mb-6">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
+                        p-5 sm:p-6 text-center 
+                        flex flex-col h-full">
+                    <div class="flex justify-center mb-5 sm:mb-6">
                         <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
                             <i class="fa-brands fa-envira text-white text-2xl"></i>
                         </div>
@@ -247,16 +216,18 @@
                     <p class="text-xs text-gray-500 mb-3">Kepala: biablablabla, S.Kom., M.M</p>
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab dalam mengelola operasional, budidaya dan
                         pengolahan hasil perkebunan.</p>
-                    <p class="text-xs text-gray-600 mb-4">9 tugas • 8 kegiatan magang</p>
+                    <p class="text-xs text-gray-600 mb-4">4 kegiatan magang</p>
                     <button onclick="openBidangModal('tanaman')"
-                        class="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
-                        Lihat Detail →
+                        class="mt-auto inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
+                        Lihat Kegiatan →
                     </button>
                 </div>
 
                 <!-- Department 4 - Accounting & Finance -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition p-6 text-center">
-                    <div class="flex justify-center mb-6">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
+                        p-5 sm:p-6 text-center 
+                        flex flex-col h-full">
+                    <div class="flex justify-center mb-5 sm:mb-6">
                         <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center shadow-lg">
                             <i class="fa-solid fa-hand-holding-dollar text-white text-2xl"></i>
                         </div>
@@ -265,16 +236,18 @@
                     <p class="text-xs text-gray-500 mb-3">Kepala: biablablabla, S.Kom., M.M</p>
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab dalam mengelola keuangan dan pelaporan
                         perusahaan.</p>
-                    <p class="text-xs text-gray-600 mb-4">9 tugas • 10 kegiatan magang</p>
+                    <p class="text-xs text-gray-600 mb-4">5 kegiatan magang</p>
                     <button onclick="openBidangModal('ank')"
-                        class="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
-                        Lihat Detail →
+                        class="mt-auto inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
+                        Lihat Kegiatan →
                     </button>
                 </div>
 
                 <!-- Department 5 - Asset Management & Marketing -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition p-6 text-center">
-                    <div class="flex justify-center mb-6">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
+                        p-5 sm:p-6 text-center 
+                        flex flex-col h-full">
+                    <div class="flex justify-center mb-5 sm:mb-6">
                         <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center shadow-lg">
                             <i class="fa-solid fa-box text-white text-2xl"></i>
                         </div>
@@ -283,16 +256,18 @@
                     <p class="text-xs text-gray-500 mb-3">Kepala: biablablabla, S.Kom., M.M</p>
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab dalam mengelola aset serta pemasaran produk
                         perusahaan.</p>
-                    <p class="text-xs text-gray-600 mb-4">9 tugas • 8 kegiatan magang</p>
+                    <p class="text-xs text-gray-600 mb-4">4 kegiatan magang</p>
                     <button onclick="openBidangModal('aset')"
-                        class="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
-                        Lihat Detail →
+                        class="mt-auto inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
+                        Lihat Kegiatan →
                     </button>
                 </div>
 
                 <!-- Department 6 - Compliance & Risk Management -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition p-6 text-center">
-                    <div class="flex justify-center mb-6">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
+                        p-5 sm:p-6 text-center 
+                        flex flex-col h-full">
+                    <div class="flex justify-center mb-5 sm:mb-6">
                         <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center shadow-lg">
                             <i class="fa-solid fa-triangle-exclamation text-white text-2xl"></i>
                         </div>
@@ -301,16 +276,18 @@
                     <p class="text-xs text-gray-500 mb-3">Kepala: biablablabla, S.Kom., M.M</p>
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab untuk kepatuhan dan risiko dari praktik
                         manajemen.</p>
-                    <p class="text-xs text-gray-600 mb-4">9 tugas • 8 kegiatan magang</p>
+                    <p class="text-xs text-gray-600 mb-4">5 kegiatan magang</p>
                     <button onclick="openBidangModal('risiko')"
-                        class="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
-                        Lihat Detail →
+                        class="mt-auto inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
+                        Lihat Kegiatan →
                     </button>
                 </div>
 
                 <!-- Department 7 - Project Management Office -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition p-6 text-center">
-                    <div class="flex justify-center mb-6">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition 
+                        p-5 sm:p-6 text-center 
+                        flex flex-col h-full">
+                    <div class="flex justify-center mb-5 sm:mb-6">
                         <div class="w-16 h-16 bg-blue-400 rounded-full flex items-center justify-center shadow-lg">
                             <i class="fa-solid fa-clipboard text-white text-2xl"></i>
                         </div>
@@ -319,10 +296,10 @@
                     <p class="text-xs text-gray-500 mb-3">Kepala: biablablabla, S.Kom., M.M</p>
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab dalam mengelola dan mengkoordinasikan
                         pelaksanaan proyek.</p>
-                    <p class="text-xs text-gray-600 mb-4">9 tugas • 10 kegiatan magang</p>
+                    <p class="text-xs text-gray-600 mb-4">6 kegiatan magang</p>
                     <button onclick="openBidangModal('pmo')"
-                        class="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
-                        Lihat Detail →
+                        class="mt-auto inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
+                        Lihat Kegiatan →
                     </button>
                 </div>
             </div>
@@ -332,10 +309,11 @@
     <!-- MODAL BIDANG -->
     <div id="bidangModal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50">
 
-        <div class="bg-white rounded-2xl max-w-5xl w-full mx-4 overflow-hidden relative">
+        <div class="bg-white rounded-2xl w-full max-w-[95vw] sm:max-w-xl lg:max-w-2xl
+            mx-auto overflow-hidden relative">
 
             <!-- Header -->
-            <div id="modalHeader" class="text-white p-8 relative transition-all duration-300">
+            <div id="modalHeader" class="text-white p-6 sm:p-6 relative flex flex-col items-center text-center">
 
                 <button onclick="closeBidangModal()"
                     class="absolute top-4 right-4 text-white text-2xl hover:opacity-80">
@@ -353,33 +331,7 @@
             </div>
 
             <!-- Content -->
-            <div class="p-8 grid md:grid-cols-3 gap-6 text-sm text-gray-700">
-
-                <div class="bg-blue-50 rounded-xl p-5">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-100">
-                            <i class="fa-solid fa-bullseye text-blue-600 text-lg"></i>
-                        </div>
-                        <h3 class="font-bold text-lg text-gray-900">
-                            Tugas dan Tanggung Jawab
-                        </h3>
-                    </div>
-
-                    <ul id="modalTasks" class="space-y-3 text-gray-700"></ul>
-                </div>
-
-                <div class="bg-yellow-50 rounded-xl p-5">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-100">
-                            <i class="fa-solid fa-users text-yellow-600 text-lg"></i>
-                        </div>
-                        <h3 class="font-bold text-lg text-gray-900">
-                            Staff Fungsional
-                        </h3>
-                    </div>
-
-                    <ul id="modalStaff" class="space-y-3 text-gray-700"></ul>
-                </div>
+            <div class="p-5 space-y-4 text-sm text-gray-700">
 
                 <div class="bg-green-50 rounded-xl p-5">
                     <div class="flex items-center gap-3 mb-4">
@@ -409,19 +361,13 @@
                 desc: "Bertanggung jawab dalam mengelola administrasi dan aspek hukum perusahaan.",
                 icon: "fa-building",
                 color: "bg-red-600",
-                tasks: [
-                    "Pengelolaan administrasi dan tata usaha perusahaan",
-                    "Penyusunan dan pengarsipan dokumen hukum",
-                    "Pendampingan aspek legal kegiatan perusahaan"
-                ],
-                staff: [
-                    "Staff Administrasi",
-                    "Staff Hukum"
-                ],
                 intern: [
-                    "Pengarsipan surat masuk dan keluar",
-                    "Membantu administrasi legal",
-                    "Pendampingan kegiatan hukum"
+                    "Mendukung proses administrasi persuratan dan dokumen resmi perusahaan.",
+                    "Menata dan menyimpan arsip dokumen hukum serta administrasi perusahaan.",
+                    "Membantu pencatatan aktivitas surat menyurat dan memo internal.",
+                    "Terlibat dalam penyusunan dokumen administrasi dan memo internal.",
+                    "Membantu penyusunan rekap data administrasi dan dokumen legal.",
+                    "Melaksanakan tugas pendukung lainnya sesuai arahan pembimbing."
                 ]
             },
 
@@ -431,19 +377,12 @@
                 desc: "Bertanggung jawab dalam mengelola perencanaan dan pengembangan karyawan.",
                 icon: "fa-brain",
                 color: "bg-blue-600",
-                tasks: [
-                    "Pengelolaan data pegawai",
-                    "Perencanaan dan pengembangan SDM",
-                    "Evaluasi kinerja pegawai"
-                ],
-                staff: [
-                    "Staff Kepegawaian",
-                    "Staff Pengembangan SDM"
-                ],
                 intern: [
-                    "Input data pegawai",
-                    "Administrasi pelatihan",
-                    "Rekap absensi pegawai"
+                    "Membantu pengelolaan dan pembaruan data karyawan.",
+                    "Mengorganisir dokumen kepegawaian dan administrasi SDM.",
+                    "Mendukung pencatatan administrasi terkait kegiatan SDM.",
+                    "Membantu penyusunan dokumen internal seperti memo atau pemberitahuan.",
+                    "Menyusun ringkasan data absensi dan kegiatan pengembangan karyawan."
                 ]
             },
 
@@ -453,19 +392,11 @@
                 desc: "Bertanggung jawab dalam mengelola operasional, budidaya dan pengolahan hasil perkebunan.",
                 icon: "fa-brands fa-envira",
                 color: "bg-green-600",
-                tasks: [
-                    "Pengelolaan budidaya tanaman",
-                    "Pemeliharaan dan produksi perkebunan",
-                    "Pengolahan hasil perkebunan"
-                ],
-                staff: [
-                    "Mandor Lapangan",
-                    "Staff Produksi"
-                ],
                 intern: [
-                    "Pendataan hasil panen",
-                    "Monitoring kegiatan lapangan",
-                    "Pembuatan laporan produksi"
+                    "Membantu pencatatan data kegiatan operasional dan produksi lapangan.",
+                    "Mengumpulkan dan mendokumentasikan laporan hasil panen.",
+                    "Mendukung penyusunan laporan kegiatan budidaya dan pengolahan.",
+                    "Membantu rekapitulasi data hasil produksi secara berkala."
                 ]
             },
 
@@ -475,19 +406,12 @@
                 desc: "Bertanggung jawab dalam mengelola keuangan dan pelaporan perusahaan.",
                 icon: "fa-hand-holding-dollar",
                 color: "bg-yellow-500",
-                tasks: [
-                    "Pengelolaan keuangan perusahaan",
-                    "Pencatatan dan pelaporan akuntansi",
-                    "Pengawasan anggaran"
-                ],
-                staff: [
-                    "Staff Akuntansi",
-                    "Staff Keuangan"
-                ],
                 intern: [
-                    "Input transaksi keuangan",
-                    "Rekap laporan keuangan",
-                    "Pengarsipan bukti transaksi"
+                    "Membantu administrasi pencatatan transaksi keuangan.",
+                    "Mengelola dan menata dokumen pendukung transaksi dan laporan keuangan.",
+                    "Mendukung pencatatan administrasi keuangan harian.",
+                    "Membantu penyusunan laporan dan dokumen keuangan internal.",
+                    "Menyusun ringkasan data keuangan secara periodik."
                 ]
             },
 
@@ -497,19 +421,11 @@
                 desc: "Bertanggung jawab dalam mengelola aset serta pemasaran produk perusahaan.",
                 icon: "fa-box",
                 color: "bg-orange-600",
-                tasks: [
-                    "Pengelolaan aset perusahaan",
-                    "Pemasaran produk perkebunan",
-                    "Distribusi dan penjualan"
-                ],
-                staff: [
-                    "Staff Aset",
-                    "Staff Pemasaran"
-                ],
                 intern: [
-                    "Pendataan aset",
-                    "Membantu promosi produk",
-                    "Administrasi penjualan"
+                    "Membantu pendataan dan administrasi aset perusahaan.",
+                    "Menata dokumen terkait penjualan dan pemasaran produk.",
+                    "Mendukung administrasi kegiatan promosi dan penjualan.",
+                    "Menyusun rekap data aset dan aktivitas pemasaran."
                 ]
             },
 
@@ -519,19 +435,12 @@
                 desc: "Bertanggung jawab untuk kepatuhan dan risiko dari praktik manajemen.",
                 icon: "fa-triangle-exclamation",
                 color: "bg-yellow-600",
-                tasks: [
-                    "Pengawasan kepatuhan internal",
-                    "Identifikasi dan mitigasi risiko",
-                    "Evaluasi kebijakan perusahaan"
-                ],
-                staff: [
-                    "Staff Kepatuhan",
-                    "Staff Risiko"
-                ],
                 intern: [
-                    "Pendataan risiko operasional",
-                    "Dokumentasi evaluasi risiko",
-                    "Administrasi kepatuhan"
+                    "Membantu pengumpulan dan dokumentasi data terkait risiko operasional.",
+                    "Mengelola arsip dokumen kepatuhan dan evaluasi internal.",
+                    "Mendukung administrasi kegiatan pemantauan kepatuhan.",
+                    "Membantu penyusunan dokumen evaluasi dan laporan risiko.",
+                    "Menyusun ringkasan data kepatuhan dan manajemen risiko.",
                 ]
             },
 
@@ -541,19 +450,13 @@
                 desc: "Bertanggung jawab dalam mengelola dan mengkoordinasikan pelaksanaan proyek.",
                 icon: "fa-clipboard",
                 color: "bg-blue-500",
-                tasks: [
-                    "Perencanaan dan pengelolaan proyek",
-                    "Monitoring progres proyek",
-                    "Koordinasi lintas bidang"
-                ],
-                staff: [
-                    "Project Officer",
-                    "Staff Monitoring"
-                ],
                 intern: [
-                    "Membantu dokumentasi proyek",
-                    "Update progres kegiatan",
-                    "Penyusunan laporan proyek"
+                    "Mendukung pengelolaan administrasi dan dokumentasi proyek.",
+                    "Mengarsipkan dokumen perencanaan dan pelaksanaan proyek.",
+                    "Membantu pencatatan perkembangan kegiatan proyek.",
+                    "Membantu penyusunan laporan dan memo proyek.",
+                    "Menyusun ringkasan progres dan capaian proyek.",
+                    "Melaksanakan tugas pendukung sesuai arahan pembimbing PMO."
                 ]
             }
 
@@ -568,41 +471,15 @@
             document.getElementById('modalTitle').innerText = data.title;
             document.getElementById('modalHead').innerText = data.head;
 
-            // GANTI WARNA HEADER
             const header = document.getElementById("modalHeader");
             header.className = `text-white p-8 relative ${data.color}`;
 
-            // TITLE & HEAD
             document.getElementById("modalTitle").innerText = data.title;
             document.getElementById("modalHead").innerText = data.head;
 
-            // ICON
             const icon = document.getElementById('modalIcon');
             icon.className = `fa-solid ${data.icon} text-2xl`;
 
-            // TASKS
-            const taskList = document.getElementById('modalTasks');
-            taskList.innerHTML = '';
-            data.tasks.forEach((item, i) => {
-                taskList.innerHTML += `
-            <li class="flex gap-3">
-                <span class="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs">${i + 1}</span>
-                <span>${item}</span>
-            </li>`;
-            });
-
-            // STAFF
-            const staffList = document.getElementById('modalStaff');
-            staffList.innerHTML = '';
-            data.staff.forEach((item, i) => {
-                staffList.innerHTML += `
-            <li class="flex gap-3">
-                <span class="w-6 h-6 bg-yellow-400 text-white rounded-full flex items-center justify-center text-xs">${i + 1}</span>
-                <span>${item}</span>
-            </li>`;
-            });
-
-            // INTERN
             const internList = document.getElementById('modalActivities');
             internList.innerHTML = '';
             data.intern.forEach((item, i) => {
@@ -613,7 +490,6 @@
             </li>`;
             });
 
-            // SHOW MODAL
             const modal = document.getElementById('bidangModal');
             modal.classList.remove('hidden');
         }
