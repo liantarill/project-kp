@@ -29,21 +29,21 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Manajemen Pengguna';
+    protected static string|UnitEnum|null $navigationGroup = 'Manajemen Peserta';
 
     public static function getLabel(): string
     {
-        return 'Pengguna';
+        return 'Peserta';
     }
 
     public static function getPluralLabel(): string
     {
-        return 'Pengguna';
+        return 'Peserta';
     }
 
     public static function getNavigationLabel(): string
     {
-        return 'Pengguna';
+        return 'Peserta';
     }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Users;
@@ -61,7 +61,7 @@ class UserResource extends Resource
         return $table
             ->filters([
                 SelectFilter::make('institution_id')
-                    ->label('Universitas')
+                    ->label('Asal Instansi')
                     ->relationship('institution', 'name')
                     ->searchable()
                     ->preload(),
@@ -70,7 +70,7 @@ class UserResource extends Resource
                     ->options([
                         'pending' => 'Menunggu',
                         'active' => 'Aktif',
-                        'completed' => 'Selesai',
+                        'completed' => 'Lulus',
                         'cancelled' => 'Dibatalkan',
                     ]),
             ])
@@ -87,7 +87,7 @@ class UserResource extends Resource
                 //         default => $state,
                 //     }),
                 TextColumn::make('department.name')
-                    ->label('Divisi'),
+                    ->label('Bagian'),
                 TextColumn::make('institution.name')
                     ->label('Asal Instansi'),
                 TextColumn::make('status')
@@ -98,7 +98,7 @@ class UserResource extends Resource
                         'pending' => 'Menunggu',
                         'active' => 'Aktif',
                         'completed' => 'Lulus',
-                        'cancelled' => 'Batal',
+                        'cancelled' => 'Dibatalkan',
                     })
                     ->icon(fn(string $state): Heroicon => match ($state) {
                         'pending' => Heroicon::OutlinedClock,

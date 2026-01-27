@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class TopInstitutionsTable extends TableWidget
 {
-    protected static ?string $heading = 'Top 10 Institusi dengan Peserta Terbanyak';
+    protected static ?string $heading = 'Top 10 Asal Instansi dengan Peserta Terbanyak';
     protected static ?int $sort = 7;
     protected int | string | array $columnSpan = 'full';
 
@@ -40,8 +40,8 @@ class TopInstitutionsTable extends TableWidget
             ->paginated(false)
             ->poll('30s')
             ->striped()
-            ->emptyStateHeading('Tidak ada data institusi')
-            ->emptyStateDescription('Belum ada institusi dengan peserta yang sesuai dengan filter.')
+            ->emptyStateHeading('Tidak ada data asal instansi')
+            ->emptyStateDescription('Belum ada asal instansi dengan peserta yang sesuai dengan filter.')
             ->emptyStateIcon('heroicon-o-building-office-2');
     }
 
@@ -130,7 +130,7 @@ class TopInstitutionsTable extends TableWidget
                 ->color('primary'),
 
             TextColumn::make('name')
-                ->label('Nama Institusi')
+                ->label('Asal Instansi')
                 ->searchable()
                 ->sortable()
                 ->wrap()
@@ -176,7 +176,7 @@ class TopInstitutionsTable extends TableWidget
                 ->default(0),
 
             TextColumn::make('completed')
-                ->label('Selesai')
+                ->label('Lulus')
                 ->numeric()
                 ->badge()
                 ->color('info')

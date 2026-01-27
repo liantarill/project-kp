@@ -75,7 +75,7 @@
                                         d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                         clip-rule="evenodd" />
                                 </svg>
-                                Selesai
+                                Lulus
                             @else
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd"
@@ -152,7 +152,7 @@
                             <p class="text-gray-900 font-medium">{{ $user->level ?? '-' }}</p>
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-gray-500 mb-1">Institusi</label>
+                            <label class="block text-sm font-semibold text-gray-500 mb-1">Asal Instansi</label>
                             <p class="text-gray-900 font-medium">{{ $user->institution->name ?? '-' }}</p>
                         </div>
                         <div class="md:col-span-2">
@@ -186,7 +186,7 @@
                                 @elseif($user->status === 'pending')
                                     Menunggu Verifikasi
                                 @elseif($user->status === 'completed')
-                                    Selesai
+                                    Lulus
                                 @else
                                     Dibatalkan
                                 @endif

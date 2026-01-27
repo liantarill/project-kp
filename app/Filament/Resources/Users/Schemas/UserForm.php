@@ -23,7 +23,7 @@ class UserForm
                     ->required()
                     ->readOnly(),
                 Select::make('institution_id')
-                    ->label('Instansi')
+                    ->label('Asal Instansi')
                     ->relationship('institution', 'name')
                     ->required()
                     ->searchable()
@@ -58,7 +58,7 @@ class UserForm
                         'pending' => 'Menunggu',
                         'active' => 'Aktif',
                         'completed' => 'Lulus',
-                        'cancelled' => 'Batal',
+                        'cancelled' => 'Dibatalkan',
                     ])->searchable()
                     ->preload()
                     ->required()

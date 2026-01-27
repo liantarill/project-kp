@@ -52,7 +52,7 @@ class InternshipStatsOverview extends StatsOverviewWidget
                     ->descriptionIcon('heroicon-s-check-circle')
                     ->color('success'),
 
-                Stat::make('Peserta Selesai', $stats->completed ?? 0)
+                Stat::make('Peserta Lulus', $stats->completed ?? 0)
                     ->description('Telah menyelesaikan magang')
                     ->descriptionIcon('heroicon-s-academic-cap')
                     ->color('info'),
