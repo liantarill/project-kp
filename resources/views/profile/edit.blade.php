@@ -137,6 +137,12 @@
                             <label class="block text-sm font-semibold text-gray-500 mb-1">No. Telepon</label>
                             <p class="text-gray-900 font-medium">{{ $user->phone ?? '-' }}</p>
                         </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-500 mb-1">Jenis Kelamin</label>
+                            <p class="text-gray-900 font-medium">
+                                {{ $user->gender === 'male' ? 'Laki-laki' : ($user->gender === 'female' ? 'Perempuan' : '-') }}
+                            </p>
+                        </div>
                     </div>
                 </div>
 

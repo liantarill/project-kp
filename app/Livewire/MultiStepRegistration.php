@@ -19,6 +19,7 @@ class MultiStepRegistration extends Component
     public $totalSteps = 4;
     public $name;
     public $email;
+    public $gender;
     public $password;
     public $password_confirmation;
     public $level;
@@ -52,6 +53,7 @@ class MultiStepRegistration extends Component
                 'institution_id' => 'required|exists:institutions,id',
                 'major' => 'required|string|max:255',
                 'phone' => 'required|string|max:20|regex:/^[0-9]+$/',
+                'gender' => 'required|in:male,female',
             ],
             3 => [
                 'department_id' => 'required|exists:departments,id',
@@ -88,6 +90,9 @@ class MultiStepRegistration extends Component
             'phone.required' => 'Nomor telepon wajib diisi',
             'phone.max' => 'Nomor telepon terlalu panjang',
             'phone.regex' => 'Nomor telepon hanya boleh berisi angka',
+            
+            'gender.required' => 'Jenis kelamin wajib dipilih',
+            'gender.in' => 'Jenis kelamin tidak valid',
 
             // Step 3
             'department_id.required' => 'Bagian wajib dipilih',
@@ -138,6 +143,7 @@ class MultiStepRegistration extends Component
             $user = User::create([
                 'name' => ucwords(strtolower($this->name)),
                 'email' => $this->email,
+                'gender' => $this->gender,
                 'password' => Hash::make($this->password),
                 'role' => 'participant',
                 'institution_id' => $this->institution_id,
@@ -188,6 +194,7 @@ class MultiStepRegistration extends Component
             'institution_id' => 'required|exists:institutions,id',
             'major' => 'required|string|max:255',
             'phone' => 'required|string|max:20|regex:/^[0-9]+$/',
+            'gender' => 'required|in:male,female',
             'department_id' => 'required|exists:departments,id',
             'start_date' => 'required|date|after_or_equal:today',
             'end_date' => 'required|date|after:start_date',

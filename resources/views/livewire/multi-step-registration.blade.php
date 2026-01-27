@@ -255,6 +255,41 @@
                                     @enderror
                                 </div>
 
+                                <!-- Jenis Kelamin -->
+                                <div class="select-wrapper" data-select-id="gender" wire:ignore>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+                                        Jenis Kelamin <span class="text-red-500">*</span>
+                                    </label>
+                                    <div class="relative">
+                                        <button type="button"
+                                            class="select-trigger w-full px-4 py-3 rounded-lg border border-gray-300 bg-white text-left
+                                            hover:bg-gray-50 focus:ring-2 focus:ring-emerald-800 focus:border-transparent transition-all outline-none
+                                            flex items-center justify-between group">
+                                            <span class="select-value" data-placeholder="Pilih jenis kelamin...">
+                                                Pilih jenis kelamin...
+                                            </span>
+                                            <svg class="w-5 h-5 text-gray-400 transition-transform group-hover:text-gray-600"
+                                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        </button>
+
+                                        <div
+                                            class="select-dropdown hidden absolute z-50 w-full mt-2 bg-white rounded-lg shadow-xl border border-gray-200">
+                                            <div class="select-options max-h-60 overflow-y-auto p-1"></div>
+                                        </div>
+                                    </div>
+                                    <select wire:model="gender" id="gender" class="hidden">
+                                        <option value=""></option>
+                                        <option value="male">Laki-laki</option>
+                                        <option value="female">Perempuan</option>
+                                    </select>
+                                    @error('gender')
+                                        <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
 
 
                                 <!-- Jurusan -->
@@ -450,6 +485,9 @@
                                         </p>
                                         <p><span class="text-gray-500">Email:</span> <span
                                                 class="font-medium text-gray-900">{{ $email }}</span>
+                                        </p>
+                                        <p><span class="text-gray-500">Jenis Kelamin:</span> <span
+                                                class="font-medium text-gray-900">{{ $gender === 'male' ? 'Laki-laki' : 'Perempuan' }}</span>
                                         </p>
                                     </div>
                                 </div>

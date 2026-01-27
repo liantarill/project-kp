@@ -22,6 +22,13 @@ class UserForm
                     ->email()
                     ->required()
                     ->readOnly(),
+                Select::make('gender')
+                    ->label('Jenis Kelamin')
+                    ->options([
+                        'male' => 'Laki-laki',
+                        'female' => 'Perempuan',
+                    ])
+                    ->required(),
                 Select::make('institution_id')
                     ->label('Asal Instansi')
                     ->relationship('institution', 'name')
