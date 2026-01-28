@@ -297,8 +297,10 @@ function enableSubmitButton() {
     if (window.selectedStatus === "present") {
         if (
             photoInput.value &&
-            window.isLocationValid &&
-            window.isAccuracyValid
+            window.isLocationValid
+
+            // jika ini diaktifkan maka disaat akurasi tidak valid maka tidak bisa kirim absen
+            //  && window.isAccuracyValid
         ) {
             submitBtn.disabled = false;
             submitBtn.classList.remove("opacity-50", "cursor-not-allowed");
