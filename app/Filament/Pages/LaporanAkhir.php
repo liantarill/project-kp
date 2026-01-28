@@ -33,7 +33,7 @@ class LaporanAkhir extends Page implements HasTable
     {
         return $table
             ->query(User::query()
-                ->where('status', 'active')
+                // ->where('status', 'active')
                 ->where('role', 'participant')
                 ->whereNotNull('report_file'))
             ->columns([
@@ -83,46 +83,10 @@ class LaporanAkhir extends Page implements HasTable
                     }),
             ])
             ->actions([
-                Action::make('graduate')
-                    ->label('Luluskan')
-                    ->icon(Heroicon::OutlinedAcademicCap)
-                    ->color('primary')
-                    ->button()
-                    ->disabled(fn(User $record) => $record->status === 'completed' || is_null($record->report_file))
-                    ->action(function (User $record) {
-                        $record->update(['status' => 'completed']);
-                        Notification::make()
-                            ->title('Peserta Lulus')
-                            ->body("{$record->name} berhasil dinyatakan lulus.")
-                            ->success()
-                            ->send();
-                    })
-                    ->requiresConfirmation()
-                    ->modalHeading('Luluskan Peserta')
-                    ->modalDescription('Apakah Anda yakin menyatakan peserta ini lulus? Status akan berubah menjadi Lulus.'),
+                // Action::make('graduate') removed to separate responsibilities
             ])
             ->bulkActions([
-                BulkAction::make('graduateSelected')
-                    ->label('Luluskan Terpilih')
-                    ->icon(Heroicon::OutlinedAcademicCap)
-                    ->color('success')
-                    ->action(function (Collection $records) {
-                        $count = 0;
-                        foreach ($records as $record) {
-                            if ($record->status !== 'completed' && !is_null($record->report_file)) {
-                                $record->update(['status' => 'completed']);
-                                $count++;
-                            }
-                        }
-
-                        Notification::make()
-                            ->title('Berhasil')
-                            ->body("{$count} peserta berhasil dinyatakan lulus.")
-                            ->success()
-                            ->send();
-                    })
-                    ->requiresConfirmation()
-                    ->deselectRecordsAfterCompletion(),
+                // BulkAction::make('graduateSelected') removed
             ])
 
             ->defaultSort('created_at', 'desc')
