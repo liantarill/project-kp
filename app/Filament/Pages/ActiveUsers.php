@@ -49,7 +49,7 @@ class ActiveUsers extends Page implements HasTable
 
     protected static string | BackedEnum | null $navigationIcon = Heroicon::CheckBadge;
 
-    protected static string | UnitEnum | null $navigationGroup = 'Manajemen Pengguna';
+    protected static string | UnitEnum | null $navigationGroup = 'Manajemen Peserta';
     // }
     public function table(Table $table): Table
     {
