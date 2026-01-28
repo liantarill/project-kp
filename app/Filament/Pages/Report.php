@@ -14,6 +14,7 @@ use App\Livewire\TopInstitutionsTable;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Schemas\Components\Section;
 use App\Livewire\AttendanceStatsOverview;
+use App\Livewire\GenderDistributionChart;
 use App\Livewire\InternshipDurationStats;
 use App\Livewire\InternshipStatsOverview;
 use Filament\Forms\Components\DatePicker;
@@ -61,6 +62,7 @@ class Report extends Page implements HasForms
             InternshipStatsOverview::class,
             ParticipantsByInstitutionChart::class,
             ParticipantsByDepartmentChart::class,
+            GenderDistributionChart::class,
             EducationLevelChart::class,
             AttendanceTrendChart::class,
             TopInstitutionsTable::class,

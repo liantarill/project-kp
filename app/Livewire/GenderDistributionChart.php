@@ -3,45 +3,58 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use App\Services\ReportFilterService;
 use Filament\Widgets\ChartWidget;
 
 class GenderDistributionChart extends ChartWidget
 {
     protected ?string $heading = 'Distribusi Jenis Kelamin';
+    
+    protected $listeners = ['filterUpdated' => 'updateFilters'];
+
+    public array $filters = [];
+
+    public function mount(): void
+    {
+        $this->filters = ReportFilterService::getDefaults();
+    }
+
+    public function updateFilters(array $filters): void
+    {
+        $this->filters = ReportFilterService::sanitize($filters);
+    }
 
     protected function getData(): array
     {
-        $period = request('period', 'all');
-        $month = request('month', now()->month);
-        $year = request('year', now()->year);
+        $cacheKey = 'gender_distribution_' . md5(json_encode($this->filters));
 
-        $query = User::where('role', 'participant');
+        return \Illuminate\Support\Facades\Cache::remember($cacheKey, now()->addMinutes(5), function () {
+            $data = User::where('role', 'participant')
+                ->when(true, fn($q) => ReportFilterService::applyParticipantFilters($q, $this->filters))
+                ->selectRaw('gender, count(*) as total')
+                ->groupBy('gender')
+                ->pluck('total', 'gender');
 
-        if ($period === 'month') {
-            $query->whereMonth('start_date', $month)
-                ->whereYear('start_date', $year);
-        } elseif ($period === 'year') {
-            $query->whereYear('start_date', $year);
-        }
+            // Format data for chart
+            // Note: If gender is stored as 'male'/'female', we match them here.
+            $male = $data['male'] ?? 0;
+            $female = $data['female'] ?? 0;
 
-        // Assuming gender can be derived from name or add gender column
-        // For now, this is placeholder logic
-        $male = (clone $query)->where('gender', 'male')->count();
-        $female = (clone $query)->where('gender', 'female')->count();
-
-        return [
-            'datasets' => [
-                [
-                    'label' => 'Jenis Kelamin',
-                    'data' => [$male, $female],
-                    'backgroundColor' => ['#3b82f6', '#ec4899'],
+            return [
+                'datasets' => [
+                    [
+                        'label' => 'Jenis Kelamin',
+                        'data' => [$male, $female],
+                        'backgroundColor' => ['#3b82f6', '#ec4899'], // Blue, Pink
+                    ],
                 ],
-            ],
-            'labels' => ['Laki-laki', 'Perempuan'],
-        ];
+                'labels' => ['Laki-laki', 'Perempuan'],
+            ];
+        });
     }
+
     protected function getType(): string
     {
-        return 'pie';
+        return 'doughnut';
     }
 }
