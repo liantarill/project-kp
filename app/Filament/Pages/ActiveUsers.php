@@ -93,19 +93,19 @@ class ActiveUsers extends Page implements HasTable
                     ->icon(Heroicon::OutlinedEye)
                     ->url(fn(User $record): string => UserResource::getUrl('view', ['record' => $record])),
 
-                Action::make('access_report')
-                    ->label('Laporan Akhir')
-                    ->icon(Heroicon::OutlinedDocumentText)
-                    ->color('info')
-                    ->visible(fn(User $record): bool => !is_null($record->report_file))
-                    ->modalHeading(fn($record) => 'Laporan Akhir: ' . $record->name)
-                    ->modalContent(fn($record) => view('filament.modals.report-viewer', [
-                        'record' => $record
-                    ]))
-                    ->modalSubmitAction(false)
-                    ->modalCancelActionLabel('Tutup')
-                    ->modalWidth('7xl')
-                    ->slideOver(),
+                // Action::make('access_report')
+                //     ->label('Laporan Akhir')
+                //     ->icon(Heroicon::OutlinedDocumentText)
+                //     ->color('info')
+                //     ->visible(fn(User $record): bool => !is_null($record->report_file))
+                //     ->modalHeading(fn($record) => 'Laporan Akhir: ' . $record->name)
+                //     ->modalContent(fn($record) => view('filament.modals.report-viewer', [
+                //         'record' => $record
+                //     ]))
+                //     ->modalSubmitAction(false)
+                //     ->modalCancelActionLabel('Tutup')
+                //     ->modalWidth('7xl')
+                //     ->slideOver(),
             ])
             ->defaultSort('created_at', 'desc')
             ->paginated([10, 25, 50]);
