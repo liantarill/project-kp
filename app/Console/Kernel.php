@@ -8,7 +8,7 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
-        \App\Console\Commands\AutoAlphaAttendance::class,
+        \App\Console\Commands\AttendanceMaintenance::class,
     ];
 
     /**
@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // Auto absen ALFA setiap hari jam 10:01 WIB
-        $schedule->command('attendance:auto-alpha')
+        $schedule->command('attendance:maintenance')
             ->weekdays()
             ->dailyAt('10:01')
             ->withoutOverlapping()
