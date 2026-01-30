@@ -106,30 +106,41 @@ class Graduation extends Page implements HasTable
                     ->label('Luluskan')
                     ->icon(Heroicon::OutlinedAcademicCap)
                     ->color('success')
+                    ->requiresConfirmation()
                     ->modalHeading('Konfirmasi Kelulusan')
                     ->modalDescription('Apakah Anda yakin ingin meluluskan peserta ini? Peserta akan ditandai sebagai "Lulus".')
-                    ->modalFooterActions(fn(User $record, Action $action) => [
-                        Action::make('confirm_lulus')
-                            ->label('Ya, Luluskan')
-                            ->color('primary')
-                            ->action(function () use ($record, $action) {
-                                $record->update(['status' => 'completed']);
-                                Notification::make()->title('Peserta berhasil diluluskan')->success()->send();
-                                $action->close();
-                            }),
+                    ->modalSubmitActionLabel('Ya, Luluskan')
+                    ->modalCancelActionLabel('Batal')
+                    ->action(function (User $record) {
+                        $record->update(['status' => 'completed']);
+                        Notification::make()
+                            ->title('Peserta berhasil diluluskan')
+                            ->success()
+                            ->send()
+                            ->sendToDatabase(auth()->user());
+                    })
+                    ->extraModalFooterActions(fn(User $record): array => [
                         Action::make('confirm_lulus_print')
                             ->label('Ya & Cetak')
                             ->color('success')
-                            ->action(function () use ($record, $action) {
-                                $record->update(['status' => 'completed']);
-                                Notification::make()->title('Peserta berhasil diluluskan')->success()->send();
-                                $action->close();
-                                return Excel::download(new AttendanceExcelExport($record->id), 'Laporan_Kehadiran_' . $record->name . '.xlsx');
-                            }),
-                        Action::make('cancel')
-                            ->label('Batal')
-                            ->color('gray')
-                            ->action(fn() => $action->close()),
+                            ->action(
+                                function (Action $action, User $record) {
+                                    $record->update(['status' => 'completed']);
+
+                                    Notification::make()
+                                        ->title('Peserta berhasil diluluskan')
+                                        ->success()
+                                        ->send()
+                                        ->sendToDatabase(auth()->user());
+
+                                    $action->close();
+
+                                    return Excel::download(
+                                        new AttendanceExcelExport($record->id),
+                                        'Laporan_Kehadiran_' . $record->name . '.xlsx'
+                                    );
+                                }
+                            ),
                     ]),
             ]);
     }
