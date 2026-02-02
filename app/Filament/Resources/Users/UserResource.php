@@ -103,13 +103,13 @@ class UserResource extends Resource
                     ->icon(fn(string $state): Heroicon => match ($state) {
                         'pending' => Heroicon::OutlinedClock,
                         'active' => Heroicon::OutlinedCheckCircle,
-                        'completed' => Heroicon::OutlinedClipboard,
+                        'completed' => Heroicon::OutlinedAcademicCap,
                         'cancelled' => Heroicon::OutlinedXCircle,
                     })
                     ->color(fn(string $state): string => match ($state) {
                         'pending' => 'warning',
-                        'active' => 'success',
-                        'completed' => 'gray',
+                        'active' => 'info',
+                        'completed' => 'success',
                         'cancelled' => 'danger',
                     }),
 
