@@ -49,7 +49,6 @@ class DepartmentResource extends Resource
 
     public static function table(Table $table): Table
     {
-        // return DepartmentsTable::configure($table);
         return $table
             ->columns([
                 TextColumn::make('rank')
@@ -63,7 +62,9 @@ class DepartmentResource extends Resource
                     ->label('Kuota'),
                 TextColumn::make('users_count')
                     ->label('Jumlah Peserta')
-                    ->counts('users')
+                    ->counts([
+                        'users' => fn($query) => $query->whereIn('status', ['active', 'pending'])
+                    ])
                     ->badge()
                     ->size('md'),
 

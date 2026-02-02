@@ -31,12 +31,20 @@ class StatsDashboard extends StatsOverviewWidget
             ->count();
 
         $totalDepartments = Department::count();
-        $fullDepartmentsCount = Department::whereHas('users', function ($q) {
-            $q->where('role', 'participant')
-                ->where('status', 'active');
-        }, '>=', DB::raw('quota'))
+        $fullDepartmentsCount = Department::select('departments.*')
+            ->selectSub(function ($query) {
+                $query->selectRaw('COUNT(*)')
+                    ->from('users')
+                    ->whereColumn('users.department_id', 'departments.id')
+                    ->whereIn('users.status', ['active', 'pending'])
+                    ->whereNull('users.deleted_at');
+            }, 'users_count')
+            ->whereNull('departments.deleted_at')
+            ->get()
+            ->filter(function ($dept) {
+                return $dept->users_count >= $dept->quota;
+            })
             ->count();
-
         return [
             Stat::make('Peserta Aktif', $totalActive)
                 ->color('success')
@@ -59,7 +67,7 @@ class StatsDashboard extends StatsOverviewWidget
 
             Stat::make('Bagian Penuh', $fullDepartmentsCount . ' / ' . $totalDepartments)
                 ->url(DepartmentResource::getUrl('index'))
-                ->description('Lihat semua department')
+                ->description('Lihat semua bagian')
                 ->descriptionIcon(Heroicon::ArrowRightCircle, IconPosition::Before)
                 ->icon(Heroicon::Squares2x2),
         ];
