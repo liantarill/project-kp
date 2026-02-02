@@ -118,78 +118,213 @@ class AttendanceExcelExport implements FromQuery, WithColumnWidths, WithEvents, 
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 $sheet = $event->sheet->getDelegate();
+                $dataLastRow = $sheet->getHighestRow();
 
                 // Style untuk judul utama (baris 1)
-                $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
+                $sheet->getStyle('A1:F1')->applyFromArray([
+                    'font' => [
+                        'bold' => true,
+                        'size' => 16,
+                        'color' => ['rgb' => 'FFFFFF'],
+                    ],
+                    'fill' => [
+                        'fillType' => Fill::FILL_SOLID,
+                        'startColor' => ['rgb' => '4472C4'],
+                    ],
+                    'alignment' => [
+                        'horizontal' => Alignment::HORIZONTAL_CENTER,
+                        'vertical' => Alignment::VERTICAL_CENTER,
+                    ],
+                ]);
                 $sheet->mergeCells('A1:F1');
-                $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                $sheet->getRowDimension(1)->setRowHeight(30);
 
-                // Style untuk informasi (baris 3-7)
-                $sheet->getStyle('A3:A7')->getFont()->setBold(true);
+                // Style untuk informasi peserta (baris 3-7)
+                $sheet->getStyle('A3:A7')->applyFromArray([
+                    'font' => [
+                        'bold' => true,
+                        'size' => 11,
+                    ],
+                    'fill' => [
+                        'fillType' => Fill::FILL_SOLID,
+                        'startColor' => ['rgb' => 'F2F2F2'],
+                    ],
+                ]);
+
+                // Merge cells untuk nilai informasi
+                // foreach ([3, 4, 5, 6, 7] as $row) {
+                //     $sheet->mergeCells("B{$row}:F{$row}");
+                // }
+
+                // Background untuk semua baris informasi
+                $sheet->getStyle('A3:F7')->applyFromArray([
+                    'fill' => [
+                        'fillType' => Fill::FILL_SOLID,
+                        'startColor' => ['rgb' => 'F8F9FA'],
+                    ],
+                    'borders' => [
+                        'outline' => [
+                            'borderStyle' => Border::BORDER_THIN,
+                            'color' => ['rgb' => 'D3D3D3'],
+                        ],
+                    ],
+                ]);
 
                 // Style untuk header tabel (baris 9)
                 $headerRow = 9;
-                $sheet->getStyle("A{$headerRow}:F{$headerRow}")->getFont()->setBold(true);
-                $sheet->getStyle("A{$headerRow}:F{$headerRow}")->getFill()
-                    ->setFillType(Fill::FILL_SOLID)
-                    ->getStartColor()->setARGB('FFE2E8F0');
-                $sheet->getStyle("A{$headerRow}:F{$headerRow}")->getAlignment()
-                    ->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle("A{$headerRow}:F{$headerRow}")->applyFromArray([
+                    'font' => [
+                        'bold' => true,
+                        'size' => 11,
+                        'color' => ['rgb' => 'FFFFFF'],
+                    ],
+                    'fill' => [
+                        'fillType' => Fill::FILL_SOLID,
+                        'startColor' => ['rgb' => '5B9BD5'],
+                    ],
+                    'alignment' => [
+                        'horizontal' => Alignment::HORIZONTAL_CENTER,
+                        'vertical' => Alignment::VERTICAL_CENTER,
+                    ],
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => Border::BORDER_THIN,
+                            'color' => ['rgb' => 'FFFFFF'],
+                        ],
+                    ],
+                ]);
+                $sheet->getRowDimension($headerRow)->setRowHeight(25);
 
-                // Border untuk tabel data
-                $dataLastRow = $sheet->getHighestRow();
-                $sheet->getStyle("A{$headerRow}:F{$dataLastRow}")->getBorders()->getAllBorders()
-                    ->setBorderStyle(Border::BORDER_THIN);
+                // Border dan alignment untuk tabel data
+                if ($dataLastRow > $headerRow) {
+                    $sheet->getStyle("A10:F{$dataLastRow}")->applyFromArray([
+                        'borders' => [
+                            'allBorders' => [
+                                'borderStyle' => Border::BORDER_THIN,
+                                'color' => ['rgb' => 'D3D3D3'],
+                            ],
+                        ],
+                        'alignment' => [
+                            'vertical' => Alignment::VERTICAL_CENTER,
+                        ],
+                    ]);
 
-                // Center align specific columns (No, Hari, Jam Masuk, Status) except Note
-                $sheet->getStyle("A10:E{$dataLastRow}")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                    // Center align untuk kolom No, Hari, Jam Masuk, Status
+                    $sheet->getStyle("A10:A{$dataLastRow}")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER); // No
+                    $sheet->getStyle("D10:D{$dataLastRow}")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER); // Jam Masuk
+                    $sheet->getStyle("E10:E{$dataLastRow}")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER); // Status
 
-                $sheet->getStyle("B10:C{$dataLastRow}")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
+                    // Left align untuk Hari dan Tanggal
+                    $sheet->getStyle("B10:C{$dataLastRow}")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
 
-                // Wrap text untuk kolom Keterangan
-                $sheet->getStyle("F10:F{$dataLastRow}")->getAlignment()->setWrapText(true);
+                    // Wrap text untuk kolom Keterangan
+                    $sheet->getStyle("F10:F{$dataLastRow}")->getAlignment()->setWrapText(true);
 
-                // Tambahkan rekap di kolom H (F + 2 kolom)
-                $rekapStartRow = $headerRow; // Mulai dari baris yang sama dengan header tabel
+                    // Zebra striping untuk data
+                    for ($row = 10; $row <= $dataLastRow; $row++) {
+                        if ($row % 2 == 0) {
+                            $sheet->getStyle("A{$row}:F{$row}")->applyFromArray([
+                                'fill' => [
+                                    'fillType' => Fill::FILL_SOLID,
+                                    'startColor' => ['rgb' => 'F2F2F2'],
+                                ],
+                            ]);
+                        }
+                    }
+                }
+
+                // REKAP KEHADIRAN
+                $rekapStartRow = $headerRow;
                 $rekapCol = 'H';
 
+                // Header rekap
                 $sheet->setCellValue("{$rekapCol}{$rekapStartRow}", 'REKAP KEHADIRAN');
-                $sheet->getStyle("{$rekapCol}{$rekapStartRow}")->getFont()->setBold(true)->setSize(12);
+                $sheet->getStyle("{$rekapCol}{$rekapStartRow}:I{$rekapStartRow}")->applyFromArray([
+                    'font' => [
+                        'bold' => true,
+                        'size' => 12,
+                        'color' => ['rgb' => 'FFFFFF'],
+                    ],
+                    'fill' => [
+                        'fillType' => Fill::FILL_SOLID,
+                        'startColor' => ['rgb' => '70AD47'],
+                    ],
+                    'alignment' => [
+                        'horizontal' => Alignment::HORIZONTAL_CENTER,
+                        'vertical' => Alignment::VERTICAL_CENTER,
+                    ],
+                ]);
                 $sheet->mergeCells("{$rekapCol}{$rekapStartRow}:I{$rekapStartRow}");
-                $sheet->getStyle("{$rekapCol}{$rekapStartRow}")->getAlignment()
-                    ->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                $sheet->getRowDimension($rekapStartRow)->setRowHeight(25);
 
-                $rekapStartRow++; // baris kosong
+                // $rekapStartRow++; // Baris kosong
+                // $sheet->getRowDimension($rekapStartRow)->setRowHeight(5);
 
+                $rekapDataStart = $rekapStartRow + 1;
+
+                // Detail rekap per status
                 foreach ($this->statusCounts as $label => $count) {
-                    $sheet->setCellValue("{$rekapCol}{$rekapStartRow}", $label);
-                    $sheet->setCellValue("I{$rekapStartRow}", ': ' . $count . ' hari');
-                    $sheet->getStyle("{$rekapCol}{$rekapStartRow}")->getFont()->setBold(true);
                     $rekapStartRow++;
+                    $sheet->setCellValue("{$rekapCol}{$rekapStartRow}", $label);
+                    $sheet->setCellValue("I{$rekapStartRow}", $count . ' hari');
+
+                    $sheet->getStyle("{$rekapCol}{$rekapStartRow}")->applyFromArray([
+                        'font' => ['bold' => true],
+                        'alignment' => ['horizontal' => Alignment::HORIZONTAL_LEFT],
+                    ]);
+                    $sheet->getStyle("I{$rekapStartRow}")->applyFromArray([
+                        'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+                    ]);
                 }
+
+                // Baris kosong sebelum total
+                // $rekapStartRow++;
+                // $sheet->getRowDimension($rekapStartRow)->setRowHeight(5);
 
                 // Total kehadiran
                 $rekapStartRow++;
                 $totalDays = array_sum($this->statusCounts);
                 $sheet->setCellValue("{$rekapCol}{$rekapStartRow}", 'Total');
-                $sheet->setCellValue("I{$rekapStartRow}", ': ' . $totalDays . ' hari');
-                $sheet->getStyle("{$rekapCol}{$rekapStartRow}:I{$rekapStartRow}")->getFont()->setBold(true);
+                $sheet->setCellValue("I{$rekapStartRow}", $totalDays . ' hari');
 
-                // Set lebar kolom untuk rekap
-                $sheet->getColumnDimension('H')->setWidth(15);
-                $sheet->getColumnDimension('I')->setWidth(15);
+                $sheet->getStyle("{$rekapCol}{$rekapStartRow}:I{$rekapStartRow}")->applyFromArray([
+                    'font' => [
+                        'bold' => true,
+                        'size' => 11,
+                    ],
+                    'fill' => [
+                        'fillType' => Fill::FILL_SOLID,
+                        'startColor' => ['rgb' => 'E2EFDA'],
+                    ],
+                    'alignment' => [
+                        'horizontal' => Alignment::HORIZONTAL_CENTER,
+                    ],
+                ]);
 
-                // Border untuk box rekap
+                // Border untuk box rekap (exclude header dan baris kosong)
                 $rekapEndRow = $rekapStartRow;
-                $sheet->getStyle("H9:I{$rekapEndRow}")->getBorders()->getOutline()
-                    ->setBorderStyle(Border::BORDER_MEDIUM);
-                $sheet->getStyle("H11:I{$rekapEndRow}")->getBorders()->getAllBorders()
-                    ->setBorderStyle(Border::BORDER_THIN);
+                $sheet->getStyle("H{$rekapDataStart}:I{$rekapEndRow}")->applyFromArray([
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => Border::BORDER_THIN,
+                            'color' => ['rgb' => 'D3D3D3'],
+                        ],
+                        'outline' => [
+                            'borderStyle' => Border::BORDER_MEDIUM,
+                            'color' => ['rgb' => '70AD47'],
+                        ],
+                    ],
+                ]);
 
-                // Background untuk header rekap
-                $sheet->getStyle('H9:I9')->getFill()
-                    ->setFillType(Fill::FILL_SOLID)
-                    ->getStartColor()->setARGB('FFE2E8F0');
+                // Border untuk header rekap
+                $sheet->getStyle("H9:I9")->applyFromArray([
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => Border::BORDER_MEDIUM,
+                            'color' => ['rgb' => '70AD47'],
+                        ],
+                    ],
+                ]);
             },
         ];
     }
