@@ -21,16 +21,19 @@ use Filament\Support\Icons\Heroicon;
 use App\Models\User;
 use Filament\Tables\Actions\HeaderAction;
 use BackedEnum;
+use UnitEnum;
+use Dom\Text;
 
 class UserExport extends Page implements HasForms, HasTable
 {
     use InteractsWithForms;
     use InteractsWithTable;
 
-    protected static string | BackedEnum | null $navigationIcon = Heroicon::ArrowDownTray;
-    protected static ?string $navigationLabel = 'Export Peserta';
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::ArrowDownOnSquareStack;
+    protected static string | UnitEnum | null $navigationGroup = 'Dokumen & Laporan';
+    protected static ?string $navigationLabel = 'Data Peserta';
 
-    protected static ?string $title = 'Export Data Peserta';
+    protected static ?string $title = 'Data Peserta';
     protected static ?string $slug = 'export-peserta';
 
     protected string $view = 'filament.pages.user-export';
@@ -213,7 +216,8 @@ class UserExport extends Page implements HasForms, HasTable
         return $table
             ->query(function () {
                 $query = User::query()
-                    ->where('role', 'participant');
+                    ->where('role', 'participant')
+                    ->whereNot('status', 'cancelled');
 
                 return ReportFilterService::applyParticipantFilters($query, $this->getFilters());
             })
@@ -221,26 +225,59 @@ class UserExport extends Page implements HasForms, HasTable
                 TextColumn::make('name')
                     ->label('Nama')
                     ->searchable()
+
+                    // ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
+                TextColumn::make('email'),
+                TextColumn::make('phone')
+                    ->label('No. Telpon'),
+                TextColumn::make('gender')
+                    ->label('Jenis Kelamin')
+                    ->formatStateUsing(fn($state) => match ($state) {
+                        'male' => 'Laki-laki',
+                        'female' => 'Perempuan'
+                    }),
+                TextColumn::make('level')
+                    ->label('Jenjang')
+                    ->formatStateUsing(fn($state) => match ($state) {
+                        'SMA' => 'SMA/Sederajat',
+                        default => $state
+                    }),
+                TextColumn::make('major')
+                    ->label('Jurusan'),
+                TextColumn::make('department.name')
+                    ->label('Bagian'),
                 TextColumn::make('institution.name')
-                    ->label('Institusi')
+                    ->label('Asal Instansi')
                     ->searchable(),
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->sortable()
                     ->badge()
+                    ->size('md')
+                    ->formatStateUsing(fn($state) => match ($state) {
+                        'pending' => 'Menunggu',
+                        'active' => 'Aktif',
+                        'completed' => 'Lulus',
+                        'cancelled' => 'Dibatalkan',
+                    })
+                    ->icon(fn(string $state): Heroicon => match ($state) {
+                        'pending' => Heroicon::OutlinedClock,
+                        'active' => Heroicon::OutlinedCheckCircle,
+                        'completed' => Heroicon::OutlinedAcademicCap,
+                        'cancelled' => Heroicon::OutlinedXCircle,
+                    })
                     ->color(fn(string $state): string => match ($state) {
-                        'active' => 'success',
-                        'completed' => 'info',
-                        'cancelled' => 'danger',
                         'pending' => 'warning',
-                        default => 'gray',
+                        'active' => 'info',
+                        'completed' => 'success',
+                        'cancelled' => 'danger',
                     }),
                 TextColumn::make('start_date')
                     ->label('Mulai')
-                    ->date(),
+                    ->date('d F Y'),
                 TextColumn::make('end_date')
                     ->label('Selesai')
-                    ->date(),
+                    ->date('d F Y'),
             ])
             ->headerActions([
                 Action::make('export')

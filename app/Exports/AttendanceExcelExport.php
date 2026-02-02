@@ -82,7 +82,16 @@ class AttendanceExcelExport implements FromQuery, WithColumnWidths, WithEvents, 
             [],
             ['Nama', '', ': ' . $this->user->name],
             ['Asal Instansi', '', ': ' . ($this->user->institution?->name ?? '-')],
-            ['Jurusan', '', ': ' . (($this->user->level ?? '') . ' ' . ($this->user->major ?? ''))],
+            [
+                'Jurusan',
+                '',
+                ': ' . trim(
+                    ($this->user->level === 'SMA' ? '' : ($this->user->level ?? '')) .
+                        ' ' .
+                        ($this->user->major ?? '')
+                )
+            ],
+
             ['Divisi', '', ': ' . ($this->user->department?->name ?? '-')],
             [
                 'Periode',

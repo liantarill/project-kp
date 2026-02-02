@@ -28,7 +28,8 @@ class UsersExport implements FromQuery, WithHeadings, WithMapping, WithEvents
         $query = User::query()
             ->with(['institution', 'department']);
 
-        $query->where('role', 'participant');
+        $query->where('role', 'participant')
+            ->whereNot('status', 'cancelled');
 
         return ReportFilterService::applyParticipantFilters($query, $this->filters);
     }
@@ -55,9 +56,9 @@ class UsersExport implements FromQuery, WithHeadings, WithMapping, WithEvents
             'No. Telepon',
             'Jenis Kelamin',
             'Asal Instansi',
+            'Jenjang',
             'Jurusan',
             'Bagian',
-            'Jenjang',
             'Tanggal Mulai',
             'Tanggal Selesai',
         ];
@@ -170,9 +171,9 @@ class UsersExport implements FromQuery, WithHeadings, WithMapping, WithEvents
             $user->phone,
             $user->gender === 'male' ? "Laki-laki" : "Perempuan",
             $user->institution?->name ?? '-',
+            $user->level,
             $user->major,
             $user->department?->name ?? '-',
-            $user->level,
             $user->start_date?->format('d/m/Y'),
             $user->end_date?->format('d/m/Y'),
         ];
