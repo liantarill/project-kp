@@ -105,7 +105,7 @@ class FilamentSelect {
         this.updateLivewire(option.value);
 
         this.close();
-        this.renderOptions(this.searchInput.value);
+        this.renderOptions(this.searchInput ? this.searchInput.value : "");
     }
 
     updateLivewire(value) {
@@ -129,8 +129,10 @@ class FilamentSelect {
         this.isOpen = true;
         this.dropdown.classList.remove("hidden");
         this.trigger.classList.add("active");
-        this.searchInput.value = "";
-        this.searchInput.focus();
+        if (this.searchInput) {
+            this.searchInput.value = "";
+            this.searchInput.focus();
+        }
         this.renderOptions();
     }
 
@@ -159,20 +161,23 @@ class FilamentSelect {
             this.toggle();
         });
 
-        this.searchInput.addEventListener("input", (e) => {
-            this.renderOptions(e.target.value);
-        });
+        // Only attach search events if search input exists
+        if (this.searchInput) {
+            this.searchInput.addEventListener("input", (e) => {
+                this.renderOptions(e.target.value);
+            });
 
-        this.searchInput.addEventListener("click", (e) => {
-            e.stopPropagation();
-        });
+            this.searchInput.addEventListener("click", (e) => {
+                e.stopPropagation();
+            });
 
-        this.searchInput.addEventListener("keydown", (e) => {
-            if (e.key === "Escape") {
-                this.close();
-                this.trigger.focus();
-            }
-        });
+            this.searchInput.addEventListener("keydown", (e) => {
+                if (e.key === "Escape") {
+                    this.close();
+                    this.trigger.focus();
+                }
+            });
+        }
 
         document.addEventListener("click", (e) => {
             if (!this.wrapper.contains(e.target) && this.isOpen) {
@@ -194,10 +199,14 @@ function initFilamentSelects() {
 
 document.addEventListener("DOMContentLoaded", initFilamentSelects);
 
-if (typeof Livewire !== "undefined") {
-    document.addEventListener("livewire:load", () => {
-        Livewire.hook("message.processed", () => {
-            setTimeout(initFilamentSelects, 100);
-        });
+// Livewire 3.x events
+document.addEventListener("livewire:init", () => {
+    Livewire.hook("morph.updated", () => {
+        setTimeout(initFilamentSelects, 100);
     });
-}
+});
+
+// Also reinitialize after any Livewire navigation
+document.addEventListener("livewire:navigated", () => {
+    setTimeout(initFilamentSelects, 100);
+});

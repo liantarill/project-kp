@@ -147,7 +147,7 @@ class MultiStepRegistration extends Component
                 'password' => Hash::make($this->password),
                 'role' => 'participant',
                 'institution_id' => $this->institution_id,
-                'major' => $this->major,
+                'major' => ucwords(strtolower($this->major)),
                 'level' => $this->level,
                 'phone' => $this->phone,
                 'department_id' => $this->department_id,

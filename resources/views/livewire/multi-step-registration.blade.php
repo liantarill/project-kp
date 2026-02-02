@@ -246,7 +246,7 @@
                                     </div>
                                     <select wire:model="level" id="level" class="hidden">
                                         <option value=""></option>
-                                        @foreach (['SMA', 'D1', 'D2', 'D3', 'D4', 'S1'] as $lvl)
+                                        @foreach (['SMA/Sederajat', 'D1', 'D2', 'D3', 'D4', 'S1'] as $lvl)
                                             <option value="{{ $lvl }}">{{ $lvl }}</option>
                                         @endforeach
                                     </select>
@@ -346,8 +346,8 @@
                                             class="select-trigger w-full px-4 py-3 rounded-lg border border-gray-300 bg-white text-left
                                             hover:bg-gray-50 focus:ring-2 focus:ring-emerald-800 focus:border-transparent transition-all outline-none
                                             flex items-center justify-between group">
-                                            <span class="select-value" data-placeholder="Pilih divisi...">
-                                                Pilih divisi...
+                                            <span class="select-value" data-placeholder="Pilih bagian...">
+                                                Pilih bagian...
                                             </span>
                                             <svg class="w-5 h-5 text-gray-400 transition-transform group-hover:text-gray-600"
                                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -481,7 +481,7 @@
                                     <h4 class="font-semibold text-gray-900 mb-3">Informasi Akun</h4>
                                     <div class="space-y-2 text-sm">
                                         <p><span class="text-gray-500">Nama:</span> <span
-                                                class="font-medium text-gray-900">{{ $name }}</span>
+                                                class="font-medium text-gray-900">{{ ucwords(strtolower($name)) }}</span>
                                         </p>
                                         <p><span class="text-gray-500">Email:</span> <span
                                                 class="font-medium text-gray-900">{{ $email }}</span>
@@ -503,7 +503,7 @@
                                                 class="font-medium text-gray-900">{{ $institutions->find($institution_id)?->name }}</span>
                                         </p>
                                         <p><span class="text-gray-500">Jurusan:</span> <span
-                                                class="font-medium text-gray-900">{{ $major }}</span>
+                                                class="font-medium text-gray-900">{{ ucwords(strtolower($major)) }}</span>
                                         </p>
                                         <p><span class="text-gray-500">No. Telepon:</span> <span
                                                 class="font-medium text-gray-900">{{ $phone }}</span>
