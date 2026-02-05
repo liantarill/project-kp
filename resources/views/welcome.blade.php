@@ -405,7 +405,7 @@
 
             skr: {
                 title: "Sekretariat dan Hukum (SKR)",
-                head: "Kepala: biablablabla, S.Kom., M.M",
+                head: "Kepala: Agus Faroni",
                 desc: "Bertanggung jawab dalam mengelola administrasi dan aspek hukum perusahaan.",
                 icon: "fa-building",
                 color: "bg-red-600",
@@ -421,7 +421,7 @@
 
             sdm: {
                 title: "Sumber Daya Manusia (SDM)",
-                head: "Kepala: biablablabla, S.Kom., M.M",
+                head: "Kepala: Ronald Sudrajat",
                 desc: "Bertanggung jawab dalam mengelola perencanaan dan pengembangan karyawan.",
                 icon: "fa-brain",
                 color: "bg-blue-600",
@@ -436,7 +436,7 @@
 
             tanaman: {
                 title: "Tanaman dan Teknik Pengolahan",
-                head: "Kepala: biablablabla, S.Kom., M.M",
+                head: "Kepala: Ari Askari",
                 desc: "Bertanggung jawab dalam mengelola operasional, budidaya dan pengolahan hasil perkebunan.",
                 icon: "fa-brands fa-envira",
                 color: "bg-green-600",
@@ -450,7 +450,7 @@
 
             ank: {
                 title: "Akuntansi dan Keuangan (ANK)",
-                head: "Kepala: biablablabla, S.Kom., M.M",
+                head: "Kepala: Sondang Berliana Gultom",
                 desc: "Bertanggung jawab dalam mengelola keuangan dan pelaporan perusahaan.",
                 icon: "fa-hand-holding-dollar",
                 color: "bg-yellow-500",
@@ -465,7 +465,7 @@
 
             aset: {
                 title: "Manajemen Aset dan Pemasaran",
-                head: "Kepala: biablablabla, S.Kom., M.M",
+                head: "Kepala: Sasmika Dwi Suryanto",
                 desc: "Bertanggung jawab dalam mengelola aset serta pemasaran produk perusahaan.",
                 icon: "fa-box",
                 color: "bg-orange-600",
@@ -479,7 +479,7 @@
 
             risiko: {
                 title: "Kepatuhan dan Manajemen Risiko",
-                head: "Kepala: biablablabla, S.Kom., M.M",
+                head: "Kepala: Yohanes P Siagian ",
                 desc: "Bertanggung jawab untuk kepatuhan dan risiko dari praktik manajemen.",
                 icon: "fa-triangle-exclamation",
                 color: "bg-yellow-600",
@@ -494,7 +494,7 @@
 
             pmo: {
                 title: "Project Management Office (PMO)",
-                head: "Kepala: biablablabla, S.Kom., M.M",
+                head: "Kepala: Moehammad Baasith",
                 desc: "Bertanggung jawab dalam mengelola dan mengkoordinasikan pelaksanaan proyek.",
                 icon: "fa-clipboard",
                 color: "bg-blue-500",
