@@ -1,66 +1,171 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Absensi Kerja Praktek (KP)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi web komprehensif untuk mengelola program Kerja Praktek (KP), dilengkapi dengan panel admin yang tangguh dan portal peserta yang mudah digunakan.
 
-## About Laravel
+## 🚀 Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 🛠️ Sisi Admin (Filament Panel)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### 📊 Dashboard & Monitoring
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Dashboard Interaktif**: Statistik real-time, grafik, dan ringkasan program kerja praktek
+- **Widget Statistik**: Monitoring jumlah peserta aktif, pending, dan completed
 
-## Learning Laravel
+#### 📁 Manajemen Master Data
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **🏢 Bagian**: Kelola unit/bagian dengan sistem kuota dan monitoring slot tersedia
+- **🏫 Instansi**: Kelola daftar universitas dan instansi mitra
+- **👥 Admin**: Kelola akun administrator dengan auto-verification
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+#### 📑 Manajemen Peserta
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **🟢 Pengguna Aktif**: Tracking dan monitoring peserta yang sedang aktif
+- **🟡 Pengguna Pending**: Sistem approval untuk pendaftaran peserta baru
+- **🎓 Manajemen Kelulusan**: Proses penyelesaian program peserta
+- **📥 Laporan Akhir**: Manajemen terpusat untuk laporan yang disubmit peserta
 
-## Laravel Sponsors
+#### 📈 Reporting & Export
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **Laporan Detail**: Generate laporan absensi dengan filter lanjutan (tanggal, bagian, status)
+- **Export Data**: Export data peserta ke Excel/CSV dengan filter custom
 
-### Premium Partners
+### 👤 Sisi Pengguna (Portal Peserta)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+#### 🔐 Autentikasi
 
-## Contributing
+- **Pendaftaran Multi-Step**: Proses registrasi bertahap yang user-friendly
+- **Login Aman**: Autentikasi dengan email verification
+- **Reset Password**: Pemulihan kata sandi via email
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### 🏠 Dashboard Pribadi
 
-## Code of Conduct
+- **Statistik Personal**: Visualisasi tren absensi dan status KP
+- **Quick Actions**: Akses cepat ke fitur check-in dan profil
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### ⏰ Sistem Absensi
 
-## Security Vulnerabilities
+- **📍 Check-in Harian**:
+    - Verifikasi dengan foto selfie
+    - Tracking lokasi GPS
+    - Validasi waktu check-in
+- **📜 Riwayat Absensi**: Log kehadiran lengkap dengan detail
+- **📥 Export Personal**: Download data absensi untuk keperluan pribadi
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### 📄 Profil & Submission
 
-## License
+- **⚙️ Manajemen Profil**: Update informasi pribadi dan akademik
+- **📤 Upload Laporan**: Submit laporan akhir KP langsung dari portal
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 💻 Tech Stack
+
+| Kategori              | Teknologi                                                                          |
+| --------------------- | ---------------------------------------------------------------------------------- |
+| **Backend Framework** | [Laravel 12](https://laravel.com)                                                  |
+| **Admin Panel**       | [Filament v4](https://filamentphp.com)                                             |
+| **Frontend**          | [Livewire](https://livewire.laravel.com) + [Tailwind CSS](https://tailwindcss.com) |
+| **Database**          | MySQL / MariaDB                                                                    |
+| **Authentication**    | Laravel Breeze + Custom Email Verification                                         |
+
+---
+
+## 🛠️ Instalasi & Konfigurasi
+
+### Prerequisites
+
+- PHP >= 8.2
+- Composer
+- Node.js & NPM
+- MySQL / MariaDB
+
+### Langkah Instalasi
+
+1. **Clone repository**
+
+    ```bash
+    git clone https://github.com/liantarill/project-kp.git
+    cd project-kp
+    ```
+
+2. **Install dependencies**
+
+    ```bash
+    composer install
+    npm install
+    ```
+
+3. **Setup environment**
+
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
+
+4. **Konfigurasi database**
+
+    Edit file `.env` dan sesuaikan konfigurasi database:
+
+    ```env
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=project_kp
+    DB_USERNAME=root
+    DB_PASSWORD=
+    ```
+
+5. **Jalankan migrasi & seeder**
+
+    ```bash
+    php artisan migrate --seed
+    ```
+
+6. **Build assets**
+
+    ```bash
+    npm run build
+    # atau untuk development
+    npm run dev
+    ```
+
+7. **Jalankan aplikasi**
+
+    ```bash
+    php artisan serve
+    ```
+
+    Akses aplikasi di: `http://localhost:8000`
+
+---
+
+## 🔑 Default Credentials
+
+Setelah menjalankan seeder, gunakan kredensial berikut untuk login:
+
+**Admin Panel** (`/admin`)
+
+- Email: `admin@example.com`
+- Password: `password`
+
+**User Portal** (`/login`)
+
+- Email: `user@example.com`
+- Password: `password`
+
+> ⚠️ **Penting**: Segera ubah password default setelah login pertama kali!
+
+---
+
+## 📧 Kontak
+
+Untuk pertanyaan atau dukungan, silakan hubungi:
+
+- **Email**: herlianyusuf1@gmail.com
+- **GitHub Issues**: [Create an issue](https://github.com/liantarill/project-kp/issues)
+
+---
+
+<div align="center">
+  <p>Dibuat dengan menggunakan Laravel & Filament</p>
+</div>
