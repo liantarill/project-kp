@@ -212,7 +212,7 @@
                         </div>
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2">Sekretariat dan Hukum (SKR)</h3>
-                    <p class="text-xs text-gray-500 mb-3">Kepala: biablablabla, S.Kom., M.M</p>
+                    <p class="text-xs text-gray-500 mb-3">Kepala: Agus Faroni</p>
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab dalam mengelola administrasi dan aspek
                         hukum
                         perusahaan.</p>
@@ -234,7 +234,7 @@
                         </div>
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2">Sumber Daya Manusia (SDM)</h3>
-                    <p class="text-xs text-gray-500 mb-3">Kepala: biablablabla, S.Kom., M.M</p>
+                    <p class="text-xs text-gray-500 mb-3">Kepala: Ronald Sudrajat</p>
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab dalam mengelola perencanaan dan
                         pengembangan
                         karyawan.</p>
@@ -256,7 +256,7 @@
                         </div>
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2">Tanaman dan Teknik Pengolahan</h3>
-                    <p class="text-xs text-gray-500 mb-3">Kepala: biablablabla, S.Kom., M.M</p>
+                    <p class="text-xs text-gray-500 mb-3">Kepala: Ari Askari</p>
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab dalam mengelola operasional, budidaya dan
                         pengolahan hasil perkebunan.</p>
                     <p class="text-xs text-gray-600 mb-4">4 kegiatan magang</p>
@@ -277,7 +277,7 @@
                         </div>
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2">Akuntansi dan Keuangan (ANK)</h3>
-                    <p class="text-xs text-gray-500 mb-3">Kepala: biablablabla, S.Kom., M.M</p>
+                    <p class="text-xs text-gray-500 mb-3">Kepala: Sondang Berliana Gultom</p>
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab dalam mengelola keuangan dan pelaporan
                         perusahaan.</p>
                     <p class="text-xs text-gray-600 mb-4">5 kegiatan magang</p>
@@ -298,7 +298,7 @@
                         </div>
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2">Manajemen Aset dan Pemasaran</h3>
-                    <p class="text-xs text-gray-500 mb-3">Kepala: biablablabla, S.Kom., M.M</p>
+                    <p class="text-xs text-gray-500 mb-3">Kepala: Sasmika Dwi Suryanto</p>
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab dalam mengelola aset serta pemasaran produk
                         perusahaan.</p>
                     <p class="text-xs text-gray-600 mb-4">4 kegiatan magang</p>
@@ -319,7 +319,7 @@
                         </div>
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2">Kepatuhan dan Manajemen Risiko</h3>
-                    <p class="text-xs text-gray-500 mb-3">Kepala: biablablabla, S.Kom., M.M</p>
+                    <p class="text-xs text-gray-500 mb-3">Kepala: Yohanes P Siagian</p>
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab untuk kepatuhan dan risiko dari praktik
                         manajemen.</p>
                     <p class="text-xs text-gray-600 mb-4">5 kegiatan magang</p>
@@ -340,7 +340,7 @@
                         </div>
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2">Project Management Office (PMO)</h3>
-                    <p class="text-xs text-gray-500 mb-3">Kepala: biablablabla, S.Kom., M.M</p>
+                    <p class="text-xs text-gray-500 mb-3">Kepala: Moehammad Baasith</p>
                     <p class="text-sm text-gray-700 mb-4">Bertanggung jawab dalam mengelola dan mengkoordinasikan
                         pelaksanaan proyek.</p>
                     <p class="text-xs text-gray-600 mb-4">6 kegiatan magang</p>
